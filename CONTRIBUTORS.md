@@ -6,8 +6,12 @@ Add yourself as a contributor to this project as a Markdown link that links your
 
 ## Cohort Participants
 
-    - [Helen Yung](https://github.com/h-yung) 😂
+- [Helen Yung](https://github.com/h-yung) 😂
 
 ## Mentors
 
+- [Aditya Dalal](https://github.com/adidalal) :books:
+
 ## Code of Conduct Contacts
+
+- [Stacie Taylor](https://github.com/stacietaylorcima)
