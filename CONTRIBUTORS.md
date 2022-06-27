@@ -9,6 +9,7 @@ Add yourself as a contributor to this project as a Markdown link that links your
 - [Helen Yung](https://github.com/h-yung) 😂
 - [Xinrui Chen](https://github.com/xynree) ✨
 - [Yuffie Hu](https://github.com/yuff1006) 🌿
+- [Andrew Dent](https://github.com/andentx) 😀
 
 ## Mentors
 
