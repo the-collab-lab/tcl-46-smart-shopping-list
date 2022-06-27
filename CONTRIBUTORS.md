@@ -7,6 +7,7 @@ Add yourself as a contributor to this project as a Markdown link that links your
 ## Cohort Participants
 
 - [Helen Yung](https://github.com/h-yung) 😂
+- [Xinrui Chen](https://github.com/xynree) ✨
 
 ## Mentors
 
