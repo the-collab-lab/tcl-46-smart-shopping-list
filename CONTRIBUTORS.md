@@ -13,8 +13,10 @@ Add yourself as a contributor to this project as a Markdown link that links your
 
 ## Mentors
 
+- [Luis Augusto](https://github.com/luisaugusto)
+- [Chelsey Chubb](https://github.com/chelseychubb)
 - [Aditya Dalal](https://github.com/adidalal) :books:
 
 ## Code of Conduct Contacts
 
-- [Stacie Taylor](https://github.com/stacietaylorcima)
+- [Andrea Martz](https://github.com/andreamartz)
