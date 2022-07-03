@@ -1,3 +1,5 @@
+# Smart Shopping List
+
 ## Overview
 
 This README file explains The Collab Lab’s smart shopping list project and provides instructions for developing it locally.
@@ -18,8 +20,6 @@ The app will work in many of the same ways as [iNeedToBuy.xyz](https://app.ineed
 
 📺&nbsp; Check out a video demo of the example app here:
 [![](https://cdn.zappy.app/33815167c45d74c3ae5af232de633add.png)](https://www.youtube.com/watch?v=mwj74mE9s64&t)
-
-<hr>
 
 ## Set up the project
 

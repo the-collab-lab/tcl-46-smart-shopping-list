@@ -19,7 +19,7 @@ When new developers and mentors join the Collab Lab community they join a group 
 
 Knowing how to code is just one aspect of being a professional web developer. Another super important skill is knowing how to collaborate effectively on a software team—that’s where Collab Lab comes into play!
 
-### Pair Programming:
+### Pair Programming
 
 A portion of your dedicated hours each week will be spent [pair programming](https://www.microverse.org/blog/how-remote-pair-programming-works-and-why-it-can-change-your-life) with your partner for the week—this is where the most magical collaboration happens.
 
@@ -120,7 +120,7 @@ Every weekend the team will gather for 1-hour on Zoom for a Weekly Sync. Those m
 - Planning (15 minutes)
   - Mentors meet with pairs to talk through approach to the upcoming week’s work (15 minutes)
 
-## Let's recap!
+## Let's recap
 
 Whew, that was a lot, right? There’s a good chance (💯%) we’re forgetting or glossing over something important, so please be noisy on Slack as things come up. We will do our best to get you unstuck. Also, lean on each other for help as well! Finally, work in the open so everyone can benefit from your questions.
 
@@ -137,6 +137,6 @@ Whew, that was a lot, right? There’s a good chance (💯%) we’re forgetting 
 
 Your team will kick off the project with your first weekly sync this weekend. In the meeting we will present a Learning Module on git best practices and get everyone set up to collaborate on the app. Afterwards you will schedule pair programming sessions with your partner to work through your story of the week!
 
-### Let's Do This!
+### Let's Do This
 
 ![Photo of programmer Margaret Hamilton standing next to the navigation software that she and her MIT team produced for the Apollo Project.](./_resources/images/Margaret_Hamilton.gif)
