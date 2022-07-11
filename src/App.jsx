@@ -78,7 +78,16 @@ export function App() {
 		<Router>
 			<Routes>
 				<Route path="/" element={<Layout />}>
-					<Route index element={<Home makeList={makeNewList} />} />
+					<Route
+						index
+						element={
+							listToken ? (
+								<Navigate to="/list" />
+							) : (
+								<Home makeList={makeNewList} />
+							)
+						}
+					/>
 					<Route path="/list" element={<List data={data} />} />
 					<Route path="/add-item" element={<AddItem />} />
 				</Route>
