@@ -1,15 +1,17 @@
 import { initializeApp } from 'firebase/app';
 import { collection, getFirestore, onSnapshot } from 'firebase/firestore';
 
+import { doc, setDoc } from 'firebase/firestore';
+
 import { getFutureDate } from '../utils';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCfI_TVGKMzq7CaxBRQZAbqejH713TzGeg",
-  authDomain: "tcl-46-smart-shopping-list.firebaseapp.com",
-  projectId: "tcl-46-smart-shopping-list",
-  storageBucket: "tcl-46-smart-shopping-list.appspot.com",
-  messagingSenderId: "750490697092",
-  appId: "1:750490697092:web:786defaaac8ae2cf73f1d1"
+	apiKey: 'AIzaSyCfI_TVGKMzq7CaxBRQZAbqejH713TzGeg',
+	authDomain: 'tcl-46-smart-shopping-list.firebaseapp.com',
+	projectId: 'tcl-46-smart-shopping-list',
+	storageBucket: 'tcl-46-smart-shopping-list.appspot.com',
+	messagingSenderId: '750490697092',
+	appId: '1:750490697092:web:786defaaac8ae2cf73f1d1',
 };
 
 const app = initializeApp(firebaseConfig);
@@ -63,7 +65,7 @@ export async function addItem(listId, { itemName, daysUntilNextPurchase }) {
 	const listCollectionRef = collection(db, listId);
 	// TODO: Replace this call to console.log with the appropriate
 	// Firebase function, so this information is sent to your database!
-	return console.log(listCollectionRef, {
+	return await setDoc(doc(listCollectionRef), {
 		dateCreated: new Date(),
 		// NOTE: This is null because the item has just been created.
 		// We'll put a Date here when the item is purchased!

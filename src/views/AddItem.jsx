@@ -1,22 +1,29 @@
 import { useState } from 'react';
 
-const defaultItem = { itemName: '', frequency: 7 };
+import { addItem } from '../api/firebase';
+
+const defaultItem = { itemName: '', daysUntilNextPurchase: 7 };
 export function AddItem() {
 	const [item, setItem] = useState(defaultItem);
 
 	const updateItem = (e) => {
-		if (e.target.name !== 'frequency' && e.target.name !== 'itemName') return;
+		if (
+			e.target.name !== 'daysUntilNextPurchase' &&
+			e.target.name !== 'itemName'
+		)
+			return;
 		let updateVal = e.target.value;
-		if (e.target.name === 'frequency') {
+		if (e.target.name === 'daysUntilNextPurchase') {
 			updateVal = Number(updateVal);
 		}
 
 		setItem({ ...item, [e.target.name]: updateVal });
 	};
 
-	const addItemToList = (e) => {
+	const addItemToDatabase = async (e) => {
 		e.preventDefault();
-		console.log(item);
+
+		await addItem('my test list', item);
 	};
 
 	return (
@@ -24,7 +31,7 @@ export function AddItem() {
 			<p>
 				Hello from the <code>/add-item</code> page!
 			</p>
-			<form onSubmit={addItemToList}>
+			<form onSubmit={addItemToDatabase}>
 				<label htmlFor="item">
 					Add Item
 					<input
@@ -38,9 +45,9 @@ export function AddItem() {
 				<label htmlFor="itemFrequency">
 					Select Frequency
 					<select
-						value={item.frequency}
+						value={item.daysUntilNextPurchase}
 						onChange={updateItem}
-						name="frequency"
+						name="daysUntilNextPurchase"
 						id="itemFrequency"
 					>
 						<option value={7}>Soon</option>
