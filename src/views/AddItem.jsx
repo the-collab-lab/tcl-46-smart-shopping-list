@@ -1,12 +1,13 @@
 import { useState } from 'react';
-
 import { addItem } from '../api/firebase';
 
 const defaultItem = { itemName: '', daysUntilNextPurchase: 7 };
 export function AddItem() {
 	const [item, setItem] = useState(defaultItem);
+	const [status, setStatus] = useState('');
 
 	const updateItem = (e) => {
+		if (status.length) setStatus('');
 		if (
 			e.target.name !== 'daysUntilNextPurchase' &&
 			e.target.name !== 'itemName'
@@ -20,10 +21,13 @@ export function AddItem() {
 		setItem({ ...item, [e.target.name]: updateVal });
 	};
 
-	const addItemToDatabase = async (e) => {
+	const addItemToDatabase = (e) => {
 		e.preventDefault();
 
-		await addItem('my test list', item);
+		addItem('my test list', item)
+			.then(() => setStatus('Item added successfully!'))
+			.then(() => setItem(defaultItem))
+			.catch(() => setStatus('Item could not be added.'));
 	};
 
 	return (
@@ -57,6 +61,7 @@ export function AddItem() {
 				</label>
 				<button type="submit">Submit</button>
 			</form>
+			<p>{status}</p>
 		</div>
 	);
 }
