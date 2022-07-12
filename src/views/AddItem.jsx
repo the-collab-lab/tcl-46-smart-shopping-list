@@ -7,7 +7,7 @@ export function AddItem() {
 	const [status, setStatus] = useState('');
 
 	const updateItem = (e) => {
-		if (status.length) setStatus('');
+		if (status) setStatus('');
 		if (
 			e.target.name !== 'daysUntilNextPurchase' &&
 			e.target.name !== 'itemName'
