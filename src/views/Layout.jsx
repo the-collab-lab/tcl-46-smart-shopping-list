@@ -10,7 +10,7 @@ import './Layout.css';
  * defined in `App.jsx`.
  */
 
-export function Layout() {
+export function Layout(props) {
 	return (
 		<>
 			<div className="Layout">
@@ -21,7 +21,12 @@ export function Layout() {
 					<Outlet />
 				</main>
 				<nav className="Nav">
-					<NavLink to="/" className="Nav-link">
+					<NavLink
+						to="/"
+						className="Nav-link"
+						onClick={() => props.toggle(true)}
+					>
+						{/* above "toggle" resets the flag to stop redirecting to /list */}
 						Home
 					</NavLink>
 					<NavLink to="/list" className="Nav-link">

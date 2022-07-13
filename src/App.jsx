@@ -14,6 +14,9 @@ import { generateToken } from '@the-collab-lab/shopping-list-utils';
 
 export function App() {
 	const [data, setData] = useState([]);
+
+	// the following state works as a flag to redirect 1x on load, then lets user navigate to Home if wanted.
+	const [visited, setVisited] = useState(false);
 	/**
 	 * Here, we're using a custom hook to create `listToken` and a function
 	 * that can be used to update `listToken` later.
@@ -34,25 +37,17 @@ export function App() {
 		 * Check local storage for token
 		 * -- if none,*/
 		const newToken = generateToken();
-		// console.log(newToken)
+		// useStateWithStorage saves that to localStorage
 
-		// custom hook? useStateWithStorage
-
-		// useStateWithStorage();
+		// update value of listToken
 		setListToken(newToken);
-		// localStorage.setItem('token', newToken)
-		/*
-		 * 		save to localStorage
-		
-		 * go to List view
-		 * 
-		 */
-		console.log('Making a new list!');
+
+		// go to List view by toggling the 'visited' state
+		setVisited(false);
 	};
 
 	useEffect(() => {
 		if (!listToken) return;
-
 		/**
 		 * streamListItems` takes a `listToken` so it can commuinicate
 		 * with our database; then calls a callback function with
@@ -77,13 +72,14 @@ export function App() {
 	return (
 		<Router>
 			<Routes>
-				<Route path="/" element={<Layout />}>
+				<Route path="/" element={<Layout toggle={setVisited} />}>
 					<Route
 						index
 						element={
-							listToken ? (
+							listToken && visited === false ? (
 								<Navigate to="/list" />
 							) : (
+								// Navigate also updates the path, unlike if <List /> element went here directly.
 								<Home makeList={makeNewList} />
 							)
 						}
