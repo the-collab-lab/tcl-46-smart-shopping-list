@@ -12,6 +12,7 @@ import './Layout.css';
  */
 
 export function Layout() {
+	//to edit
 	return (
 		<div className="Layout">
 			<header className="Layout-header">
@@ -22,6 +23,8 @@ export function Layout() {
 			</main>
 			<nav className="Nav">
 				<NavLink to="/" className="Nav-link">
+					{' '}
+					{/*to edit*/}
 					Home
 				</NavLink>
 				<NavLink to="/list" className="Nav-link">

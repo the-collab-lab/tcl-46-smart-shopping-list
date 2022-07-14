@@ -10,10 +10,13 @@ import { AddItem, Home, Layout, List } from './views';
 
 import { getItemData, streamListItems } from './api';
 import { useStateWithStorage } from './utils';
-import { generateToken } from '@the-collab-lab/shopping-list-utils';
+// import { generateToken } from '@the-collab-lab/shopping-list-utils';
 
 export function App() {
 	const [data, setData] = useState([]);
+
+	// below to be replaced with useEffect approach
+	// const [visited, setVisited] = useState(false);
 
 	/**
 	 * Here, we're using a custom hook to create `listToken` and a function
@@ -30,16 +33,19 @@ export function App() {
 		'tcl-shopping-list-token',
 	);
 
-	const makeNewList = () => {
-		/**
-		 * Check local storage for token
-		 * -- if none,*/
-		const newToken = generateToken();
-		// update value of listToken
-		setListToken(newToken);
-		// BUG? token value updates in localStorage when function is called onClick in Firefox browser
-		// but localStorage token does not update in Chrome onClick, although key *will* update 1x in new browser session for Chrome
-	};
+	// const makeNewList = () => {
+	// 	/**
+	// 	 * Check local storage for token
+	// 	 * -- if none,*/
+	// 	const newToken = generateToken();
+	// 	// update value of listToken
+	// 	setListToken(newToken);
+	// 	// BUG? token value updates in localStorage when function is called onClick in Firefox browser
+	// 	// but localStorage token does not update in Chrome onClick, although key *will* update 1x in new browser session for Chrome
+
+	// 	// below to be replaced w/ useEffect approach
+	// 	setVisited(false);
+	// };
 
 	useEffect(() => {
 		if (!listToken) return;
@@ -68,15 +74,17 @@ export function App() {
 	return (
 		<Router>
 			<Routes>
-				<Route path="/" element={<Layout token={listToken} />}>
+				<Route path="/" element={<Layout />}>
+					{' '}
+					{/**to update w/ useEffect */}
 					<Route
 						index
 						element={
-							// 	listToken && visited === false ? (
-							// 		<Navigate to="/list" />
-							// 	) : (
+							// 		listToken && visited === false ? (
+							// 			<Navigate to="/list" />
+							// 		) : (
 							// 		// Navigate also updates the path, unlike if <List /> element went here directly.
-							<Home makeList={makeNewList} />
+							<Home setListToken={setListToken} />
 							//  )
 						}
 					/>
