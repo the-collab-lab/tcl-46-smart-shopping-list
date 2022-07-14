@@ -1,10 +1,5 @@
 import { useEffect, useState } from 'react';
-import {
-	BrowserRouter as Router,
-	Routes,
-	Route,
-	Navigate,
-} from 'react-router-dom';
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
 
 import { AddItem, Home, Layout, List } from './views';
 
@@ -14,6 +9,7 @@ import { generateToken } from '@the-collab-lab/shopping-list-utils';
 
 export function App() {
 	const [data, setData] = useState([]);
+	const navigate = useNavigate();
 	/**
 	 * Here, we're using a custom hook to create `listToken` and a function
 	 * that can be used to update `listToken` later.
@@ -28,6 +24,7 @@ export function App() {
 		null,
 		'tcl-shopping-list-token',
 	);
+	// assigned as hooks must be used only w/n Component function
 
 	const makeNewList = () => {
 		/**
@@ -40,14 +37,9 @@ export function App() {
 
 		// useStateWithStorage();
 		setListToken(newToken);
-		// localStorage.setItem('token', newToken)
-		/*
-		 * 		save to localStorage
-		
-		 * go to List view
-		 * 
-		 */
-		console.log('Making a new list!');
+
+		// go to List view
+		navigate('/list');
 	};
 
 	useEffect(() => {
@@ -75,23 +67,21 @@ export function App() {
 	}, [listToken]);
 
 	return (
-		<Router>
-			<Routes>
-				<Route path="/" element={<Layout />}>
-					<Route
-						index
-						element={
-							listToken ? (
-								<Navigate to="/list" />
-							) : (
-								<Home makeList={makeNewList} />
-							)
-						}
-					/>
-					<Route path="/list" element={<List data={data} />} />
-					<Route path="/add-item" element={<AddItem />} />
-				</Route>
-			</Routes>
-		</Router>
+		<Routes>
+			<Route path="/" element={<Layout />}>
+				<Route
+					index
+					element={
+						listToken ? (
+							<Navigate to="/list" replace />
+						) : (
+							<Home makeList={makeNewList} />
+						)
+					}
+				/>
+				<Route path="/list" element={<List data={data} />} />
+				<Route path="/add-item" element={<AddItem />} />
+			</Route>
+		</Routes>
 	);
 }
