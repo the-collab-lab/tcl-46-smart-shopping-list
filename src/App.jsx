@@ -66,12 +66,24 @@ export function App() {
 		});
 	}, [listToken]);
 
+	function setListTokenFunction(token) {
+		setListToken(token);
+	}
 	return (
 		<Router>
 			<Routes>
 				<Route path="/" element={<Layout />}>
 					{/**to update w/ useEffect */}
-					<Route index element={<Home setListToken={setListToken} />} />
+					<Route
+						index
+						element={
+							<Home
+								makeNewList={(token) => {
+									setListTokenFunction(token);
+								}}
+							/>
+						}
+					/>
 					<Route path="/list" element={<List data={data} />} />
 					<Route path="/add-item" element={<AddItem />} />
 				</Route>
