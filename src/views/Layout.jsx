@@ -1,5 +1,5 @@
 import { Outlet, NavLink } from 'react-router-dom';
-// import Navigate
+// import Navigate?
 
 import './Layout.css';
 
@@ -23,8 +23,6 @@ export function Layout() {
 			</main>
 			<nav className="Nav">
 				<NavLink to="/" className="Nav-link">
-					{' '}
-					{/*to edit*/}
 					Home
 				</NavLink>
 				<NavLink to="/list" className="Nav-link">

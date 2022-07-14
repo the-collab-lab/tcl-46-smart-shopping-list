@@ -1,10 +1,5 @@
 import { useEffect, useState } from 'react';
-import {
-	BrowserRouter as Router,
-	Routes,
-	Route,
-	Navigate,
-} from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import { AddItem, Home, Layout, List } from './views';
 
@@ -75,19 +70,8 @@ export function App() {
 		<Router>
 			<Routes>
 				<Route path="/" element={<Layout />}>
-					{' '}
 					{/**to update w/ useEffect */}
-					<Route
-						index
-						element={
-							// 		listToken && visited === false ? (
-							// 			<Navigate to="/list" />
-							// 		) : (
-							// 		// Navigate also updates the path, unlike if <List /> element went here directly.
-							<Home setListToken={setListToken} />
-							//  )
-						}
-					/>
+					<Route index element={<Home setListToken={setListToken} />} />
 					<Route path="/list" element={<List data={data} />} />
 					<Route path="/add-item" element={<AddItem />} />
 				</Route>

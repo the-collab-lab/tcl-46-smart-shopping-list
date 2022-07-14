@@ -15,8 +15,6 @@ export function Home({ setListToken }) {
 		// but localStorage token does not update in Chrome onClick, although key *will* update 1x in new browser session for Chrome
 
 		navigate('/list');
-		// below to be replaced w/ useEffect approach
-		// setVisited(false);
 	};
 
 	return (
