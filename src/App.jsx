@@ -15,8 +15,6 @@ import { generateToken } from '@the-collab-lab/shopping-list-utils';
 export function App() {
 	const [data, setData] = useState([]);
 
-	// the following state works as a flag to redirect 1x on load, then lets user navigate to Home if wanted.
-	const [visited, setVisited] = useState(false);
 	/**
 	 * Here, we're using a custom hook to create `listToken` and a function
 	 * that can be used to update `listToken` later.
@@ -37,13 +35,10 @@ export function App() {
 		 * Check local storage for token
 		 * -- if none,*/
 		const newToken = generateToken();
-		// useStateWithStorage saves that to localStorage
-
 		// update value of listToken
 		setListToken(newToken);
-
-		// go to List view by toggling the 'visited' state
-		setVisited(false);
+		// BUG? token value updates in localStorage when function is called onClick in Firefox browser
+		// but localStorage token does not update in Chrome onClick, although key *will* update 1x in new browser session for Chrome
 	};
 
 	useEffect(() => {
@@ -55,6 +50,7 @@ export function App() {
 		 *
 		 * Refer to `api/firebase.js`.
 		 */
+
 		return streamListItems(listToken, (snapshot) => {
 			/**
 			 * Read the documents in the snapshot and do some work
@@ -72,16 +68,16 @@ export function App() {
 	return (
 		<Router>
 			<Routes>
-				<Route path="/" element={<Layout toggle={setVisited} />}>
+				<Route path="/" element={<Layout token={listToken} />}>
 					<Route
 						index
 						element={
-							listToken && visited === false ? (
-								<Navigate to="/list" />
-							) : (
-								// Navigate also updates the path, unlike if <List /> element went here directly.
-								<Home makeList={makeNewList} />
-							)
+							// 	listToken && visited === false ? (
+							// 		<Navigate to="/list" />
+							// 	) : (
+							// 		// Navigate also updates the path, unlike if <List /> element went here directly.
+							<Home makeList={makeNewList} />
+							//  )
 						}
 					/>
 					<Route path="/list" element={<List data={data} />} />
