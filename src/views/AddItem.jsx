@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { addItem } from '../api/firebase';
 
 const defaultItem = { itemName: '', daysUntilNextPurchase: 7 };
-export function AddItem() {
+export function AddItem({ listToken }) {
 	const [item, setItem] = useState(defaultItem);
 	const [status, setStatus] = useState('');
 
@@ -17,14 +17,13 @@ export function AddItem() {
 		if (e.target.name === 'daysUntilNextPurchase') {
 			updateVal = Number(updateVal);
 		}
-
 		setItem({ ...item, [e.target.name]: updateVal });
 	};
 
 	const addItemToDatabase = (e) => {
 		e.preventDefault();
 
-		addItem('my test list', item)
+		addItem(listToken, item)
 			.then(() => setStatus('Item added successfully!'))
 			.then(() => setItem(defaultItem))
 			.catch(() => setStatus('Item could not be added.'));
