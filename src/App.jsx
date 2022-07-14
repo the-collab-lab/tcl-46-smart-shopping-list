@@ -1,15 +1,18 @@
 import { useEffect, useState } from 'react';
-import { Routes, Route, Navigate, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import { AddItem, Home, Layout, List } from './views';
 
 import { getItemData, streamListItems } from './api';
 import { useStateWithStorage } from './utils';
-import { generateToken } from '@the-collab-lab/shopping-list-utils';
+// import { generateToken } from '@the-collab-lab/shopping-list-utils';
 
 export function App() {
 	const [data, setData] = useState([]);
-	const navigate = useNavigate();
+
+	// below to be replaced with useEffect approach
+	// const [visited, setVisited] = useState(false);
+
 	/**
 	 * Here, we're using a custom hook to create `listToken` and a function
 	 * that can be used to update `listToken` later.
@@ -26,25 +29,22 @@ export function App() {
 	);
 	// assigned as hooks must be used only w/n Component function
 
-	const makeNewList = () => {
-		/**
-		 * Check local storage for token
-		 * -- if none,*/
-		const newToken = generateToken();
-		// console.log(newToken)
+	// const makeNewList = () => {
+	// 	/**
+	// 	 * Check local storage for token
+	// 	 * -- if none,*/
+	// 	const newToken = generateToken();
+	// 	// update value of listToken
+	// 	setListToken(newToken);
+	// 	// BUG? token value updates in localStorage when function is called onClick in Firefox browser
+	// 	// but localStorage token does not update in Chrome onClick, although key *will* update 1x in new browser session for Chrome
 
-		// custom hook? useStateWithStorage
-
-		// useStateWithStorage();
-		setListToken(newToken);
-
-		// go to List view
-		navigate('/list');
-	};
+	// 	// below to be replaced w/ useEffect approach
+	// 	setVisited(false);
+	// };
 
 	useEffect(() => {
 		if (!listToken) return;
-
 		/**
 		 * streamListItems` takes a `listToken` so it can commuinicate
 		 * with our database; then calls a callback function with
@@ -52,6 +52,7 @@ export function App() {
 		 *
 		 * Refer to `api/firebase.js`.
 		 */
+
 		return streamListItems(listToken, (snapshot) => {
 			/**
 			 * Read the documents in the snapshot and do some work
@@ -66,22 +67,28 @@ export function App() {
 		});
 	}, [listToken]);
 
+	function setListTokenFunction(token) {
+		setListToken(token);
+	}
 	return (
-		<Routes>
-			<Route path="/" element={<Layout />}>
-				<Route
-					index
-					element={
-						listToken ? (
-							<Navigate to="/list" replace />
-						) : (
-							<Home makeList={makeNewList} />
-						)
-					}
-				/>
-				<Route path="/list" element={<List data={data} />} />
-				<Route path="/add-item" element={<AddItem />} />
-			</Route>
-		</Routes>
+		<Router>
+			<Routes>
+				<Route path="/" element={<Layout />}>
+					{/**to update w/ useEffect */}
+					<Route
+						index
+						element={
+							<Home
+								makeNewList={(token) => {
+									setListTokenFunction(token);
+								}}
+							/>
+						}
+					/>
+					<Route path="/list" element={<List data={data} />} />
+					<Route path="/add-item" element={<AddItem />} />
+				</Route>
+			</Routes>
+		</Router>
 	);
 }
