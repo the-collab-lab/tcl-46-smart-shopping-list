@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 
 import { AddItem, Home, Layout, List } from './views';
 
@@ -9,9 +9,8 @@ import { useStateWithStorage } from './utils';
 
 export function App() {
 	const [data, setData] = useState([]);
-
-	// below to be replaced with useEffect approach
-	// const [visited, setVisited] = useState(false);
+	const navigate = useNavigate();
+	// hooks must be used only w/n Component function
 
 	/**
 	 * Here, we're using a custom hook to create `listToken` and a function
@@ -27,24 +26,12 @@ export function App() {
 		null,
 		'tcl-shopping-list-token',
 	);
-	// assigned as hooks must be used only w/n Component function
-
-	// const makeNewList = () => {
-	// 	/**
-	// 	 * Check local storage for token
-	// 	 * -- if none,*/
-	// 	const newToken = generateToken();
-	// 	// update value of listToken
-	// 	setListToken(newToken);
-	// 	// BUG? token value updates in localStorage when function is called onClick in Firefox browser
-	// 	// but localStorage token does not update in Chrome onClick, although key *will* update 1x in new browser session for Chrome
-
-	// 	// below to be replaced w/ useEffect approach
-	// 	setVisited(false);
-	// };
 
 	useEffect(() => {
 		if (!listToken) return;
+		else {
+			navigate('/list');
+		}
 		/**
 		 * streamListItems` takes a `listToken` so it can commuinicate
 		 * with our database; then calls a callback function with
@@ -66,29 +53,27 @@ export function App() {
 			setData(nextData);
 		});
 	}, [listToken]);
+	// redirects 1x on first load, but omitting navigate fr deps results in warning
 
 	function setListTokenFunction(token) {
 		setListToken(token);
 	}
 	return (
-		<Router>
-			<Routes>
-				<Route path="/" element={<Layout />}>
-					{/**to update w/ useEffect */}
-					<Route
-						index
-						element={
-							<Home
-								makeNewList={(token) => {
-									setListTokenFunction(token);
-								}}
-							/>
-						}
-					/>
-					<Route path="/list" element={<List data={data} />} />
-					<Route path="/add-item" element={<AddItem />} />
-				</Route>
-			</Routes>
-		</Router>
+		<Routes>
+			<Route path="/" element={<Layout />}>
+				<Route
+					index
+					element={
+						<Home
+							makeNewList={(token) => {
+								setListTokenFunction(token);
+							}}
+						/>
+					}
+				/>
+				<Route path="/list" element={<List data={data} />} />
+				<Route path="/add-item" element={<AddItem />} />
+			</Route>
+		</Routes>
 	);
 }
