@@ -12,7 +12,6 @@ import './Layout.css';
  */
 
 export function Layout() {
-	//to edit
 	return (
 		<div className="Layout">
 			<header className="Layout-header">
