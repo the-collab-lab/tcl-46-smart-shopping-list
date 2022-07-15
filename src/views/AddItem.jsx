@@ -35,10 +35,10 @@ export function AddItem({ listToken }) {
 				Hello from the <code>/add-item</code> page!
 			</p>
 			<form onSubmit={addItemToDatabase}>
-				<label htmlFor="item">
+				<label htmlFor="addItem">
 					Add Item
 					<input
-						placeholder="my form"
+						placeholder="Item Name"
 						id="addItem"
 						value={item.itemName}
 						onChange={updateItem}
