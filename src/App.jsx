@@ -22,7 +22,7 @@ export function App() {
 	 * to create and join a new list.
 	 */
 	const [listToken, setListToken] = useStateWithStorage(
-		null,
+		'my token list', //will change this back
 		'tcl-shopping-list-token',
 	);
 

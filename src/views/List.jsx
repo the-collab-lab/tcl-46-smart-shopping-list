@@ -34,15 +34,9 @@ export function List({ data }) {
 
 			<ul>
 				{data
-					.filter((data) => {
-						if (searchTerm == '') {
-							return data.name;
-						} else if (
-							data.name.toLowerCase().includes(searchTerm.toLowerCase())
-						) {
-							return data;
-						}
-					})
+					.filter(({ name }) =>
+						name.toLowerCase().includes(searchTerm.toLowerCase()),
+					)
 					.map(({ name, id }) => (
 						<ListItem name={name} key={id} />
 					))}
