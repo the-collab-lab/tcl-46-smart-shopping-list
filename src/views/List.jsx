@@ -14,7 +14,6 @@ export function List({ data }) {
 			<p>
 				Hello from the <code>/list</code> page!
 			</p>
-
 			<form>
 				<label>
 					Filter Items
