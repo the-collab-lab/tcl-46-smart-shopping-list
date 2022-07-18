@@ -2,25 +2,36 @@ import './Home.css';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { generateToken } from '@the-collab-lab/shopping-list-utils';
+import { getItemData, streamListItems } from '../api';
 
-export function Home({ makeNewList }) {
+export function Home({ setListToken }) {
 	const [errorMessage, setErrorMessage] = useState('');
 	const [joinListToken, setJoinListToken] = useState('');
 
 	const navigate = useNavigate();
 
-	// use callback function so the newToken that's generated in this child component
-	// can be passed up to the parent component (App.js)
 	function handleClick() {
 		const newToken = generateToken();
-		makeNewList(newToken);
+		setListToken(newToken);
 		navigate('/list');
 	}
 
 	function handleShareListSubmit(event) {
 		event.preventDefault();
+
+		return streamListItems(joinListToken, (snapshot) => {
+			const data = getItemData(snapshot);
+			if (data.length) {
+				setListToken(joinListToken);
+				navigate('/list');
+			} else {
+				setErrorMessage('Could not join the list.');
+			}
+		});
 	}
+
 	function handleJoinListChange(event) {
+		if (errorMessage) setErrorMessage('');
 		setJoinListToken(event.target.value);
 	}
 	return (
