@@ -14,7 +14,7 @@ export function List({ data }) {
 			<p>
 				Hello from the <code>/list</code> page!
 			</p>
-			<form>
+			<form onSubmit={(e) => e.preventDefault()}>
 				<label>
 					Filter Items
 					<input
