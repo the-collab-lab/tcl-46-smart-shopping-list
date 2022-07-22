@@ -47,7 +47,7 @@ export function Home({ setListToken }) {
 					Join a List
 					<input
 						id="share-list"
-						pattern="(?:[A-Za-z]+ ){2}[A-Za-z]+"
+						pattern="(?:\w+ ){2}\w+"
 						title="Token must be three words separated with spaces."
 						onChange={joinListChange}
 						value={joinListToken}
