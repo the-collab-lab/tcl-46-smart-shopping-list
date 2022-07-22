@@ -9,9 +9,9 @@ export function List({ data }) {
 		const cleanup = (inputString) => {
 			return inputString.toLowerCase().trim().replace(/\s+/g, ' ');
 		};
-		return list.filter(({ name }) => {
-			return cleanup(name).includes(cleanup(searchTerm));
-		});
+		return list.filter(({ name }) =>
+			cleanup(name).includes(cleanup(searchTerm)),
+		);
 	};
 
 	const clearSearchTerm = () => {
