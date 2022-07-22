@@ -10,13 +10,13 @@ export function Home({ setListToken }) {
 
 	const navigate = useNavigate();
 
-	function handleClick() {
+	function makeNewList() {
 		const newToken = generateToken();
 		setListToken(newToken);
 		navigate('/list');
 	}
 
-	function handleShareListSubmit(event) {
+	function joinListSubmit(event) {
 		event.preventDefault();
 
 		return streamListItems(joinListToken, (snapshot) => {
@@ -30,7 +30,7 @@ export function Home({ setListToken }) {
 		});
 	}
 
-	function handleJoinListChange(event) {
+	function joinListChange(event) {
 		if (errorMessage) setErrorMessage('');
 		setJoinListToken(event.target.value);
 	}
@@ -39,15 +39,17 @@ export function Home({ setListToken }) {
 			<p>
 				Hello from the home (<code>/</code>) page!
 			</p>
-			<button type="button" onClick={handleClick}>
+			<button type="button" onClick={makeNewList}>
 				Make new list
 			</button>
-			<form onSubmit={handleShareListSubmit}>
+			<form onSubmit={joinListSubmit}>
 				<label htmlFor="share-list">
 					Join a List
 					<input
 						id="share-list"
-						onChange={handleJoinListChange}
+						pattern="(?:[A-Za-z]+ ){2}[A-Za-z]+"
+						title="Token must be three words separated with spaces."
+						onChange={joinListChange}
 						value={joinListToken}
 					></input>
 				</label>
