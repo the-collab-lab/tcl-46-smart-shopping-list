@@ -6,12 +6,11 @@ export function List({ data }) {
 	const [searchTerm, setSearchTerm] = useState('');
 
 	const filterList = (list) => {
+		const cleanup = (inputString) => {
+			return inputString.toLowerCase().trim().replace(/\s+/g, ' ');
+		};
 		return list.filter(({ name }) => {
-			return name
-				.toLowerCase()
-				.trim()
-				.replace(/\s+/g, ' ')
-				.includes(searchTerm.toLowerCase().replace(/\s+/g, ' ').trim());
+			return cleanup(name).includes(cleanup(searchTerm));
 		});
 	};
 
