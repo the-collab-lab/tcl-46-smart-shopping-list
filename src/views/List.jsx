@@ -5,6 +5,15 @@ import { ListItem } from '../components';
 export function List({ data }) {
 	const [searchTerm, setSearchTerm] = useState('');
 
+	const filterList = (list) => {
+		return list.filter(({ name }) => {
+			return name
+				.toLowerCase()
+				.trim() //should check if needed for the ref name match too
+				.includes(searchTerm.toLowerCase().trim());
+		});
+	};
+
 	const clearSearchTerm = () => {
 		setSearchTerm('');
 	};
@@ -34,13 +43,9 @@ export function List({ data }) {
 			</button>
 
 			<ul>
-				{data
-					.filter(({ name }) =>
-						name.toLowerCase().includes(searchTerm.toLowerCase()),
-					)
-					.map(({ name, id }) => (
-						<ListItem name={name} key={id} />
-					))}
+				{filterList(data).map(({ name, id }) => (
+					<ListItem name={name} key={id} />
+				))}
 			</ul>
 		</>
 	);
