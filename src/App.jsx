@@ -52,24 +52,11 @@ export function App() {
 			setData(nextData);
 		});
 	}, [listToken]);
-	// redirects 1x on first load, but omitting navigate fr deps results in warning
 
-	function setListTokenFunction(token) {
-		setListToken(token);
-	}
 	return (
 		<Routes>
 			<Route path="/" element={<Layout />}>
-				<Route
-					index
-					element={
-						<Home
-							makeNewList={(token) => {
-								setListTokenFunction(token);
-							}}
-						/>
-					}
-				/>
+				<Route index element={<Home setListToken={setListToken} />} />
 				<Route path="/list" element={<List data={data} />} />
 				<Route path="/add-item" element={<AddItem listToken={listToken} />} />
 			</Route>
