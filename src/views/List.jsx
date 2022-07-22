@@ -29,7 +29,9 @@ export function List({ data }) {
 					/>
 				</label>
 			</form>
-			<button onClick={clearSearchTerm}>clear</button>
+			<button type="button" onClick={clearSearchTerm}>
+				clear
+			</button>
 
 			<ul>
 				{data
