@@ -9,7 +9,7 @@ export function List({ data }) {
 		return list.filter(({ name }) => {
 			return name
 				.toLowerCase()
-				.trim() //should check if needed for the ref name match too
+				.trim()
 				.includes(searchTerm.toLowerCase().trim());
 		});
 	};
