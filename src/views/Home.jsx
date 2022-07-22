@@ -55,7 +55,7 @@ export function Home({ setListToken }) {
 				</label>
 				<button type="submit">Submit</button>
 			</form>
-			<p>{errorMessage}</p>
+			{errorMessage && <p>{errorMessage}</p>}
 		</div>
 	);
 }
