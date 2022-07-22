@@ -10,7 +10,8 @@ export function List({ data }) {
 			return name
 				.toLowerCase()
 				.trim()
-				.includes(searchTerm.toLowerCase().trim());
+				.replace(/\s+/g, ' ')
+				.includes(searchTerm.toLowerCase().replace(/\s+/g, ' ').trim());
 		});
 	};
 
