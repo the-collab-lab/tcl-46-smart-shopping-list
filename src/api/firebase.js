@@ -77,12 +77,10 @@ export async function addItem(listId, { itemName, daysUntilNextPurchase }) {
 	});
 }
 
-export async function updateItem() {
-	/**
-	 * TODO: Fill this out so that it uses the correct Firestore function
-	 * to update an existing item! You'll need to figure out what arguments
-	 * this function must accept!
-	 */
+export async function updateItem(name, isChecked) {
+	console.log(`hi from api`);
+	console.log(`name is ${name}`);
+	console.log(`isChecked is ${isChecked}`);
 }
 
 export async function deleteItem() {
