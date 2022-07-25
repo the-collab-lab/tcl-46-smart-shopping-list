@@ -1,4 +1,5 @@
 import { initializeApp } from 'firebase/app';
+import { updateDoc } from 'firebase/firestore';
 import {
 	collection,
 	getFirestore,
@@ -76,12 +77,16 @@ export async function addItem(listId, { itemName, daysUntilNextPurchase }) {
 	});
 }
 
-export async function updateItem() {
-	/**
-	 * TODO: Fill this out so that it uses the correct Firestore function
-	 * to update an existing item! You'll need to figure out what arguments
-	 * this function must accept!
-	 */
+export async function updateItem(
+	listId,
+	{ itemName, dateLastPurchased, totalPurchases },
+) {
+	const listCollectionRef = collection(db, listId);
+	return await updateDoc(listCollectionRef, {
+		name: itemName,
+		dateLastPurchased: dateLastPurchased,
+		// totalPurchases: totalPurchases ? increment : stay - the - same,
+	});
 }
 
 export async function deleteItem() {

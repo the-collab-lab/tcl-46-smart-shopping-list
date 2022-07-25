@@ -1,6 +1,6 @@
 import { ListItem } from '../components';
 
-export function List({ data }) {
+export function List({ data, listToken }) {
 	return (
 		<>
 			<p>
@@ -8,7 +8,7 @@ export function List({ data }) {
 			</p>
 			<ul>
 				{data.map(({ name, id }) => (
-					<ListItem name={name} key={id} />
+					<ListItem name={name} key={id} listToken={listToken} />
 				))}
 			</ul>
 		</>
