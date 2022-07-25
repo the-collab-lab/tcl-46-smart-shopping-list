@@ -4,11 +4,11 @@ import { updateItem } from '../api/firebase';
 
 import './ListItem.css';
 
-export function ListItem({ name }) {
+export function ListItem({ listToken, name }) {
 	const [isChecked, setIsChecked] = useState(false);
 
 	useEffect(() => {
-		updateItem(name, isChecked);
+		updateItem(listToken, name, isChecked);
 	}, [isChecked]);
 
 	function handleValueChange(evt) {
