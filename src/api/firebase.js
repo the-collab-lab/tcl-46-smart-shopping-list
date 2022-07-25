@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { updateDoc } from 'firebase/firestore';
+import { updateDoc, increment, doc } from 'firebase/firestore';
 import {
 	collection,
 	getFirestore,
@@ -82,10 +82,11 @@ export async function updateItem(
 	{ itemName, dateLastPurchased, totalPurchases },
 ) {
 	const listCollectionRef = collection(db, listId);
-	return await updateDoc(listCollectionRef, {
+	const listItemRef = doc(listCollectionRef, itemName);
+	return await updateDoc(listItemRef, {
 		name: itemName,
 		dateLastPurchased: dateLastPurchased,
-		// totalPurchases: totalPurchases ? increment : stay - the - same,
+		totalPurchases: totalPurchases && increment(1),
 	});
 }
 
