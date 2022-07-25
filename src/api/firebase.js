@@ -66,7 +66,6 @@ export function getItemData(snapshot) {
  */
 export async function addItem(listId, { itemName, daysUntilNextPurchase }) {
 	const listCollectionRef = collection(db, listId);
-
 	return await addDoc(listCollectionRef, {
 		dateCreated: new Date(),
 		dateLastPurchased: null,
