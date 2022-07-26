@@ -19,17 +19,6 @@ export function List({ data }) {
 		setSearchTerm('');
 	};
 
-	/*
-	if list is empty (length === 0)
-		hide filter option
-		show welcome prompt
-			Welcome to your smart shopping list!
-			You must add at least one item to start sharing your list with others.
-
-		show button to "add item"
-			button redirects to Add Item page
-	*/
-
 	return (
 		<>
 			<p>
