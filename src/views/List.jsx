@@ -1,8 +1,9 @@
 import { useState } from 'react';
-
+import { useNavigate } from 'react-router-dom';
 import { ListItem } from '../components';
 
 export function List({ data }) {
+	const navigate = useNavigate();
 	const [searchTerm, setSearchTerm] = useState('');
 
 	const filterList = (list) => {
@@ -18,29 +19,56 @@ export function List({ data }) {
 		setSearchTerm('');
 	};
 
+	/*
+	if list is empty (length === 0)
+		hide filter option
+		show welcome prompt
+			Welcome to your smart shopping list!
+			You must add at least one item to start sharing your list with others.
+
+		show button to "add item"
+			button redirects to Add Item page
+	*/
+
 	return (
 		<>
 			<p>
 				Hello from the <code>/list</code> page!
 			</p>
-			<form onSubmit={(e) => e.preventDefault()}>
-				<label>
-					Filter Items
-					<input
-						type="text"
-						placeholder="start typing here..."
-						id="filter"
-						name="filter"
-						value={searchTerm}
-						onChange={(e) => {
-							setSearchTerm(e.target.value);
-						}}
-					/>
-				</label>
-			</form>
-			<button type="button" onClick={clearSearchTerm}>
-				clear
-			</button>
+
+			{data.length ? (
+				<div>
+					<form onSubmit={(e) => e.preventDefault()}>
+						<label>
+							Filter Items
+							<input
+								type="text"
+								placeholder="start typing here..."
+								id="filter"
+								name="filter"
+								value={searchTerm}
+								onChange={(e) => {
+									setSearchTerm(e.target.value);
+								}}
+							/>
+						</label>
+					</form>
+					<button type="button" onClick={clearSearchTerm}>
+						clear
+					</button>
+				</div>
+			) : (
+				<div>
+					<h2>Welcome to your smart shopping list!</h2>
+					<p>
+						You must add at least one item to start sharing your list with
+						others.
+					</p>
+					<button type="button" onClick={() => navigate('/add-item')}>
+						Start adding items
+					</button>
+				</div>
+			)}
 
 			<ul>
 				{filterList(data).map(({ name, id }) => (
