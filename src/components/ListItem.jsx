@@ -6,20 +6,33 @@ import { getFutureDate } from '../utils';
 
 import './ListItem.css';
 
-export function ListItem({ listToken, itemId, name }) {
-	const [isChecked, setIsChecked] = useState(false);
+export function ListItem({
+	listToken,
+	itemId,
+	name,
+	isChecked,
+	dateLastPurchased,
+}) {
+	const twentyFourHoursInSeconds = 86400000;
+	const [isPurchased, setIsPurchased] = useState(isChecked);
 
 	useEffect(() => {
 		updateItem(listToken, {
 			itemId: itemId,
-			name: name,
-			isChecked: isChecked,
-			dateLastPurchased: getFutureDate(0),
+			isChecked: isPurchased,
+			currentTime: getFutureDate(0),
 		});
-	}, [isChecked, itemId, listToken, name]);
+	}, [isPurchased, itemId, listToken]);
 
+	useEffect(() => {
+		let currentTime = new Date().getTime();
+		let timeElapsed = currentTime - dateLastPurchased;
+		if (timeElapsed > twentyFourHoursInSeconds) {
+			setIsPurchased(false);
+		}
+	}, []);
 	function handleValueChange(evt) {
-		setIsChecked(evt.target.checked);
+		setIsPurchased(evt.target.checked);
 	}
 
 	return (
@@ -31,6 +44,7 @@ export function ListItem({ listToken, itemId, name }) {
 				name={name}
 				value={name}
 				onChange={handleValueChange}
+				defaultChecked={isChecked}
 			/>
 			<label className="ListItem-label" htmlFor={name}>
 				{name}

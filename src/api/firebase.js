@@ -4,6 +4,9 @@ import {
 	getFirestore,
 	onSnapshot,
 	addDoc,
+	doc,
+	updateDoc,
+	increment,
 } from 'firebase/firestore';
 
 import { getFutureDate } from '../utils';
@@ -77,16 +80,20 @@ export async function addItem(listId, { itemName, daysUntilNextPurchase }) {
 	});
 }
 
-export async function updateItem(
-	listToken,
-	{ itemId, name, isChecked, dateLastPurchased },
-) {
-	console.log(`hi from api`);
-	console.log(`listToken is ${listToken}`);
-	console.log(`itemId is ${itemId}`);
-	console.log(`name is ${name}`);
-	console.log(`isChecked is ${isChecked}`);
-	console.log(`dateLastPurchased is ${dateLastPurchased}`);
+export async function updateItem(listId, { itemId, isChecked, currentTime }) {
+	const listCollectionRef = collection(db, listId);
+	const listItemRef = doc(listCollectionRef, itemId);
+	if (isChecked) {
+		await updateDoc(listItemRef, {
+			dateLastPurchased: currentTime,
+			isChecked: isChecked,
+			totalPurchases: increment(1),
+		});
+	} else {
+		await updateDoc(listItemRef, {
+			isChecked: isChecked,
+		});
+	}
 }
 
 export async function deleteItem() {
