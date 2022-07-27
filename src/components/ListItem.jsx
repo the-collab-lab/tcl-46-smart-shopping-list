@@ -8,7 +8,11 @@ export function ListItem({ listToken, itemId, name }) {
 	const [isChecked, setIsChecked] = useState(false);
 
 	useEffect(() => {
-		updateItem(listToken, itemId, name, isChecked);
+		updateItem(listToken, {
+			itemId: itemId,
+			name: name,
+			isChecked: isChecked,
+		});
 	}, [isChecked]);
 
 	function handleValueChange(evt) {
