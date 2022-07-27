@@ -16,7 +16,7 @@ export function ListItem({ listToken, itemId, name }) {
 			isChecked: isChecked,
 			dateLastPurchased: getFutureDate(0),
 		});
-	}, [isChecked]);
+	}, [isChecked, itemId, listToken, name]);
 
 	function handleValueChange(evt) {
 		setIsChecked(evt.target.checked);
