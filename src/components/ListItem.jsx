@@ -13,21 +13,25 @@ export function ListItem({
 	isChecked,
 	dateLastPurchased,
 }) {
-	const twentyFourHoursInSeconds = 86400000;
+	const twentyFourHoursInMilleSeconds = 86400000;
+	// sync up checked or not checked data from the database to the page upon page refresh
 	const [isPurchased, setIsPurchased] = useState(isChecked);
 
 	useEffect(() => {
-		updateItem(listToken, {
-			itemId: itemId,
-			isChecked: isPurchased,
-			currentTime: getFutureDate(0),
-		});
-	}, [isPurchased, itemId, listToken]);
+		// only update item when the checkbox has been checked. Don't update when the page just loaded and "isPurchased" is changed accordingly
+		if (isChecked !== isPurchased) {
+			updateItem(listToken, {
+				itemId: itemId,
+				isChecked: isPurchased,
+				currentTime: getFutureDate(0),
+			});
+		}
+	}, [isPurchased, isChecked, itemId, listToken]);
 
 	useEffect(() => {
 		let currentTime = new Date().getTime();
-		let timeElapsed = currentTime - dateLastPurchased;
-		if (timeElapsed > twentyFourHoursInSeconds) {
+		let timeElapsed = currentTime - dateLastPurchased.seconds * 1000;
+		if (timeElapsed > twentyFourHoursInMilleSeconds) {
 			setIsPurchased(false);
 		}
 	}, []);
