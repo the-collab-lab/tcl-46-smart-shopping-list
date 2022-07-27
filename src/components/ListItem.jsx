@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 
 import { updateItem } from '../api/firebase';
 
+import { getFutureDate } from '../utils';
+
 import './ListItem.css';
 
 export function ListItem({ listToken, itemId, name }) {
@@ -12,6 +14,7 @@ export function ListItem({ listToken, itemId, name }) {
 			itemId: itemId,
 			name: name,
 			isChecked: isChecked,
+			dateLastPurchased: getFutureDate(0),
 		});
 	}, [isChecked]);
 
