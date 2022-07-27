@@ -77,9 +77,10 @@ export async function addItem(listId, { itemName, daysUntilNextPurchase }) {
 	});
 }
 
-export async function updateItem(listToken, name, isChecked) {
+export async function updateItem(listToken, itemId, name, isChecked) {
 	console.log(`hi from api`);
 	console.log(`listToken is ${listToken}`);
+	console.log(`itemId is ${itemId}`);
 	console.log(`name is ${name}`);
 	console.log(`isChecked is ${isChecked}`);
 }
