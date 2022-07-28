@@ -21,10 +21,6 @@ export function List({ data }) {
 
 	return (
 		<>
-			<p>
-				Hello from the <code>/list</code> page!
-			</p>
-
 			{data.length ? (
 				<div>
 					<form onSubmit={(e) => e.preventDefault()}>
@@ -50,8 +46,9 @@ export function List({ data }) {
 				<div>
 					<h2>Welcome to your smart shopping list!</h2>
 					<p>
-						You must add at least one item to start sharing your list with
-						others.
+						This app will learn from your purchasing habits and help you
+						prioritize and plan your shopping list. You must add at least one
+						item to start sharing your list with others.
 					</p>
 					<button type="button" onClick={() => navigate('/add-item')}>
 						Start adding items

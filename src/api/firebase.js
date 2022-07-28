@@ -4,6 +4,9 @@ import {
 	getFirestore,
 	onSnapshot,
 	addDoc,
+	doc,
+	getDoc, //this is read only?
+	getDocs, //this returns query snapshot?
 } from 'firebase/firestore';
 
 import { getFutureDate } from '../utils';
@@ -30,6 +33,14 @@ const db = getFirestore(app);
  */
 export function streamListItems(listId, handleSuccess) {
 	const listCollectionRef = collection(db, listId);
+	// see https://firebase.google.com/docs/firestore/query-data/get-data
+
+	const querySnapshot = getDocs(listCollectionRef);
+	// but this just gets docs assuming listCollection exists. falsy default if empty.
+
+	// const docRef = doc(db, "tokens", listId)
+	// const docSnap = getDoc(docRef)
+	// console.log(`${docSnap.exists() ? `${listId} was found in collection` : `${listId} not found`}`)
 	return onSnapshot(listCollectionRef, handleSuccess);
 }
 
@@ -78,7 +89,7 @@ export async function addItem(listId, { itemName, daysUntilNextPurchase }) {
 }
 
 export async function updateItem() {
-	/**
+	/*
 	 * TODO: Fill this out so that it uses the correct Firestore function
 	 * to update an existing item! You'll need to figure out what arguments
 	 * this function must accept!
