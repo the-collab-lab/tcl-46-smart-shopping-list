@@ -29,10 +29,12 @@ export function ListItem({
 	}, [isPurchased, isChecked, itemId, listToken]);
 
 	useEffect(() => {
-		let currentTime = new Date().getTime();
-		let timeElapsed = currentTime - dateLastPurchased.seconds * 1000;
-		if (timeElapsed > twentyFourHoursInMilleSeconds) {
-			setIsPurchased(false);
+		if (dateLastPurchased) {
+			let currentTime = new Date().getTime();
+			let timeElapsed = currentTime - dateLastPurchased.seconds * 1000;
+			if (timeElapsed > twentyFourHoursInMilleSeconds) {
+				setIsPurchased(false);
+			}
 		}
 	}, []);
 	function handleValueChange(evt) {
