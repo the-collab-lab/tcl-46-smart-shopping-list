@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { ListItem } from '../components';
 
-export function List({ data }) {
+export function List({ data, listToken }) {
 	const [searchTerm, setSearchTerm] = useState('');
 
 	const filterList = (list) => {
@@ -43,8 +43,15 @@ export function List({ data }) {
 			</button>
 
 			<ul>
-				{filterList(data).map(({ name, id }) => (
-					<ListItem name={name} key={id} />
+				{filterList(data).map(({ name, id, isChecked, dateLastPurchased }) => (
+					<ListItem
+						name={name}
+						key={id}
+						itemId={id}
+						listToken={listToken}
+						isChecked={isChecked}
+						dateLastPurchased={dateLastPurchased}
+					/>
 				))}
 			</ul>
 		</>
