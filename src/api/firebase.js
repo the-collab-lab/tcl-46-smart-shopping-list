@@ -33,14 +33,6 @@ const db = getFirestore(app);
  */
 export function streamListItems(listId, handleSuccess) {
 	const listCollectionRef = collection(db, listId);
-	// see https://firebase.google.com/docs/firestore/query-data/get-data
-
-	const querySnapshot = getDocs(listCollectionRef);
-	// but this just gets docs assuming listCollection exists. falsy default if empty.
-
-	// const docRef = doc(db, "tokens", listId)
-	// const docSnap = getDoc(docRef)
-	// console.log(`${docSnap.exists() ? `${listId} was found in collection` : `${listId} not found`}`)
 	return onSnapshot(listCollectionRef, handleSuccess);
 }
 
