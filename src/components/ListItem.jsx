@@ -13,7 +13,7 @@ export function ListItem({
 	isChecked,
 	dateLastPurchased,
 }) {
-	const twentyFourHoursInMilleSeconds = 86400000;
+	const DAYINMS = 86400000;
 	// sync up checked or not checked data from the database to the page upon page refresh
 	const [isPurchased, setIsPurchased] = useState(isChecked);
 
@@ -32,7 +32,7 @@ export function ListItem({
 		if (dateLastPurchased) {
 			let currentTime = new Date().getTime();
 			let timeElapsed = currentTime - dateLastPurchased.seconds * 1000;
-			if (timeElapsed > twentyFourHoursInMilleSeconds) {
+			if (timeElapsed > DAYINMS) {
 				setIsPurchased(false);
 			}
 		}
