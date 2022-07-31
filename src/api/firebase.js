@@ -5,8 +5,8 @@ import {
 	onSnapshot,
 	addDoc,
 	doc,
-	getDoc, //this is read only?
-	getDocs, //this returns query snapshot?
+	updateDoc,
+	increment,
 } from 'firebase/firestore';
 
 import { getFutureDate } from '../utils';
@@ -80,12 +80,20 @@ export async function addItem(listId, { itemName, daysUntilNextPurchase }) {
 	});
 }
 
-export async function updateItem() {
-	/*
-	 * TODO: Fill this out so that it uses the correct Firestore function
-	 * to update an existing item! You'll need to figure out what arguments
-	 * this function must accept!
-	 */
+export async function updateItem(listId, { itemId, isChecked, currentTime }) {
+	const listCollectionRef = collection(db, listId);
+	const listItemRef = doc(listCollectionRef, itemId);
+	if (isChecked) {
+		await updateDoc(listItemRef, {
+			dateLastPurchased: currentTime,
+			isChecked: isChecked,
+			totalPurchases: increment(1),
+		});
+	} else {
+		await updateDoc(listItemRef, {
+			isChecked: isChecked,
+		});
+	}
 }
 
 export async function deleteItem() {
