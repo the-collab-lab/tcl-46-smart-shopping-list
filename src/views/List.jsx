@@ -5,10 +5,10 @@ import { ListItem } from '../components';
 export function List({ data, listToken }) {
 	const navigate = useNavigate();
 	const [searchTerm, setSearchTerm] = useState('');
-	const [copied, setCopied] = useState(false);
+	const [copied, setCopied] = useState('');
 
 	useEffect(() => {
-		if (copied) setTimeout(() => setCopied(false), 2000);
+		if (copied) setTimeout(() => setCopied(''), 2000);
 	}, [copied]);
 
 	const filterList = (list) => {
@@ -25,8 +25,10 @@ export function List({ data, listToken }) {
 	};
 
 	const copyToken = () => {
-		navigator.clipboard.writeText(listToken);
-		setCopied(true);
+		navigator.clipboard
+			.writeText(listToken)
+			.then(() => setCopied('Copied!'))
+			.catch(() => setCopied('Not Copied.'));
 	};
 
 	return (
@@ -53,7 +55,7 @@ export function List({ data, listToken }) {
 						<p>
 							Copy token to allow others join your list:
 							<button onClick={copyToken} id="token">
-								{copied ? 'Copied!' : listToken}
+								{copied ? copied : listToken}
 							</button>
 						</p>
 					</div>
