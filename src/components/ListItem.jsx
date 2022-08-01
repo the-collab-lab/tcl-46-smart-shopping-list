@@ -24,6 +24,10 @@ export function ListItem({
 				itemId: itemId,
 				isChecked: isPurchased,
 				currentTime: getFutureDate(0),
+
+				//getDaysBetweenDates(currentTime) //date is in ms, returns daysSinceLastPurchase
+				// calculateEstimate(prevEst, daysSinceLastPurchase, totalPurchases) //returns integer - days to next purchase.
+				// does not go into Firebase
 			});
 		}
 	}, [isPurchased, isChecked, itemId, listToken]);

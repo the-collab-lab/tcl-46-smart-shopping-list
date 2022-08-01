@@ -9,7 +9,7 @@ import {
 	increment,
 } from 'firebase/firestore';
 
-import { getFutureDate } from '../utils';
+import { getFutureDate, getDaysBetweenDates } from '../utils';
 
 const firebaseConfig = {
 	apiKey: 'AIzaSyCfI_TVGKMzq7CaxBRQZAbqejH713TzGeg',
