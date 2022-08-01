@@ -24,7 +24,7 @@ export function ListItem({
 	useEffect(() => {
 		// only update item when the checkbox has been checked. Don't update when the page just loaded and "isPurchased" is changed accordingly
 		if (isChecked !== isPurchased) {
-			let currentTime = getFutureDate(0);
+			let currentDate = getFutureDate(0);
 			let currentTimeInMS = new Date().getTime();
 
 			let daysSinceLastPurchase = getDaysBetweenDates(
@@ -47,7 +47,7 @@ export function ListItem({
 			updateItem(listToken, {
 				itemId: itemId,
 				isChecked: isPurchased,
-				currentTime: currentTime,
+				currentDate: currentDate,
 			});
 		}
 	}, [isPurchased, isChecked, itemId, listToken]);
