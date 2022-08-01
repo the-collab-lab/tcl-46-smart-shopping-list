@@ -80,20 +80,22 @@ export function List({ data, listToken }) {
 						name,
 						id,
 						isChecked,
+						dateCreated,
 						dateLastPurchased,
 						dateNextPurchased,
 						totalPurchases,
 					}) => (
 						<ListItem
-							name={name}
 							key={id}
 							itemId={id}
 							listToken={listToken}
-							isChecked={isChecked}
+							// refactor spread syntax?
+							dateCreated={dateCreated}
 							dateLastPurchased={dateLastPurchased}
 							dateNextPurchased={dateNextPurchased}
+							isChecked={isChecked}
+							name={name}
 							totalPurchases={totalPurchases}
-							// refactor spread syntax?
 						/>
 					),
 				)}

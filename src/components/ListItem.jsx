@@ -13,6 +13,7 @@ export function ListItem({
 	itemId,
 	name,
 	isChecked,
+	dateCreated,
 	dateLastPurchased,
 	dateNextPurchased,
 	totalPurchases,
@@ -34,6 +35,11 @@ export function ListItem({
 			let prevEst;
 			if (!dateLastPurchased) {
 				daysSinceLastPurchase = 0;
+				// use date created instead for prevEst param?
+				prevEst = getDaysBetweenDates(
+					dateCreated.toMillis(),
+					dateNextPurchased.toMillis(),
+				);
 			} else {
 				daysSinceLastPurchase = getDaysBetweenDates(
 					dateLastPurchased.toMillis(),
