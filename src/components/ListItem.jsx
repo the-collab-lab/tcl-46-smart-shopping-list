@@ -4,6 +4,8 @@ import { updateItem } from '../api/firebase';
 
 import { getFutureDate, getDaysBetweenDates } from '../utils';
 
+import { calculateEstimate } from '@the-collab-lab/shopping-list-utils/dist/calculateEstimate';
+
 import './ListItem.css';
 
 export function ListItem({
@@ -12,6 +14,8 @@ export function ListItem({
 	name,
 	isChecked,
 	dateLastPurchased,
+	dateNextPurchased,
+	totalPurchases,
 }) {
 	const DAYINMS = 86400000;
 	// sync up checked or not checked data from the database to the page upon page refresh
@@ -20,15 +24,30 @@ export function ListItem({
 	useEffect(() => {
 		// only update item when the checkbox has been checked. Don't update when the page just loaded and "isPurchased" is changed accordingly
 		if (isChecked !== isPurchased) {
+			let currentTime = getFutureDate(0);
+			let currentTimeInMS = new Date().getTime();
+
+			let daysSinceLastPurchase = getDaysBetweenDates(
+				dateLastPurchased,
+				currentTimeInMS,
+			); //date is in ms, returns daysSinceLastPurchase
+			let prevEst = getDaysBetweenDates(dateLastPurchased, dateNextPurchased); //any way to grab the days elapsed sooner?(7/14/21)
+			console.log(dateNextPurchased);
+			let daysToNextPurchase = calculateEstimate(
+				prevEst,
+				daysSinceLastPurchase,
+				totalPurchases,
+			); //returns integer - days to next purchase.
+			// ^ turn into date
+			let actualDateNextPurchase = getFutureDate(daysToNextPurchase);
+			console.log(`actual date next purchase ${actualDateNextPurchase}`);
+			// dateNextPurchased: //will we reassign at some point?
+			// does not go into Firebase
+
 			updateItem(listToken, {
 				itemId: itemId,
 				isChecked: isPurchased,
-				currentTime: getFutureDate(0),
-
-				//getDaysBetweenDates(currentTime) //date is in ms, returns daysSinceLastPurchase
-				// calculateEstimate(prevEst, daysSinceLastPurchase, totalPurchases) //returns integer - days to next purchase.
-				//
-				// does not go into Firebase
+				currentTime: currentTime,
 			});
 		}
 	}, [isPurchased, isChecked, itemId, listToken]);
