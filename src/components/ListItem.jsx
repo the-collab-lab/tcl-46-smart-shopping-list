@@ -64,7 +64,9 @@ export function ListItem({
 				totalPurchases,
 			); //returns integer - days to next purchase. Then turn into date
 			let actualDateNextPurchased = getFutureDate(daysToNextPurchase);
-			console.log(`actual date next purchase ${actualDateNextPurchased}`);
+			console.log(
+				`actual date next purchase ${actualDateNextPurchased}; total purchse number ${totalPurchases}`,
+			);
 
 			updateItem(listToken, {
 				itemId: itemId,
