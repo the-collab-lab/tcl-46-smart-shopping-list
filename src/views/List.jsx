@@ -85,11 +85,16 @@ export function List({ data, listToken }) {
 						dateNextPurchased,
 						totalPurchases,
 					}) => (
+						// item, listToken
 						<ListItem
+							// key={item.id}
+							// itemId={item.id}
+
+							listToken={listToken}
 							key={id}
 							itemId={id}
-							listToken={listToken}
 							// refactor spread syntax?
+							// {...item}
 							dateCreated={dateCreated}
 							dateLastPurchased={dateLastPurchased}
 							dateNextPurchased={dateNextPurchased}

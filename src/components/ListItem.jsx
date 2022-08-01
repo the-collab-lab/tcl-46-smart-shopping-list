@@ -32,7 +32,9 @@ export function ListItem({
 			let prevEst;
 			if (!dateLastPurchased) {
 				daysSinceLastPurchase = 0;
-				// use date created if no record of previous buys/null
+				// uses date created if no record of previous buys/null?
+				// do the calculateEstimate docs actually require default val to be 14 if none supplied? if so, why 14 and not 7?
+
 				prevEst = getDaysBetweenDates(
 					dateCreated.toMillis(),
 					dateNextPurchased.toMillis(),
@@ -47,15 +49,17 @@ export function ListItem({
 					dateNextPurchased.toMillis(),
 				); //any way to grab the days elapsed sooner?(7/14/21)
 			}
-			// console.log(`current Time ${currentTimeInMS}`)
-			// console.log(`dateLastPurchased ${dateLastPurchased}`)
+			console.log(`current Time ${currentTimeInMS}`);
+			console.log(`dateLastPurchased ${dateLastPurchased}`);
 			let daysToNextPurchase = calculateEstimate(
 				prevEst,
 				daysSinceLastPurchase,
+				// why do calculateEstimate docs prefer to set this as  number of days since the item was added to the list (if no previous purchase)?
+				//https://github.com/the-collab-lab/shopping-list-utils/blob/main/src/calculateEstimate/index.ts
 				totalPurchases,
 			); //returns integer - days to next purchase. Then turn into date
 			let actualDateNextPurchased = getFutureDate(daysToNextPurchase);
-			// console.log(`actual date next purchase ${actualDateNextPurchased}`);
+			console.log(`actual date next purchase ${actualDateNextPurchased}`);
 
 			updateItem(listToken, {
 				itemId: itemId,
