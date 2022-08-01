@@ -28,14 +28,11 @@ export function ListItem({
 			let currentDate = getFutureDate(0);
 			let currentTimeInMS = new Date().getTime();
 
-			// console.log(`current Time ${currentTimeInMS}`)
-			// console.log(`dateLastPurchased ${dateLastPurchased}`)
-
 			let daysSinceLastPurchase;
 			let prevEst;
 			if (!dateLastPurchased) {
 				daysSinceLastPurchase = 0;
-				// use date created instead for prevEst param?
+				// use date created if no record of previous buys/null
 				prevEst = getDaysBetweenDates(
 					dateCreated.toMillis(),
 					dateNextPurchased.toMillis(),
@@ -50,6 +47,8 @@ export function ListItem({
 					dateNextPurchased.toMillis(),
 				); //any way to grab the days elapsed sooner?(7/14/21)
 			}
+			// console.log(`current Time ${currentTimeInMS}`)
+			// console.log(`dateLastPurchased ${dateLastPurchased}`)
 
 			let daysToNextPurchase = calculateEstimate(
 				prevEst,
@@ -58,15 +57,13 @@ export function ListItem({
 			); //returns integer - days to next purchase.
 			// ^ turn into date
 			let actualDateNextPurchased = getFutureDate(daysToNextPurchase);
-			console.log(`actual date next purchase ${actualDateNextPurchased}`);
-			// dateNextPurchased: //will we reassign at some point?
-			// does not go into Firebase
+			// console.log(`actual date next purchase ${actualDateNextPurchased}`);
 
 			updateItem(listToken, {
 				itemId: itemId,
 				isChecked: isPurchased,
 				currentDate: currentDate,
-				dateNextPurchased: actualDateNextPurchased,
+				dateNextPurchased: actualDateNextPurchased, //reassigned and sent to firebase
 			});
 		}
 	}, [isPurchased, isChecked, itemId, listToken]);
