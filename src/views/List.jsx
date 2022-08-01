@@ -75,16 +75,20 @@ export function List({ data, listToken }) {
 			)}
 
 			<ul>
-				{filterList(data).map(({ name, id, isChecked, dateLastPurchased }) => (
-					<ListItem
-						name={name}
-						key={id}
-						itemId={id}
-						listToken={listToken}
-						isChecked={isChecked}
-						dateLastPurchased={dateLastPurchased}
-					/>
-				))}
+				{filterList(data).map(
+					({ name, id, isChecked, dateLastPurchased, totalPurchases }) => (
+						<ListItem
+							name={name}
+							key={id}
+							itemId={id}
+							listToken={listToken}
+							isChecked={isChecked}
+							dateLastPurchased={dateLastPurchased}
+							totalPurchases={totalPurchases}
+							// refactor spread syntax?
+						/>
+					),
+				)}
 			</ul>
 		</>
 	);

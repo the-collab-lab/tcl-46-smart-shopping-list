@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 import { updateItem } from '../api/firebase';
 
-import { getFutureDate } from '../utils';
+import { getFutureDate, getDaysBetweenDates } from '../utils';
 
 import './ListItem.css';
 
@@ -27,6 +27,7 @@ export function ListItem({
 
 				//getDaysBetweenDates(currentTime) //date is in ms, returns daysSinceLastPurchase
 				// calculateEstimate(prevEst, daysSinceLastPurchase, totalPurchases) //returns integer - days to next purchase.
+				//
 				// does not go into Firebase
 			});
 		}
