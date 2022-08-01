@@ -27,11 +27,24 @@ export function ListItem({
 			let currentDate = getFutureDate(0);
 			let currentTimeInMS = new Date().getTime();
 
-			let daysSinceLastPurchase = getDaysBetweenDates(
-				dateLastPurchased,
-				currentTimeInMS,
-			); //date is in ms, returns daysSinceLastPurchase
-			let prevEst = getDaysBetweenDates(dateLastPurchased, dateNextPurchased); //any way to grab the days elapsed sooner?(7/14/21)
+			// console.log(`current Time ${currentTimeInMS}`)
+			// console.log(`dateLastPurchased ${dateLastPurchased}`)
+
+			let daysSinceLastPurchase;
+			let prevEst;
+			if (!dateLastPurchased) {
+				daysSinceLastPurchase = 0;
+			} else {
+				daysSinceLastPurchase = getDaysBetweenDates(
+					dateLastPurchased.toMillis(),
+					currentTimeInMS,
+				); //date is in ms, returns daysSinceLastPurchase
+				prevEst = getDaysBetweenDates(
+					dateLastPurchased.toMillis(),
+					dateNextPurchased.toMillis(),
+				); //any way to grab the days elapsed sooner?(7/14/21)
+			}
+
 			let daysToNextPurchase = calculateEstimate(
 				prevEst,
 				daysSinceLastPurchase,
