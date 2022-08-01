@@ -26,8 +26,8 @@ export function ListItem({
 		// only update item when the checkbox has been checked. Don't update when the page just loaded and "isPurchased" is changed accordingly
 		if (isChecked !== isPurchased) {
 			let currentDate = getFutureDate(0);
-			let currentTimeInMS = new Date().getTime();
 
+			let currentTimeInMS = new Date().getTime();
 			let daysSinceLastPurchase;
 			let prevEst;
 			if (!dateLastPurchased) {
@@ -49,13 +49,11 @@ export function ListItem({
 			}
 			// console.log(`current Time ${currentTimeInMS}`)
 			// console.log(`dateLastPurchased ${dateLastPurchased}`)
-
 			let daysToNextPurchase = calculateEstimate(
 				prevEst,
 				daysSinceLastPurchase,
 				totalPurchases,
-			); //returns integer - days to next purchase.
-			// ^ turn into date
+			); //returns integer - days to next purchase. Then turn into date
 			let actualDateNextPurchased = getFutureDate(daysToNextPurchase);
 			// console.log(`actual date next purchase ${actualDateNextPurchased}`);
 
