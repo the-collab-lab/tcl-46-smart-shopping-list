@@ -80,7 +80,10 @@ export async function addItem(listId, { itemName, daysUntilNextPurchase }) {
 	});
 }
 
-export async function updateItem(listId, { itemId, isChecked, currentDate }) {
+export async function updateItem(
+	listId,
+	{ itemId, isChecked, currentDate, dateNextPurchased },
+) {
 	const listCollectionRef = collection(db, listId);
 	const listItemRef = doc(listCollectionRef, itemId);
 	if (isChecked) {
@@ -88,6 +91,7 @@ export async function updateItem(listId, { itemId, isChecked, currentDate }) {
 			dateLastPurchased: currentDate,
 			isChecked: isChecked,
 			totalPurchases: increment(1),
+			dateNextPurchased: dateNextPurchased,
 		});
 	} else {
 		await updateDoc(listItemRef, {

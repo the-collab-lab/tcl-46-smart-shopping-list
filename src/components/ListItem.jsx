@@ -32,15 +32,14 @@ export function ListItem({
 				currentTimeInMS,
 			); //date is in ms, returns daysSinceLastPurchase
 			let prevEst = getDaysBetweenDates(dateLastPurchased, dateNextPurchased); //any way to grab the days elapsed sooner?(7/14/21)
-			console.log(dateNextPurchased);
 			let daysToNextPurchase = calculateEstimate(
 				prevEst,
 				daysSinceLastPurchase,
 				totalPurchases,
 			); //returns integer - days to next purchase.
 			// ^ turn into date
-			let actualDateNextPurchase = getFutureDate(daysToNextPurchase);
-			console.log(`actual date next purchase ${actualDateNextPurchase}`);
+			let actualDateNextPurchased = getFutureDate(daysToNextPurchase);
+			console.log(`actual date next purchase ${actualDateNextPurchased}`);
 			// dateNextPurchased: //will we reassign at some point?
 			// does not go into Firebase
 
@@ -48,6 +47,7 @@ export function ListItem({
 				itemId: itemId,
 				isChecked: isPurchased,
 				currentDate: currentDate,
+				dateNextPurchased: actualDateNextPurchased,
 			});
 		}
 	}, [isPurchased, isChecked, itemId, listToken]);

@@ -13,9 +13,10 @@ export function getFutureDate(offset) {
 
 export function getDaysBetweenDates(dateLastPurchased, currentTime) {
 	// param both in ms
-	const daysSinceLastPurchase = Math.abs(
+	const daysSinceLastPurchase = Math.round(
 		(currentTime - dateLastPurchased) / ONE_DAY_IN_MILLISECONDS,
 	);
+	console.log(daysSinceLastPurchase);
 	// do calc to get daysSinceLastTransaction
 	return daysSinceLastPurchase;
 }
