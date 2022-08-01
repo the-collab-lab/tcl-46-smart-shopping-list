@@ -16,7 +16,5 @@ export function getDaysBetweenDates(startTime, currentTime) {
 	const daysSinceLastPurchase = Math.round(
 		(currentTime - startTime) / ONE_DAY_IN_MILLISECONDS,
 	);
-	console.log(daysSinceLastPurchase);
-	// do calc to get daysSinceLastTransaction
 	return daysSinceLastPurchase;
 }
