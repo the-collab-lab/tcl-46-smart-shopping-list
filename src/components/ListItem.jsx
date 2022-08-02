@@ -64,8 +64,13 @@ export function ListItem({
 				totalPurchases,
 			); //returns integer - days to next purchase. Then turn into date
 			let actualDateNextPurchased = getFutureDate(daysToNextPurchase);
+
+			// this is what should come from firebase
+			let initialDateNext = dateNextPurchased.toDate();
+
+			// current issue: freq skews hard towards latest purchase - bug or just misuse of app?
 			console.log(
-				`actual date next purchase ${actualDateNextPurchased}; total purchse number ${totalPurchases}`,
+				`actual date next purchase ${actualDateNextPurchased}; total purchse number ${totalPurchases}; initial date next from firebase ${initialDateNext}`,
 			);
 
 			updateItem(listToken, {
