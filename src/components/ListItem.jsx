@@ -41,6 +41,7 @@ export function ListItem({
 				);
 
 				// do the calculateEstimate docs actually require default val of prevEst to be 14 if none supplied? if so, why 14 and not 7?
+				// per calcEstimate, it should be fine to pass prevEst as-is (leave undefined, commenting out lines 45-47) and it should default to 14.
 				prevEst = getDaysBetweenDates(
 					dateCreated.toMillis(),
 					dateNextPurchased.toMillis(),
