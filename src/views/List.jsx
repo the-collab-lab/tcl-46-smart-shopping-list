@@ -81,7 +81,6 @@ export function List({ data, listToken }) {
 						listToken={listToken}
 						key={item.id}
 						itemId={item.id}
-						// some error?
 					/>
 				))}
 			</ul>
