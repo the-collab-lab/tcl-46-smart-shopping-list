@@ -24,7 +24,6 @@ export function ListItem({
 		// only update item when the checkbox has been checked. Don't update when the page just loaded and "isPurchased" is changed accordingly
 		if (isChecked !== isPurchased) {
 			// currently: checked item unchecks quickly and rechecks (re-rendering?) - uncontrolled total purchases incrementation
-			// call currentDate, currentTime inside
 			updateItem(listToken, {
 				itemId: itemId,
 				isChecked: isPurchased,
@@ -35,7 +34,7 @@ export function ListItem({
 				totalPurchases: totalPurchases,
 			});
 		}
-	}, [isPurchased, isChecked, itemId, listToken, dateNextPurchased]);
+	}, [isPurchased, isChecked, itemId, listToken]); //had dateNextPurchased
 
 	useEffect(() => {
 		if (dateLastPurchased) {

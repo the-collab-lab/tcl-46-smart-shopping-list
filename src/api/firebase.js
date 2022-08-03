@@ -94,18 +94,10 @@ export async function updateItem(
 		totalPurchases,
 	},
 ) {
-	// let currentDate = getFutureDate(0);
-	// let currentTimeInMS = currentTime.getTime();
 	let daysSinceLastPurchase;
 	let prevEst;
 
-	if (!dateLastPurchased) {
-		daysSinceLastPurchase = Math.max(
-			1,
-			getDaysBetweenDates(dateCreated.toMillis(), currentTime),
-		);
-		// prevEst remains undefined in this scenario
-	} else {
+	if (dateLastPurchased) {
 		daysSinceLastPurchase = getDaysBetweenDates(
 			dateLastPurchased.toMillis(),
 			currentTime,
@@ -114,7 +106,32 @@ export async function updateItem(
 			dateLastPurchased.toMillis(),
 			dateNextPurchased.toMillis(),
 		);
+	} else {
+		daysSinceLastPurchase =
+			// Math.max(
+			// 	1,
+			getDaysBetweenDates(dateCreated.toMillis(), currentTime);
+		// );
+		// prevEst remains undefined in this scenario
 	}
+
+	// RESHUFFLED ABOVE
+	// if (!dateLastPurchased) {
+	// 	daysSinceLastPurchase = Math.max(
+	// 		1,
+	// 		getDaysBetweenDates(dateCreated.toMillis(), currentTime),
+	// 	);
+	// 	// prevEst remains undefined in this scenario
+	// } else {
+	// 	daysSinceLastPurchase = getDaysBetweenDates(
+	// 		dateLastPurchased.toMillis(),
+	// 		currentTime,
+	// 	);
+	// 	prevEst = getDaysBetweenDates(
+	// 		dateLastPurchased.toMillis(),
+	// 		dateNextPurchased.toMillis(),
+	// 	);
+	// }
 	let daysToNextPurchase = calculateEstimate(
 		prevEst, // effectively, prevEst || 14 here?
 		daysSinceLastPurchase,
@@ -122,8 +139,6 @@ export async function updateItem(
 	); //returns integer - days to next purchase. Then turn into date:
 
 	let actualDateNextPurchased = getFutureDate(daysToNextPurchase);
-	// this is what should come from firebase. solely for console log/testing
-	let initialDateNext = dateNextPurchased.toDate();
 
 	const listCollectionRef = collection(db, listId);
 	const listItemRef = doc(listCollectionRef, itemId);
@@ -134,9 +149,6 @@ export async function updateItem(
 			totalPurchases: increment(1),
 			dateNextPurchased: actualDateNextPurchased, //updated with
 		});
-		console.log(
-			`actual date next purchase ${actualDateNextPurchased}; total purchse number ${totalPurchases}; initial date next from firebase ${initialDateNext}`,
-		);
 	} else {
 		await updateDoc(listItemRef, {
 			isChecked: isChecked,
