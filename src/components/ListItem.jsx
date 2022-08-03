@@ -34,9 +34,10 @@ export function ListItem({
 				// daysSinceLastPurchase = 0;  //original approach different from calculateEstimate docs
 
 				// following calculateEstimate docs, uses date created if no record of previous buys/null
-				daysSinceLastPurchase = getDaysBetweenDates(
-					dateCreated.toMillis(),
-					currentTimeInMS,
+				// added minimum of one day
+				daysSinceLastPurchase = Math.max(
+					1,
+					getDaysBetweenDates(dateCreated.toMillis(), currentTimeInMS),
 				);
 
 				// do the calculateEstimate docs actually require default val of prevEst to be 14 if none supplied? if so, why 14 and not 7?
