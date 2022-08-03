@@ -107,37 +107,19 @@ export async function updateItem(
 			dateNextPurchased.toMillis(),
 		);
 	} else {
-		daysSinceLastPurchase =
-			// Math.max(
-			// 	1,
-			getDaysBetweenDates(dateCreated.toMillis(), currentTime);
-		// );
+		daysSinceLastPurchase = Math.max(
+			1,
+			getDaysBetweenDates(dateCreated.toMillis(), currentTime),
+		);
 		// prevEst remains undefined in this scenario
 	}
-
-	// RESHUFFLED ABOVE
-	// if (!dateLastPurchased) {
-	// 	daysSinceLastPurchase = Math.max(
-	// 		1,
-	// 		getDaysBetweenDates(dateCreated.toMillis(), currentTime),
-	// 	);
-	// 	// prevEst remains undefined in this scenario
-	// } else {
-	// 	daysSinceLastPurchase = getDaysBetweenDates(
-	// 		dateLastPurchased.toMillis(),
-	// 		currentTime,
-	// 	);
-	// 	prevEst = getDaysBetweenDates(
-	// 		dateLastPurchased.toMillis(),
-	// 		dateNextPurchased.toMillis(),
-	// 	);
-	// }
 	let daysToNextPurchase = calculateEstimate(
 		prevEst, // effectively, prevEst || 14 here?
 		daysSinceLastPurchase,
 		totalPurchases,
-	); //returns integer - days to next purchase. Then turn into date:
+	); //returns integer - days to next purchase.
 
+	// Then turn into date:
 	let actualDateNextPurchased = getFutureDate(daysToNextPurchase);
 
 	const listCollectionRef = collection(db, listId);

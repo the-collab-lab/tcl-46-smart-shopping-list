@@ -21,9 +21,7 @@ export function ListItem({
 	const [isPurchased, setIsPurchased] = useState(isChecked);
 
 	useEffect(() => {
-		// only update item when the checkbox has been checked. Don't update when the page just loaded and "isPurchased" is changed accordingly
 		if (isChecked !== isPurchased) {
-			// currently: checked item unchecks quickly and rechecks (re-rendering?) - uncontrolled total purchases incrementation
 			updateItem(listToken, {
 				itemId: itemId,
 				isChecked: isPurchased,
@@ -34,7 +32,7 @@ export function ListItem({
 				totalPurchases: totalPurchases,
 			});
 		}
-	}, [isPurchased, itemId, listToken]); //had dateNextPurchased, isChecked
+	}, [isPurchased, itemId, listToken]); //excluding isChecked - fixes looping and doublecounting
 
 	useEffect(() => {
 		if (dateLastPurchased) {
