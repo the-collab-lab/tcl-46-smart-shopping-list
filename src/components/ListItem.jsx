@@ -34,7 +34,7 @@ export function ListItem({
 				totalPurchases: totalPurchases,
 			});
 		}
-	}, [isPurchased, isChecked, itemId, listToken]); //had dateNextPurchased
+	}, [isPurchased, itemId, listToken]); //had dateNextPurchased, isChecked
 
 	useEffect(() => {
 		if (dateLastPurchased) {
