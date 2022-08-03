@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { isEmpty, isDuplicate } from '../utils/validateStrings';
 import { addItem } from '../api/firebase';
 
 const defaultItem = { itemName: '', daysUntilNextPurchase: 7 };
@@ -20,36 +21,28 @@ export function AddItem({ data, listToken }) {
 		setItem({ ...item, [e.target.name]: updateVal });
 	};
 
-	const cleanup = (inputString) => {
-		return inputString.toLowerCase().trim().replace(/[\W]/g, '');
-	};
-
-	const checkForEmpty = (itemName) => {
-		// defer cleanup to this step so 'user’s original input is saved in the database'
-		if (cleanup(itemName) === '') {
-			setStatus(`Can not add an empty item`);
+	const isInvalid = (name) => {
+		if (isEmpty(name)) {
+			setStatus('Can not add an empty item');
+			setItem(defaultItem);
+			return true;
 		}
-	};
-
-	const checkForDuplicate = (itemName) => {
-		data.forEach((item) => {
-			if (cleanup(item.name) === cleanup(itemName)) {
-				setStatus(`This item has already been added`);
-			}
-		});
+		if (isDuplicate(name, data)) {
+			setStatus('This item has already been added');
+			setItem(defaultItem);
+			return true;
+		}
+		return false;
 	};
 
 	const addItemToDatabase = (e) => {
 		e.preventDefault();
+		if (isInvalid(item.itemName)) return;
 
-		checkForEmpty(item.itemName);
-
-		checkForDuplicate(item.itemName);
-
-		// addItem(listToken, item)
-		// 	.then(() => setStatus('Item added successfully!'))
-		// 	.then(() => setItem(defaultItem))
-		// 	.catch(() => setStatus('Item could not be added.'));
+		addItem(listToken, item)
+			.then(() => setStatus('Item added successfully!'))
+			.then(() => setItem(defaultItem))
+			.catch(() => setStatus('Item could not be added.'));
 	};
 
 	return (
