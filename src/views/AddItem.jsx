@@ -1,8 +1,9 @@
 import { useState } from 'react';
+import { isEmpty, isDuplicate } from '../utils/validateStrings';
 import { addItem } from '../api/firebase';
 
 const defaultItem = { itemName: '', daysUntilNextPurchase: 7 };
-export function AddItem({ listToken }) {
+export function AddItem({ data, listToken }) {
 	const [item, setItem] = useState(defaultItem);
 	const [status, setStatus] = useState('');
 
@@ -20,8 +21,23 @@ export function AddItem({ listToken }) {
 		setItem({ ...item, [e.target.name]: updateVal });
 	};
 
+	const isInvalid = (name) => {
+		if (isEmpty(name)) {
+			setStatus('Can not add an empty item');
+			setItem(defaultItem);
+			return true;
+		}
+		if (isDuplicate(name, data)) {
+			setStatus('This item has already been added');
+			setItem(defaultItem);
+			return true;
+		}
+		return false;
+	};
+
 	const addItemToDatabase = (e) => {
 		e.preventDefault();
+		if (isInvalid(item.itemName)) return;
 
 		addItem(listToken, item)
 			.then(() => setStatus('Item added successfully!'))
