@@ -114,7 +114,7 @@ export async function updateItem(
 		// prevEst remains undefined in this scenario
 	}
 	let daysToNextPurchase = calculateEstimate(
-		prevEst, // effectively, prevEst || 14 here?
+		prevEst, // effectively, prevEst || 14 here
 		daysSinceLastPurchase,
 		totalPurchases,
 	); //returns integer - days to next purchase.
@@ -125,8 +125,8 @@ export async function updateItem(
 	const listCollectionRef = collection(db, listId);
 	const listItemRef = doc(listCollectionRef, itemId);
 	if (
-		(isChecked && !dateLastPurchased) ||
-		(isChecked && currentTime > dateLastPurchased.toMillis() + 50000)
+		(isChecked && !dateLastPurchased) || //first-time purchase should go through
+		(isChecked && currentTime > dateLastPurchased.toMillis() + 50000) //allow if 50s elapsed since last time checked
 	) {
 		await updateDoc(listItemRef, {
 			dateLastPurchased: currentDate,
