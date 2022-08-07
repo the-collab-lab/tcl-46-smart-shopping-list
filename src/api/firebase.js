@@ -135,7 +135,6 @@ export async function updateItem(
 			dateNextPurchased: actualDateNextPurchased,
 		});
 	} else {
-		console.log('rejected');
 		await updateDoc(listItemRef, {
 			isChecked: isChecked,
 		});
