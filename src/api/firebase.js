@@ -124,21 +124,18 @@ export async function updateItem(
 
 	const listCollectionRef = collection(db, listId);
 	const listItemRef = doc(listCollectionRef, itemId);
-
-	if (isChecked /*&& currentTime > dateLastPurchased.toMillis() + 50000*/) {
+	if (
+		(isChecked && !dateLastPurchased) ||
+		(isChecked && currentTime > dateLastPurchased.toMillis() + 50000)
+	) {
 		await updateDoc(listItemRef, {
 			dateLastPurchased: currentDate,
 			isChecked: isChecked,
 			totalPurchases: increment(1),
 			dateNextPurchased: actualDateNextPurchased,
 		});
-		/*} else if (isChecked && currentTime < dateLastPurchased.toMillis() + 50000){
-		console.log('not updating bc too soon')
-		await updateDoc(listItemRef, {
-			isChecked: isChecked,
-		});*/
 	} else {
-		// not checked at all
+		console.log('rejected');
 		await updateDoc(listItemRef, {
 			isChecked: isChecked,
 		});

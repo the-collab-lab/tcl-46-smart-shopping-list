@@ -26,6 +26,8 @@ export function ListItem({
 				itemId: itemId,
 				isChecked: isPurchased,
 				dateCreated: dateCreated,
+				dateLastPurchased: dateLastPurchased, // added
+
 				currentDate: getFutureDate(0),
 				currentTime: new Date().getTime(),
 				dateNextPurchased: dateNextPurchased, //reassigned inside the function - this passes initial dNP
