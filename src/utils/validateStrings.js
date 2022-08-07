@@ -26,7 +26,7 @@ export const isDuplicate = (itemName, data) => {
 
 /**
  * Normalizes by lowercasing and replacing any non word character including _ and - with ''
- * @param {string} inputString
+ * @param {string} itemName
  * @returns {string | undefined}
  */
 export const cleanup = (itemName) =>
