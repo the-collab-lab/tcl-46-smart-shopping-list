@@ -18,49 +18,12 @@ export function ListItem({
 	dateLastPurchased,
 	dateNextPurchased,
 	totalPurchases,
+	urgency,
+	urgencyMessage,
 }) {
 	const DAYINMS = 86400000;
 	// sync up checked or not checked data from the database to the page upon page refresh
 	const [isPurchased, setIsPurchased] = useState(isChecked);
-
-	//for grouping
-	const [whenToBuy, setWhenToBuy] = useState('');
-	const [activeStatus, setActiveStatus] = useState('');
-
-	// run on render:
-	useEffect(() => {
-		// pass this from List?
-		let currentTime = new Date().getTime(); //in MS
-
-		let refDate = dateLastPurchased
-			? dateLastPurchased.toMillis()
-			: dateCreated.toMillis();
-		let daysSinceLast = getDaysBetweenDates(refDate, currentTime);
-
-		let daysToNext = getDaysBetweenDates(
-			currentTime,
-			dateNextPurchased.toMillis(),
-		);
-		console.log(
-			`Item name: ${name}; daysSinceLast: ${daysSinceLast}; daysToNext: ${daysToNext}`,
-		);
-		if (daysSinceLast > 60) {
-			setActiveStatus('inactive');
-			// do I care to have the whenToBuy for this set too?
-			// currently omitted now that I split the lists in List component.
-		} else {
-			setActiveStatus('active');
-			if (daysToNext < 0) {
-				setWhenToBuy('overdue');
-			} else if (daysToNext <= 7) {
-				setWhenToBuy('soon');
-			} else if (daysToNext > 7 && daysToNext < 30) {
-				setWhenToBuy('kind of soon');
-			} else if (daysToNext >= 30) {
-				setWhenToBuy('not soon');
-			}
-		}
-	}, [dateLastPurchased]); //I don't really need to watch daysNext - it duplicates
 
 	useEffect(() => {
 		if (isChecked !== isPurchased) {
@@ -102,11 +65,11 @@ export function ListItem({
 				onChange={handleValueChange}
 				defaultChecked={isChecked}
 			/>
-			<span className="tempReadable">{whenToBuy}</span>
-			<span className="tempReadable">{activeStatus}</span>
+
 			<label className="ListItem-label" htmlFor={name}>
 				{name}
 			</label>
+			<span className={urgency}>{urgencyMessage}</span>
 		</li>
 	);
 }

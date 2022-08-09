@@ -5,14 +5,38 @@
 	font-size: 1.2em;
 }
 
+.ListItem span {
+	min-width: 200px;
+}
 .ListItem-checkbox {
 	accent-color: var(--color-accent);
 }
 
 .ListItem-label {
 	margin-left: 0.2em;
+	min-width: 200px;
 }
 
 .tempReadable {
 	font-weight: bold;
+}
+
+.soon {
+	color: red;
+}
+
+.kind-of-soon {
+	color: orange;
+}
+
+.not-soon {
+	color: yellow;
+}
+
+.overdue {
+	color: purple;
+}
+
+.inactive {
+	color: grey;
 }

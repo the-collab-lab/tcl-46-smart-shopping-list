@@ -86,9 +86,15 @@ export function comparePurchaseUrgency(data) {
 			);
 			return checkIfActive(refDate, currentTime) && daysToNext < 0;
 		})
+		.map((item) => {
+			let urgency = 'overdue';
+			let urgencyMessage = 'Overdue';
+
+			return { ...item, urgency, urgencyMessage };
+		})
 		.sort(
-			(a, b) => b.dateNextPurchased.toMillis() - a.dateNextPurchased.toMillis(),
-		) //descending order here - farther out = MORE overdue
+			(a, b) => a.dateNextPurchased.toMillis() - b.dateNextPurchased.toMillis(),
+		)
 		// alphabetize same daysToNext items:
 		.sort((a, b) => {
 			//get days to next
@@ -115,6 +121,31 @@ export function comparePurchaseUrgency(data) {
 			);
 			return checkIfActive(refDate, currentTime) && daysToNext >= 0;
 		})
+		.map((item) => {
+			let urgency = 'active';
+			let urgencyMessage = 'Active';
+
+			let daysToNext = getDaysBetweenDates(
+				currentTime,
+				item.dateNextPurchased.toMillis(),
+			);
+
+			if (daysToNext < 0) {
+				urgency = 'overdue';
+				urgencyMessage = 'Overdue';
+			} else if (daysToNext <= 7) {
+				urgency = 'soon';
+				urgencyMessage = 'Kind of Soon';
+			} else if (daysToNext > 7 && daysToNext < 30) {
+				urgency = 'kind-of-soon';
+				urgencyMessage = 'Kind Of Soon';
+			} else if (daysToNext >= 30) {
+				urgency = 'not-soon';
+				urgencyMessage = 'Not Soon';
+			}
+
+			return { ...item, urgency, urgencyMessage };
+		})
 		.sort(
 			(a, b) => a.dateNextPurchased.toMillis() - b.dateNextPurchased.toMillis(),
 		) //ascending order - proximity to currentTime
@@ -139,6 +170,12 @@ export function comparePurchaseUrgency(data) {
 				? item.dateLastPurchased.toMillis()
 				: item.dateCreated.toMillis();
 			return !checkIfActive(refDate, currentTime);
+		})
+		.map((item) => {
+			let urgency = 'inactive';
+			let urgencyMessage = 'Inactive';
+
+			return { ...item, urgency, urgencyMessage };
 		})
 		.sort(
 			(a, b) => a.dateNextPurchased.toMillis() - b.dateNextPurchased.toMillis(),
