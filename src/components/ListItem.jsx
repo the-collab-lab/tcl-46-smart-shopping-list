@@ -49,6 +49,12 @@ export function ListItem({
 		setIsPurchased(evt.target.checked);
 	}
 
+	function deleteItem() {
+		if (window.confirm('Are you sure you want to delete?')) {
+			console.log('delete function');
+		}
+	}
+
 	return (
 		<li className="ListItem">
 			<input
@@ -63,6 +69,7 @@ export function ListItem({
 			<label className="ListItem-label" htmlFor={name}>
 				{name}
 			</label>
+			<button onClick={deleteItem}>Delete</button>
 		</li>
 	);
 }
