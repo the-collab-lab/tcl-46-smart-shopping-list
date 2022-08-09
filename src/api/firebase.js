@@ -68,20 +68,15 @@ export function comparePurchaseUrgency(data) {
 	sorts items with the same days until purchase alphabetically */
 
 	let currentTime = new Date().getTime(); //in MS
-	// separating out the logic for active/inactive
+
 	const checkIfActive = (refDate, current) => {
 		return getDaysBetweenDates(refDate, current) < 60;
 	};
 
-	// separate out sorting logic after filtering and mapping urgency keys
 	const sortByNextDateAlphabetical = (array) => {
-		return (
-			array
-				//ascending order by proximity to currentTime, then if equal, lexicographic order
-				.sort((a, b) => {
-					return a.daysToNext - b.daysToNext || a.name.localeCompare(b.name);
-				})
-		);
+		return array.sort((a, b) => {
+			return a.daysToNext - b.daysToNext || a.name.localeCompare(b.name);
+		});
 	};
 
 	const dataWithDays = data.map((item) => {
@@ -139,7 +134,6 @@ export function comparePurchaseUrgency(data) {
 				return { ...item, urgency, urgencyMessage };
 			}),
 	);
-
 	const sortedInactiveListByDateNext = sortByNextDateAlphabetical(
 		dataWithDays
 			.filter((item) => {
@@ -152,7 +146,6 @@ export function comparePurchaseUrgency(data) {
 				return { ...item, urgency, urgencyMessage };
 			}),
 	);
-
 	return sortedOverdueList.concat(
 		sortedActiveListNoOverdues,
 		sortedInactiveListByDateNext,

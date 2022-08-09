@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ListItem } from '../components';
 
-// ADDED
 import { comparePurchaseUrgency } from '../api/firebase';
 
 export function List({ data, listToken }) {

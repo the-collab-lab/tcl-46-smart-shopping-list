@@ -2,10 +2,7 @@ import { useState, useEffect } from 'react';
 
 import { updateItem } from '../api/firebase';
 
-import {
-	getFutureDate,
-	getDaysBetweenDates, //ADDED
-} from '../utils';
+import { getFutureDate } from '../utils';
 
 import './ListItem.css';
 
@@ -31,11 +28,11 @@ export function ListItem({
 				itemId: itemId,
 				isChecked: isPurchased,
 				dateCreated: dateCreated,
-				dateLastPurchased: dateLastPurchased, // added
+				dateLastPurchased: dateLastPurchased,
 
 				currentDate: getFutureDate(0),
 				currentTime: new Date().getTime(),
-				dateNextPurchased: dateNextPurchased, //reassigned inside the function - this passes initial dNP
+				dateNextPurchased: dateNextPurchased, //reassigned inside the function - this passes the initial dNP
 				totalPurchases: totalPurchases,
 			});
 		}
