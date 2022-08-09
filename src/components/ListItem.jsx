@@ -2,7 +2,10 @@ import { useState, useEffect } from 'react';
 
 import { updateItem } from '../api/firebase';
 
-import { getFutureDate } from '../utils';
+import {
+	getFutureDate,
+	getDaysBetweenDates, //ADDED
+} from '../utils';
 
 import './ListItem.css';
 
@@ -19,6 +22,44 @@ export function ListItem({
 	const DAYINMS = 86400000;
 	// sync up checked or not checked data from the database to the page upon page refresh
 	const [isPurchased, setIsPurchased] = useState(isChecked);
+
+	//for grouping
+	const [whenToBuy, setWhenToBuy] = useState('');
+	const [activeStatus, setActiveStatus] = useState('');
+
+	// run on render:
+	useEffect(() => {
+		let currentTime = new Date().getTime(); //in MS
+
+		let refDate = dateLastPurchased
+			? dateLastPurchased.toMillis()
+			: dateCreated.toMillis();
+		let daysSinceLast = getDaysBetweenDates(refDate, currentTime);
+
+		let daysToNext = getDaysBetweenDates(
+			currentTime,
+			dateNextPurchased.toMillis(),
+		);
+		console.log(
+			`Item name: ${name}; daysSinceLast: ${daysSinceLast}; daysToNext: ${daysToNext}`,
+		);
+		if (daysSinceLast > 60) {
+			setActiveStatus('inactive');
+			// do I care to have the whenToBuy for this set too?
+			// currently omitted now that I split the lists in List component.
+		} else {
+			setActiveStatus('active');
+			if (daysToNext < 0) {
+				setWhenToBuy('Overdue |');
+			} else if (daysToNext <= 7) {
+				setWhenToBuy('Soon |');
+			} else if (daysToNext > 7 && daysToNext < 30) {
+				setWhenToBuy('Kind of soon |');
+			} else if (daysToNext >= 30) {
+				setWhenToBuy('Not soon |');
+			}
+		}
+	}, [dateLastPurchased]); //I don't really need to watch daysNext - it duplicates
 
 	useEffect(() => {
 		if (isChecked !== isPurchased) {
@@ -60,6 +101,8 @@ export function ListItem({
 				onChange={handleValueChange}
 				defaultChecked={isChecked}
 			/>
+			<span className="tempReadable">{whenToBuy}</span>
+			<span className="tempReadable">{activeStatus}</span>
 			<label className="ListItem-label" htmlFor={name}>
 				{name}
 			</label>
