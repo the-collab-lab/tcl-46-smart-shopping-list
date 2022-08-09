@@ -29,6 +29,7 @@ export function ListItem({
 
 	// run on render:
 	useEffect(() => {
+		// pass this from List?
 		let currentTime = new Date().getTime(); //in MS
 
 		let refDate = dateLastPurchased
@@ -50,7 +51,7 @@ export function ListItem({
 		} else {
 			setActiveStatus('active');
 			if (daysToNext < 0) {
-				setWhenToBuy('overdue'); //this exact value is important for List
+				setWhenToBuy('overdue');
 			} else if (daysToNext <= 7) {
 				setWhenToBuy('soon');
 			} else if (daysToNext > 7 && daysToNext < 30) {

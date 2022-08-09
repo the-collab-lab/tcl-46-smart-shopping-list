@@ -10,15 +10,12 @@ export function List({ data, listToken }) {
 	const [searchTerm, setSearchTerm] = useState('');
 	const [copied, setCopied] = useState('');
 
+	let currentTime = new Date().getTime(); //in MS
 	// separating out the logic for active/inactive
 	const checkIfActive = (refDate, current) => {
 		return getDaysBetweenDates(refDate, current) < 60;
 	};
-
-	// issue 12 test
-	/**Summation of test
-	 * brute force of copy by filter (overdue, active, inactive) and concat after lists are sorted internally.
-	 * 	to the above, not yet alphabetized for equal daysToNext
+	/*
 	 * not currently split out comparePurchaseUrgency
 	 * lots of duplication in ListItem code (maybe pass more of the daysNext? or keep the daysNext/daysSince extraction from other try)
 	 * useEffect prob not the best implementation for real-time update of this kind
@@ -26,7 +23,6 @@ export function List({ data, listToken }) {
 
 	const sortedOverdueList = data
 		.filter((item) => {
-			let currentTime = new Date().getTime(); //in MS
 			let refDate = item.dateLastPurchased
 				? item.dateLastPurchased.toMillis()
 				: item.dateCreated.toMillis();
@@ -39,12 +35,24 @@ export function List({ data, listToken }) {
 			return checkIfActive(refDate, currentTime) && daysToNext < 0;
 		})
 		.sort(
-			(a, b) => a.dateNextPurchased.toMillis() - b.dateNextPurchased.toMillis(),
-		);
+			(a, b) => b.dateNextPurchased.toMillis() - a.dateNextPurchased.toMillis(),
+		) //descending order here - farther out = MORE overdue
+		// alphabetize same daysToNext items:
+		.sort((a, b) => {
+			//get days to next
+			let aDaysToNext = getDaysBetweenDates(
+				currentTime,
+				a.dateNextPurchased.toMillis(),
+			);
+			let bDaysToNext = getDaysBetweenDates(
+				currentTime,
+				b.dateNextPurchased.toMillis(),
+			);
+			return aDaysToNext - bDaysToNext || a.name.localeCompare(b.name);
+		});
 
 	const sortedActiveListNoOverdues = data
 		.filter((item) => {
-			let currentTime = new Date().getTime(); //in MS
 			let refDate = item.dateLastPurchased
 				? item.dateLastPurchased.toMillis()
 				: item.dateCreated.toMillis();
@@ -53,17 +61,28 @@ export function List({ data, listToken }) {
 				currentTime,
 				item.dateNextPurchased.toMillis(),
 			);
-
 			return checkIfActive(refDate, currentTime) && daysToNext >= 0;
 		})
 		.sort(
 			(a, b) => a.dateNextPurchased.toMillis() - b.dateNextPurchased.toMillis(),
-		);
+		) //ascending order - proximity to currentTime
+		.sort((a, b) => {
+			//get days to next
+			let aDaysToNext = getDaysBetweenDates(
+				currentTime,
+				a.dateNextPurchased.toMillis(),
+			);
+			let bDaysToNext = getDaysBetweenDates(
+				currentTime,
+				b.dateNextPurchased.toMillis(),
+			);
+			return aDaysToNext - bDaysToNext || a.name.localeCompare(b.name);
+			// if we wanted reverse alph order: return - ( a.id - b.id  ||  a.name.localeCompare(b.name) )
+			// does not function: return bDaysToNext - DaysToNext || [a.name,b.name].sort()
+		});
 
 	const sortedInactiveListByDateNext = data
-		// need to categorize active or inactive, not sort list by it.
 		.filter((item) => {
-			let currentTime = new Date().getTime(); //in MS
 			let refDate = item.dateLastPurchased
 				? item.dateLastPurchased.toMillis()
 				: item.dateCreated.toMillis();
@@ -71,19 +90,24 @@ export function List({ data, listToken }) {
 		})
 		.sort(
 			(a, b) => a.dateNextPurchased.toMillis() - b.dateNextPurchased.toMillis(),
-		);
+		)
+		.sort((a, b) => {
+			//get days to next
+			let aDaysToNext = getDaysBetweenDates(
+				currentTime,
+				a.dateNextPurchased.toMillis(),
+			);
+			let bDaysToNext = getDaysBetweenDates(
+				currentTime,
+				b.dateNextPurchased.toMillis(),
+			);
+			return aDaysToNext - bDaysToNext || a.name.localeCompare(b.name);
+		});
 
 	const sortedFullList = sortedOverdueList.concat(
 		sortedActiveListNoOverdues,
 		sortedInactiveListByDateNext,
 	);
-
-	// need a useEffect or some kind of setState to rerender list on change? watch the dates?
-	useEffect(() => {
-		// is that the desired UX - insta reorder of items? feels very abrupt
-		// also might be better to setState?
-		// but this essentially watches for any change on any field of the data and so can apply to LastPurchased, NextPurchased, etc.
-	}, [data]);
 
 	useEffect(() => {
 		if (copied) setTimeout(() => setCopied(''), 2000);
