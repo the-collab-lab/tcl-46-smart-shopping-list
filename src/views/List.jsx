@@ -15,30 +15,52 @@ export function List({ data, listToken }) {
 		return getDaysBetweenDates(refDate, current) < 60;
 	};
 
-	// issue 12 test
-	const sortedActiveListByDateNext = data
-		// need to categorize active or inactive, not sort list by it.
+	// issue 12 test - not alphabetized within equal days yet
+	/**Summation of test
+	 * brute force of copy by filter (overdue, active, inactive) and concat after lists are sorted internally.
+	 * 	to the above, not yet alphabetized
+	 * not currently split out comparePurchaseUrgency
+	 * lots of duplication in ListItem code (maybe pass more of the daysNext? or keep the daysNext/daysSince extraction from other try)
+	 * useEffect prob not the best implementation for real-time update of this kind
+	 */
 
-		// below is currently a bit duplicated in ListItem
-
-		// .sort(()=> {
-		// 	let daysSinceLast = getDaysBetweenDates(refDate, currentTime)
-		// 	let daysToNext = getDaysBetweenDates(currentTime, dateNextPurchased.toMillis())
-
-		// })
-
-		// then sort by daysToNext descending in each group
+	const sortedOverdueList = data
 		.filter((item) => {
 			let currentTime = new Date().getTime(); //in MS
 			let refDate = item.dateLastPurchased
 				? item.dateLastPurchased.toMillis()
 				: item.dateCreated.toMillis();
-			return checkIfActive(refDate, currentTime);
+
+			// for overdues:
+			let daysToNext = getDaysBetweenDates(
+				currentTime,
+				item.dateNextPurchased.toMillis(),
+			);
+			return checkIfActive(refDate, currentTime) && daysToNext < 0;
+		})
+		.sort(
+			(a, b) => b.dateNextPurchased.toMillis() - a.dateNextPurchased.toMillis(),
+		);
+
+	const sortedActiveListNoOverdues = data
+		.filter((item) => {
+			let currentTime = new Date().getTime(); //in MS
+			let refDate = item.dateLastPurchased
+				? item.dateLastPurchased.toMillis()
+				: item.dateCreated.toMillis();
+			// for overdues: omit here
+			let daysToNext = getDaysBetweenDates(
+				currentTime,
+				item.dateNextPurchased.toMillis(),
+			);
+
+			return checkIfActive(refDate, currentTime) && daysToNext >= 0;
 		})
 		.sort(
 			(a, b) => b.dateNextPurchased.toMillis() - a.dateNextPurchased.toMillis(),
 		);
 	// descending order because the further out, the larger the num.
+
 	const sortedInactiveListByDateNext = data
 		// need to categorize active or inactive, not sort list by it.
 		.filter((item) => {
@@ -52,7 +74,10 @@ export function List({ data, listToken }) {
 			(a, b) => b.dateNextPurchased.toMillis() - a.dateNextPurchased.toMillis(),
 		);
 
-	// console.log(sortedListByDateLast.map(item => item.dateLastPurchased || item.dateCreated).map(item => item.toDate()))
+	const sortedFullList = sortedOverdueList.concat(
+		sortedActiveListNoOverdues,
+		sortedInactiveListByDateNext,
+	);
 
 	// need a useEffect or some kind of setState to rerender list on change? watch the dates?
 	useEffect(() => {
@@ -129,17 +154,7 @@ export function List({ data, listToken }) {
 			)}
 
 			<ul>
-				{filterList(sortedActiveListByDateNext).map((item) => (
-					<ListItem
-						{...item}
-						listToken={listToken}
-						key={item.id}
-						itemId={item.id}
-					/>
-				))}
-			</ul>
-			<ul>
-				{filterList(sortedInactiveListByDateNext).map((item) => (
+				{filterList(sortedFullList).map((item) => (
 					<ListItem
 						{...item}
 						listToken={listToken}

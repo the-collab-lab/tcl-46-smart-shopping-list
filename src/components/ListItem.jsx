@@ -50,13 +50,13 @@ export function ListItem({
 		} else {
 			setActiveStatus('active');
 			if (daysToNext < 0) {
-				setWhenToBuy('Overdue |');
+				setWhenToBuy('overdue'); //this exact value is important for List
 			} else if (daysToNext <= 7) {
-				setWhenToBuy('Soon |');
+				setWhenToBuy('soon');
 			} else if (daysToNext > 7 && daysToNext < 30) {
-				setWhenToBuy('Kind of soon |');
+				setWhenToBuy('kind of soon');
 			} else if (daysToNext >= 30) {
-				setWhenToBuy('Not soon |');
+				setWhenToBuy('not soon');
 			}
 		}
 	}, [dateLastPurchased]); //I don't really need to watch daysNext - it duplicates
