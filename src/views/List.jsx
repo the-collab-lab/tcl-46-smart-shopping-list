@@ -15,10 +15,10 @@ export function List({ data, listToken }) {
 		return getDaysBetweenDates(refDate, current) < 60;
 	};
 
-	// issue 12 test - not alphabetized within equal days yet
+	// issue 12 test
 	/**Summation of test
 	 * brute force of copy by filter (overdue, active, inactive) and concat after lists are sorted internally.
-	 * 	to the above, not yet alphabetized
+	 * 	to the above, not yet alphabetized for equal daysToNext
 	 * not currently split out comparePurchaseUrgency
 	 * lots of duplication in ListItem code (maybe pass more of the daysNext? or keep the daysNext/daysSince extraction from other try)
 	 * useEffect prob not the best implementation for real-time update of this kind
@@ -39,7 +39,7 @@ export function List({ data, listToken }) {
 			return checkIfActive(refDate, currentTime) && daysToNext < 0;
 		})
 		.sort(
-			(a, b) => b.dateNextPurchased.toMillis() - a.dateNextPurchased.toMillis(),
+			(a, b) => a.dateNextPurchased.toMillis() - b.dateNextPurchased.toMillis(),
 		);
 
 	const sortedActiveListNoOverdues = data
@@ -57,9 +57,8 @@ export function List({ data, listToken }) {
 			return checkIfActive(refDate, currentTime) && daysToNext >= 0;
 		})
 		.sort(
-			(a, b) => b.dateNextPurchased.toMillis() - a.dateNextPurchased.toMillis(),
+			(a, b) => a.dateNextPurchased.toMillis() - b.dateNextPurchased.toMillis(),
 		);
-	// descending order because the further out, the larger the num.
 
 	const sortedInactiveListByDateNext = data
 		// need to categorize active or inactive, not sort list by it.
@@ -71,7 +70,7 @@ export function List({ data, listToken }) {
 			return !checkIfActive(refDate, currentTime);
 		})
 		.sort(
-			(a, b) => b.dateNextPurchased.toMillis() - a.dateNextPurchased.toMillis(),
+			(a, b) => a.dateNextPurchased.toMillis() - b.dateNextPurchased.toMillis(),
 		);
 
 	const sortedFullList = sortedOverdueList.concat(
