@@ -42,11 +42,10 @@ export function List({ data, listToken, setListToken }) {
 			data.forEach((item) => {
 				deleteItem(listToken, item.id);
 			});
-			setListToken(null, 'tcl-shopping-list-token');
+			setListToken(null);
 			navigate('/');
 		}
 	};
-
 	return (
 		<>
 			{listToken ? (
