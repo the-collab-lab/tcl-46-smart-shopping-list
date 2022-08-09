@@ -81,7 +81,7 @@ export function ListItem({
 				</div>
 
 				<div className="section-delete">
-					<p>delete</p>
+					<button>delete</button>
 				</div>
 			</li>
 		</>

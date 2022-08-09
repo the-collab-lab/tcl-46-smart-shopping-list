@@ -55,8 +55,8 @@
 
 .urgency-icon {
 	/* background-color: purple; */
-
-	height: 70%;
+	border-radius: 50%;
+	height: 20%;
 	aspect-ratio: 1/1;
 }
 .section-urgency p {
