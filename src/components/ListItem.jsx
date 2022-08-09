@@ -76,7 +76,7 @@ export function ListItem({
 				</div>
 
 				<div className="section-urgency">
-					<div className={'urgency-icon' + ' ' + urgency}></div>
+					<div className={'urgency-icon ' + urgency}></div>
 					<p>{urgencyMessage}</p>
 				</div>
 

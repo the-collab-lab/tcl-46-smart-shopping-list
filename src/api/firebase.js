@@ -73,17 +73,22 @@ export function comparePurchaseUrgency(data) {
 		return getDaysBetweenDates(refDate, current) < 60;
 	};
 
-	const sortedOverdueList = data
-		.filter((item) => {
-			let refDate = item.dateLastPurchased
-				? item.dateLastPurchased.toMillis()
-				: item.dateCreated.toMillis();
+	const dataWithDays = data.map((item) => {
+		// we will use these frequently in the next ops, so passing as additional keys:
+		let refDate = item.dateLastPurchased
+			? item.dateLastPurchased.toMillis()
+			: item.dateCreated.toMillis();
 
-			// for overdues:
-			let daysToNext = getDaysBetweenDates(
-				currentTime,
-				item.dateNextPurchased.toMillis(),
-			);
+		let daysToNext = getDaysBetweenDates(
+			currentTime,
+			item.dateNextPurchased.toMillis(),
+		);
+		return { ...item, refDate, daysToNext };
+	});
+
+	const sortedOverdueList = dataWithDays
+		.filter((item) => {
+			const { refDate, daysToNext } = item;
 			return checkIfActive(refDate, currentTime) && daysToNext < 0;
 		})
 		.map((item) => {
@@ -97,39 +102,22 @@ export function comparePurchaseUrgency(data) {
 		)
 		// alphabetize same daysToNext items:
 		.sort((a, b) => {
-			//get days to next
-			let aDaysToNext = getDaysBetweenDates(
-				currentTime,
-				a.dateNextPurchased.toMillis(),
-			);
-			let bDaysToNext = getDaysBetweenDates(
-				currentTime,
-				b.dateNextPurchased.toMillis(),
-			);
-			return aDaysToNext - bDaysToNext || a.name.localeCompare(b.name);
+			return a.daysToNext - b.daysToNext || a.name.localeCompare(b.name);
 		});
 
-	const sortedActiveListNoOverdues = data
+	const sortedActiveListNoOverdues = dataWithDays
 		.filter((item) => {
-			let refDate = item.dateLastPurchased
-				? item.dateLastPurchased.toMillis()
-				: item.dateCreated.toMillis();
-			// for overdues: omit here
-			let daysToNext = getDaysBetweenDates(
-				currentTime,
-				item.dateNextPurchased.toMillis(),
-			);
+			const { refDate, daysToNext } = item;
 			return checkIfActive(refDate, currentTime) && daysToNext >= 0;
 		})
 		.map((item) => {
-			let urgency = 'active';
-			let urgencyMessage = 'Active';
+			let urgency;
+			let urgencyMessage;
+			// let urgency = 'active';
+			// let urgencyMessage = 'Active';
+			//the values for all active items get reassigned below
 
-			let daysToNext = getDaysBetweenDates(
-				currentTime,
-				item.dateNextPurchased.toMillis(),
-			);
-
+			const { daysToNext } = item;
 			if (daysToNext < 0) {
 				urgency = 'overdue';
 				urgencyMessage = 'Overdue';
@@ -150,47 +138,26 @@ export function comparePurchaseUrgency(data) {
 			(a, b) => a.dateNextPurchased.toMillis() - b.dateNextPurchased.toMillis(),
 		) //ascending order - proximity to currentTime
 		.sort((a, b) => {
-			//get days to next
-			let aDaysToNext = getDaysBetweenDates(
-				currentTime,
-				a.dateNextPurchased.toMillis(),
-			);
-			let bDaysToNext = getDaysBetweenDates(
-				currentTime,
-				b.dateNextPurchased.toMillis(),
-			);
-			return aDaysToNext - bDaysToNext || a.name.localeCompare(b.name);
-			// if we wanted reverse alph order: return - ( a.id - b.id  ||  a.name.localeCompare(b.name) )
-			// does not function: return bDaysToNext - DaysToNext || [a.name,b.name].sort()
+			return a.daysToNext - b.daysToNext || a.name.localeCompare(b.name);
 		});
+	// if we wanted reverse alph order: return - ( a.id - b.id  ||  a.name.localeCompare(b.name) )
+	// does not function: return bDaysToNext - DaysToNext || [a.name,b.name].sort()
 
-	const sortedInactiveListByDateNext = data
+	const sortedInactiveListByDateNext = dataWithDays
 		.filter((item) => {
-			let refDate = item.dateLastPurchased
-				? item.dateLastPurchased.toMillis()
-				: item.dateCreated.toMillis();
+			const { refDate } = item;
 			return !checkIfActive(refDate, currentTime);
 		})
 		.map((item) => {
 			let urgency = 'inactive';
 			let urgencyMessage = 'Inactive';
-
 			return { ...item, urgency, urgencyMessage };
 		})
 		.sort(
 			(a, b) => a.dateNextPurchased.toMillis() - b.dateNextPurchased.toMillis(),
 		)
 		.sort((a, b) => {
-			//get days to next
-			let aDaysToNext = getDaysBetweenDates(
-				currentTime,
-				a.dateNextPurchased.toMillis(),
-			);
-			let bDaysToNext = getDaysBetweenDates(
-				currentTime,
-				b.dateNextPurchased.toMillis(),
-			);
-			return aDaysToNext - bDaysToNext || a.name.localeCompare(b.name);
+			return a.daysToNext - b.daysToNext || a.name.localeCompare(b.name);
 		});
 
 	return sortedOverdueList.concat(
