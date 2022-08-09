@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { deleteItem } from '../api';
 import { ListItem } from '../components';
 
 export function List({ data, listToken }) {
@@ -31,9 +32,23 @@ export function List({ data, listToken }) {
 			.catch(() => setCopied('Not Copied.'));
 	};
 
+	const deleteList = () => {
+		if (
+			window.confirm(
+				'Are you sure you want to delete your shopping list? This cannot be undone.',
+			)
+		) {
+			data.forEach((item) => {
+				deleteItem(listToken, item.id);
+			});
+			localStorage.removeItem('tcl-shopping-list-token');
+			navigate('/');
+		}
+	};
+
 	return (
 		<>
-			{data.length ? (
+			{data.length > 1 ? (
 				<div>
 					<label>
 						Filter Items
@@ -59,6 +74,19 @@ export function List({ data, listToken }) {
 							</button>
 						</p>
 					</div>
+					<ul>
+						{filterList(data)
+							.filter((item) => item.name !== '')
+							.map((item) => (
+								<ListItem
+									{...item}
+									listToken={listToken}
+									key={item.id}
+									itemId={item.id}
+								/>
+							))}
+					</ul>
+					<button onClick={deleteList}>Delete List</button>
 				</div>
 			) : (
 				<div>
@@ -73,19 +101,6 @@ export function List({ data, listToken }) {
 					</button>
 				</div>
 			)}
-
-			<ul>
-				{filterList(data)
-					.filter((item) => item.name !== '')
-					.map((item) => (
-						<ListItem
-							{...item}
-							listToken={listToken}
-							key={item.id}
-							itemId={item.id}
-						/>
-					))}
-			</ul>
 		</>
 	);
 }
