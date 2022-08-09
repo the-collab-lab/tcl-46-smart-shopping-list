@@ -75,16 +75,13 @@ export function comparePurchaseUrgency(data) {
 
 	// separate out sorting logic after filtering and mapping urgency keys
 	const sortByNextDateAlphabetical = (array) => {
-		return array
-			.sort(
-				(a, b) =>
-					a.dateNextPurchased.toMillis() - b.dateNextPurchased.toMillis(),
-			) //ascending order - proximity to currentTime
-			.sort((a, b) => {
-				return a.daysToNext - b.daysToNext || a.name.localeCompare(b.name);
-			});
-		// if we wanted reverse alph order: return - ( a.id - b.id  ||  a.name.localeCompare(b.name) )
-		// does not function: return bDaysToNext - DaysToNext || [a.name,b.name].sort()
+		return (
+			array
+				//ascending order by proximity to currentTime, then if equal, lexicographic order
+				.sort((a, b) => {
+					return a.daysToNext - b.daysToNext || a.name.localeCompare(b.name);
+				})
+		);
 	};
 
 	const dataWithDays = data.map((item) => {
