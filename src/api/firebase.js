@@ -135,7 +135,7 @@ export function comparePurchaseUrgency(data) {
 				urgencyMessage = 'Overdue';
 			} else if (daysToNext <= 7) {
 				urgency = 'soon';
-				urgencyMessage = 'Kind of Soon';
+				urgencyMessage = 'Soon';
 			} else if (daysToNext > 7 && daysToNext < 30) {
 				urgency = 'kind-of-soon';
 				urgencyMessage = 'Kind Of Soon';
