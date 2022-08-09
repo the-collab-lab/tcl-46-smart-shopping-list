@@ -61,6 +61,107 @@ export function getItemData(snapshot) {
 	});
 }
 
+export function comparePurchaseUrgency(data) {
+	/**with the following behaviors
+	sorts inactive items last, then
+	sorts items in ascending order of days until purchase, and
+	sorts items with the same days until purchase alphabetically */
+
+	let currentTime = new Date().getTime(); //in MS
+	// separating out the logic for active/inactive
+	const checkIfActive = (refDate, current) => {
+		return getDaysBetweenDates(refDate, current) < 60;
+	};
+
+	const sortedOverdueList = data
+		.filter((item) => {
+			let refDate = item.dateLastPurchased
+				? item.dateLastPurchased.toMillis()
+				: item.dateCreated.toMillis();
+
+			// for overdues:
+			let daysToNext = getDaysBetweenDates(
+				currentTime,
+				item.dateNextPurchased.toMillis(),
+			);
+			return checkIfActive(refDate, currentTime) && daysToNext < 0;
+		})
+		.sort(
+			(a, b) => b.dateNextPurchased.toMillis() - a.dateNextPurchased.toMillis(),
+		) //descending order here - farther out = MORE overdue
+		// alphabetize same daysToNext items:
+		.sort((a, b) => {
+			//get days to next
+			let aDaysToNext = getDaysBetweenDates(
+				currentTime,
+				a.dateNextPurchased.toMillis(),
+			);
+			let bDaysToNext = getDaysBetweenDates(
+				currentTime,
+				b.dateNextPurchased.toMillis(),
+			);
+			return aDaysToNext - bDaysToNext || a.name.localeCompare(b.name);
+		});
+
+	const sortedActiveListNoOverdues = data
+		.filter((item) => {
+			let refDate = item.dateLastPurchased
+				? item.dateLastPurchased.toMillis()
+				: item.dateCreated.toMillis();
+			// for overdues: omit here
+			let daysToNext = getDaysBetweenDates(
+				currentTime,
+				item.dateNextPurchased.toMillis(),
+			);
+			return checkIfActive(refDate, currentTime) && daysToNext >= 0;
+		})
+		.sort(
+			(a, b) => a.dateNextPurchased.toMillis() - b.dateNextPurchased.toMillis(),
+		) //ascending order - proximity to currentTime
+		.sort((a, b) => {
+			//get days to next
+			let aDaysToNext = getDaysBetweenDates(
+				currentTime,
+				a.dateNextPurchased.toMillis(),
+			);
+			let bDaysToNext = getDaysBetweenDates(
+				currentTime,
+				b.dateNextPurchased.toMillis(),
+			);
+			return aDaysToNext - bDaysToNext || a.name.localeCompare(b.name);
+			// if we wanted reverse alph order: return - ( a.id - b.id  ||  a.name.localeCompare(b.name) )
+			// does not function: return bDaysToNext - DaysToNext || [a.name,b.name].sort()
+		});
+
+	const sortedInactiveListByDateNext = data
+		.filter((item) => {
+			let refDate = item.dateLastPurchased
+				? item.dateLastPurchased.toMillis()
+				: item.dateCreated.toMillis();
+			return !checkIfActive(refDate, currentTime);
+		})
+		.sort(
+			(a, b) => a.dateNextPurchased.toMillis() - b.dateNextPurchased.toMillis(),
+		)
+		.sort((a, b) => {
+			//get days to next
+			let aDaysToNext = getDaysBetweenDates(
+				currentTime,
+				a.dateNextPurchased.toMillis(),
+			);
+			let bDaysToNext = getDaysBetweenDates(
+				currentTime,
+				b.dateNextPurchased.toMillis(),
+			);
+			return aDaysToNext - bDaysToNext || a.name.localeCompare(b.name);
+		});
+
+	return sortedOverdueList.concat(
+		sortedActiveListNoOverdues,
+		sortedInactiveListByDateNext,
+	);
+}
+
 /**
  * Add a new item to the user's list in Firestore.
  * @param {string} listId The id of the list we're adding to.
