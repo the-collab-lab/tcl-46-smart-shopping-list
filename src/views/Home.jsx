@@ -2,7 +2,7 @@ import './Home.css';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { generateToken } from '@the-collab-lab/shopping-list-utils';
-import { getItemData, streamListItems } from '../api';
+import { getItemData, streamListItems, addItem } from '../api';
 
 export function Home({ setListToken }) {
 	const [errorMessage, setErrorMessage] = useState('');
@@ -10,9 +10,14 @@ export function Home({ setListToken }) {
 
 	const navigate = useNavigate();
 
+	function addPlaceholderItem(listId) {
+		addItem(listId, { itemName: '', daysUntilNextPurchase: 0 });
+	}
+
 	function makeNewList() {
 		const newToken = generateToken();
 		setListToken(newToken);
+		addPlaceholderItem(newToken);
 		navigate('/list');
 	}
 

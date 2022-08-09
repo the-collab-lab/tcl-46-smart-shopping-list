@@ -75,14 +75,16 @@ export function List({ data, listToken }) {
 			)}
 
 			<ul>
-				{filterList(data).map((item) => (
-					<ListItem
-						{...item}
-						listToken={listToken}
-						key={item.id}
-						itemId={item.id}
-					/>
-				))}
+				{filterList(data)
+					.filter((item) => item.name !== '')
+					.map((item) => (
+						<ListItem
+							{...item}
+							listToken={listToken}
+							key={item.id}
+							itemId={item.id}
+						/>
+					))}
 			</ul>
 		</>
 	);
