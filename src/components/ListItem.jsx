@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-import { updateItem } from '../api/firebase';
+import { updateItem, deleteItem } from '../api/firebase';
 
 import { getFutureDate } from '../utils';
 
@@ -27,7 +27,6 @@ export function ListItem({
 				isChecked: isPurchased,
 				dateCreated: dateCreated,
 				dateLastPurchased: dateLastPurchased, // added
-
 				currentDate: getFutureDate(0),
 				currentTime: new Date().getTime(),
 				dateNextPurchased: dateNextPurchased, //reassigned inside the function - this passes initial dNP
@@ -45,13 +44,14 @@ export function ListItem({
 			}
 		}
 	}, []);
+
 	function handleValueChange(evt) {
 		setIsPurchased(evt.target.checked);
 	}
 
-	function deleteItem() {
-		if (window.confirm('Are you sure you want to delete?')) {
-			console.log('delete function');
+	function handleDelete() {
+		if (window.confirm(`Are you sure you want to delete ${name}?`)) {
+			deleteItem(listToken, itemId);
 		}
 	}
 
@@ -69,7 +69,7 @@ export function ListItem({
 			<label className="ListItem-label" htmlFor={name}>
 				{name}
 			</label>
-			<button onClick={deleteItem}>Delete</button>
+			<button onClick={handleDelete}>Delete</button>
 		</li>
 	);
 }
