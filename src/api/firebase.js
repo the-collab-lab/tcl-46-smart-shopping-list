@@ -120,9 +120,6 @@ export function comparePurchaseUrgency(data) {
 			.map((item) => {
 				let urgency;
 				let urgencyMessage;
-				// let urgency = 'active';
-				// let urgencyMessage = 'Active';
-				//the values for all active items get reassigned below
 
 				const { daysToNext } = item;
 				if (daysToNext < 0) {
