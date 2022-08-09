@@ -1,42 +1,101 @@
 .ListItem {
-	align-items: baseline;
+	background-color: darkslategray;
+
+	font-size: 1.2em;
+
+	height: 80px;
+	width: 100%;
+
 	display: flex;
 	flex-direction: row;
-	font-size: 1.2em;
+	align-items: center;
+	justify-content: space-around;
+
+	margin-bottom: 16px;
 }
 
-.ListItem span {
-	min-width: 200px;
+.section-checkbox {
+	/* background-color: orange; */
+
+	height: 100%;
+	width: 10%;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
+
 .ListItem-checkbox {
 	accent-color: var(--color-accent);
 }
 
-.ListItem-label {
-	margin-left: 0.2em;
-	min-width: 200px;
+.section-label {
+	/* background-color: yellow; */
+	/* color: black; */
+
+	overflow: hidden;
+	height: 100%;
+	width: 40%;
+
+	display: flex;
+	align-items: center;
+
+	padding-left: 16px;
 }
 
-.tempReadable {
-	font-weight: bold;
+.section-urgency {
+	/* background-color: green; */
+
+	height: 100%;
+	width: 30%;
+
+	display: flex;
+	align-items: center;
+
+	padding-left: 10px;
+}
+
+.urgency-icon {
+	/* background-color: purple; */
+
+	height: 70%;
+	aspect-ratio: 1/1;
+}
+.section-urgency p {
+	margin: 0 0 0 10px;
+}
+
+.section-delete {
+	/* background-color: blue; */
+
+	height: 100%;
+	width: 20%;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.section-delete p {
+	margin: 0;
 }
 
 .soon {
-	color: red;
+	background-color: red;
 }
 
 .kind-of-soon {
-	color: orange;
+	background-color: orange;
 }
 
 .not-soon {
-	color: yellow;
-}
-
-.overdue {
-	color: purple;
+	background-color: yellow;
 }
 
 .inactive {
-	color: grey;
+	background-color: grey;
+}
+
+.overdue {
+	background-color: purple;
 }

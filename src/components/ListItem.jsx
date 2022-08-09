@@ -55,21 +55,35 @@ export function ListItem({
 	}
 
 	return (
-		<li className="ListItem">
-			<input
-				className="ListItem-checkbox"
-				type="checkbox"
-				id={name}
-				name={name}
-				value={name}
-				onChange={handleValueChange}
-				defaultChecked={isChecked}
-			/>
+		<>
+			<li className="ListItem">
+				<div className="section-checkbox">
+					<input
+						className="ListItem-checkbox"
+						type="checkbox"
+						id={name}
+						name={name}
+						value={name}
+						onChange={handleValueChange}
+						defaultChecked={isChecked}
+					/>
+				</div>
 
-			<label className="ListItem-label" htmlFor={name}>
-				{name}
-			</label>
-			<span className={urgency}>{urgencyMessage}</span>
-		</li>
+				<div className="section-label">
+					<label className="ListItem-label" htmlFor={name}>
+						{name}
+					</label>
+				</div>
+
+				<div className="section-urgency">
+					<div className={'urgency-icon' + ' ' + urgency}></div>
+					<p>{urgencyMessage}</p>
+				</div>
+
+				<div className="section-delete">
+					<p>delete</p>
+				</div>
+			</li>
+		</>
 	);
 }
