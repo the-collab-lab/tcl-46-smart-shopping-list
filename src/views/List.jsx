@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { ListItem } from '../components';
 
 // ADDED
-import { getDaysBetweenDates } from '../utils';
 import { comparePurchaseUrgency } from '../api/firebase';
 
 export function List({ data, listToken }) {
