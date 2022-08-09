@@ -2,8 +2,9 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { deleteItem } from '../api';
 import { ListItem } from '../components';
+import NoToken from '../components/NoToken';
 
-export function List({ data, listToken }) {
+export function List({ data, listToken, setListToken }) {
 	const navigate = useNavigate();
 	const [searchTerm, setSearchTerm] = useState('');
 	const [copied, setCopied] = useState('');
@@ -41,65 +42,73 @@ export function List({ data, listToken }) {
 			data.forEach((item) => {
 				deleteItem(listToken, item.id);
 			});
-			localStorage.removeItem('tcl-shopping-list-token');
+			setListToken(null, 'tcl-shopping-list-token');
 			navigate('/');
 		}
 	};
 
 	return (
 		<>
-			{data.length > 1 ? (
-				<div>
-					<label>
-						Filter Items
-						<input
-							type="text"
-							placeholder="start typing here..."
-							id="filter"
-							name="filter"
-							value={searchTerm}
-							onChange={(e) => {
-								setSearchTerm(e.target.value);
-							}}
-						/>
-					</label>
-					<button type="button" onClick={clearSearchTerm} aria-live="polite">
-						clear
-					</button>
+			{listToken ? (
+				data.length > 1 ? (
 					<div>
-						<p>
-							Copy token to allow others join your list:
-							<button onClick={copyToken} id="token">
-								{copied ? copied : listToken}
-							</button>
-						</p>
+						<label>
+							Filter Items
+							<input
+								type="text"
+								placeholder="start typing here..."
+								id="filter"
+								name="filter"
+								value={searchTerm}
+								onChange={(e) => {
+									setSearchTerm(e.target.value);
+								}}
+							/>
+						</label>
+						<button type="button" onClick={clearSearchTerm} aria-live="polite">
+							clear
+						</button>
+						<div>
+							<p>
+								Copy token to allow others join your list:
+								<button onClick={copyToken} id="token">
+									{copied ? copied : listToken}
+								</button>
+							</p>
+						</div>
+						<ul>
+							{filterList(data)
+								.filter((item) => item.name !== '')
+								.map((item) => (
+									<ListItem
+										{...item}
+										listToken={listToken}
+										key={item.id}
+										itemId={item.id}
+									/>
+								))}
+						</ul>
+						<button onClick={deleteList}>Delete List</button>
 					</div>
-					<ul>
-						{filterList(data)
-							.filter((item) => item.name !== '')
-							.map((item) => (
-								<ListItem
-									{...item}
-									listToken={listToken}
-									key={item.id}
-									itemId={item.id}
-								/>
-							))}
-					</ul>
-					<button onClick={deleteList}>Delete List</button>
-				</div>
+				) : (
+					<div>
+						<h2>Welcome to your smart shopping list!</h2>
+						<p>
+							This app will learn from your purchasing habits and help you
+							prioritize and plan your shopping list.
+						</p>
+						Copy token to share your list with others:
+						<button onClick={copyToken} id="token">
+							{copied ? copied : listToken}
+						</button>
+						<button type="button" onClick={() => navigate('/add-item')}>
+							Start adding items
+						</button>
+						<button onClick={deleteList}>Delete List</button>
+					</div>
+				)
 			) : (
-				<div>
-					<h2>Welcome to your smart shopping list!</h2>
-					<p>
-						This app will learn from your purchasing habits and help you
-						prioritize and plan your shopping list. You must add at least one
-						item to start sharing your list with others.
-					</p>
-					<button type="button" onClick={() => navigate('/add-item')}>
-						Start adding items
-					</button>
-				</div>
+				<NoToken />
 			)}
 		</>
 	);

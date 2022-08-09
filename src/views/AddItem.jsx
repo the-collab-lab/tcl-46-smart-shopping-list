@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { isEmpty, isDuplicate } from '../utils/validateStrings';
 import { addItem } from '../api/firebase';
+import NoToken from '../components/NoToken';
 
 const defaultItem = { itemName: '', daysUntilNextPurchase: 7 };
 export function AddItem({ data, listToken }) {
@@ -46,37 +47,40 @@ export function AddItem({ data, listToken }) {
 	};
 
 	return (
-		<div>
-			<p>
-				Hello from the <code>/add-item</code> page!
-			</p>
-			<form onSubmit={addItemToDatabase}>
-				<label htmlFor="addItem">
-					Add Item
-					<input
-						placeholder="Item Name"
-						id="addItem"
-						value={item.itemName}
-						onChange={updateItem}
-						name="itemName"
-					/>
-				</label>
-				<label htmlFor="itemFrequency">
-					Select Frequency
-					<select
-						value={item.daysUntilNextPurchase}
-						onChange={updateItem}
-						name="daysUntilNextPurchase"
-						id="itemFrequency"
-					>
-						<option value={7}>Soon</option>
-						<option value={14}>Kind of Soon</option>
-						<option value={30}>Not Soon</option>
-					</select>
-				</label>
-				<button type="submit">Submit</button>
-			</form>
-			<p>{status}</p>
-		</div>
+		<>
+			{listToken ? (
+				<div>
+					<form onSubmit={addItemToDatabase}>
+						<label htmlFor="addItem">
+							Add Item
+							<input
+								placeholder="Item Name"
+								id="addItem"
+								value={item.itemName}
+								onChange={updateItem}
+								name="itemName"
+							/>
+						</label>
+						<label htmlFor="itemFrequency">
+							Select Frequency
+							<select
+								value={item.daysUntilNextPurchase}
+								onChange={updateItem}
+								name="daysUntilNextPurchase"
+								id="itemFrequency"
+							>
+								<option value={7}>Soon</option>
+								<option value={14}>Kind of Soon</option>
+								<option value={30}>Not Soon</option>
+							</select>
+						</label>
+						<button type="submit">Submit</button>
+					</form>
+					<p>{status}</p>
+				</div>
+			) : (
+				<NoToken />
+			)}
+		</>
 	);
 }
