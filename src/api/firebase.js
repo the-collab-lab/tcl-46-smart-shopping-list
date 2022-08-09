@@ -73,6 +73,20 @@ export function comparePurchaseUrgency(data) {
 		return getDaysBetweenDates(refDate, current) < 60;
 	};
 
+	// separate out sorting logic after filtering and mapping urgency keys
+	const sortByNextDateAlphabetical = (array) => {
+		return array
+			.sort(
+				(a, b) =>
+					a.dateNextPurchased.toMillis() - b.dateNextPurchased.toMillis(),
+			) //ascending order - proximity to currentTime
+			.sort((a, b) => {
+				return a.daysToNext - b.daysToNext || a.name.localeCompare(b.name);
+			});
+		// if we wanted reverse alph order: return - ( a.id - b.id  ||  a.name.localeCompare(b.name) )
+		// does not function: return bDaysToNext - DaysToNext || [a.name,b.name].sort()
+	};
+
 	const dataWithDays = data.map((item) => {
 		// we will use these frequently in the next ops, so passing as additional keys:
 		let refDate = item.dateLastPurchased
@@ -86,79 +100,64 @@ export function comparePurchaseUrgency(data) {
 		return { ...item, refDate, daysToNext };
 	});
 
-	const sortedOverdueList = dataWithDays
-		.filter((item) => {
-			const { refDate, daysToNext } = item;
-			return checkIfActive(refDate, currentTime) && daysToNext < 0;
-		})
-		.map((item) => {
-			let urgency = 'overdue';
-			let urgencyMessage = 'Overdue';
+	const sortedOverdueList = sortByNextDateAlphabetical(
+		dataWithDays
+			.filter((item) => {
+				const { refDate, daysToNext } = item;
+				return checkIfActive(refDate, currentTime) && daysToNext < 0;
+			})
+			.map((item) => {
+				let urgency = 'overdue';
+				let urgencyMessage = 'Overdue';
 
-			return { ...item, urgency, urgencyMessage };
-		})
-		.sort(
-			(a, b) => a.dateNextPurchased.toMillis() - b.dateNextPurchased.toMillis(),
-		)
-		// alphabetize same daysToNext items:
-		.sort((a, b) => {
-			return a.daysToNext - b.daysToNext || a.name.localeCompare(b.name);
-		});
+				return { ...item, urgency, urgencyMessage };
+			}),
+	);
 
-	const sortedActiveListNoOverdues = dataWithDays
-		.filter((item) => {
-			const { refDate, daysToNext } = item;
-			return checkIfActive(refDate, currentTime) && daysToNext >= 0;
-		})
-		.map((item) => {
-			let urgency;
-			let urgencyMessage;
-			// let urgency = 'active';
-			// let urgencyMessage = 'Active';
-			//the values for all active items get reassigned below
+	const sortedActiveListNoOverdues = sortByNextDateAlphabetical(
+		dataWithDays
+			.filter((item) => {
+				const { refDate, daysToNext } = item;
+				return checkIfActive(refDate, currentTime) && daysToNext >= 0;
+			})
+			.map((item) => {
+				let urgency;
+				let urgencyMessage;
+				// let urgency = 'active';
+				// let urgencyMessage = 'Active';
+				//the values for all active items get reassigned below
 
-			const { daysToNext } = item;
-			if (daysToNext < 0) {
-				urgency = 'overdue';
-				urgencyMessage = 'Overdue';
-			} else if (daysToNext <= 7) {
-				urgency = 'soon';
-				urgencyMessage = 'Soon';
-			} else if (daysToNext > 7 && daysToNext < 30) {
-				urgency = 'kind-of-soon';
-				urgencyMessage = 'Kind Of Soon';
-			} else if (daysToNext >= 30) {
-				urgency = 'not-soon';
-				urgencyMessage = 'Not Soon';
-			}
+				const { daysToNext } = item;
+				if (daysToNext < 0) {
+					urgency = 'overdue';
+					urgencyMessage = 'Overdue';
+				} else if (daysToNext <= 7) {
+					urgency = 'soon';
+					urgencyMessage = 'Soon';
+				} else if (daysToNext > 7 && daysToNext < 30) {
+					urgency = 'kind-of-soon';
+					urgencyMessage = 'Kind Of Soon';
+				} else if (daysToNext >= 30) {
+					urgency = 'not-soon';
+					urgencyMessage = 'Not Soon';
+				}
 
-			return { ...item, urgency, urgencyMessage };
-		})
-		.sort(
-			(a, b) => a.dateNextPurchased.toMillis() - b.dateNextPurchased.toMillis(),
-		) //ascending order - proximity to currentTime
-		.sort((a, b) => {
-			return a.daysToNext - b.daysToNext || a.name.localeCompare(b.name);
-		});
-	// if we wanted reverse alph order: return - ( a.id - b.id  ||  a.name.localeCompare(b.name) )
-	// does not function: return bDaysToNext - DaysToNext || [a.name,b.name].sort()
+				return { ...item, urgency, urgencyMessage };
+			}),
+	);
 
-	const sortedInactiveListByDateNext = dataWithDays
-		.filter((item) => {
-			const { refDate } = item;
-			return !checkIfActive(refDate, currentTime);
-		})
-		.map((item) => {
-			let urgency = 'inactive';
-			let urgencyMessage = 'Inactive';
-			return { ...item, urgency, urgencyMessage };
-		})
-		.sort(
-			(a, b) => a.dateNextPurchased.toMillis() - b.dateNextPurchased.toMillis(),
-		)
-		.sort((a, b) => {
-			return a.daysToNext - b.daysToNext || a.name.localeCompare(b.name);
-		});
+	const sortedInactiveListByDateNext = sortByNextDateAlphabetical(
+		dataWithDays
+			.filter((item) => {
+				const { refDate } = item;
+				return !checkIfActive(refDate, currentTime);
+			})
+			.map((item) => {
+				let urgency = 'inactive';
+				let urgencyMessage = 'Inactive';
+				return { ...item, urgency, urgencyMessage };
+			}),
+	);
 
 	return sortedOverdueList.concat(
 		sortedActiveListNoOverdues,
