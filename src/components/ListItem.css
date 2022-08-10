@@ -3,7 +3,7 @@
 
 	font-size: 1.2em;
 
-	height: 80px;
+	min-height: 2.4em;
 	width: 100%;
 
 	display: flex;
@@ -11,7 +11,8 @@
 	align-items: center;
 	justify-content: space-around;
 
-	margin-bottom: 16px;
+	margin-bottom: 1em;
+	padding: 0.6em 0;
 }
 
 .section-checkbox {
@@ -28,54 +29,39 @@
 }
 
 .section-label {
-	/* background-color: yellow; */
-	/* color: black; */
-
-	overflow: hidden;
 	height: 100%;
 	width: 40%;
 
 	display: flex;
 	align-items: center;
-
-	padding-left: 16px;
 }
 
 .section-urgency {
-	/* background-color: green; */
-
 	height: 100%;
 	width: 30%;
 
 	display: flex;
 	align-items: center;
 
-	padding-left: 10px;
+	padding-left: 0.6em;
 }
 
 .urgency-icon {
-	/* background-color: purple; */
 	border-radius: 50%;
-	height: 20%;
+	height: 0.8em;
 	aspect-ratio: 1/1;
 }
 .section-urgency p {
-	margin: 0 0 0 10px;
+	margin: 0 0 0 0.6em;
 }
 
 .section-delete {
-	/* background-color: blue; */
-
 	height: 100%;
 	width: 20%;
 
 	display: flex;
 	align-items: center;
 	justify-content: center;
-}
-
-.section-delete p {
-	margin: 0;
 }
 
 .soon {
