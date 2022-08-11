@@ -44,14 +44,12 @@ export function List({ data, listToken, setListToken }) {
 				itemsToBeDeleted.push(deleteItem(listToken, item.id));
 			});
 			Promise.all(itemsToBeDeleted)
-				.then(() => {
-					console.log('success');
-					setListToken(null, 'tcl-shopping-list-token');
-
-					navigate('/');
-				})
 				.catch((err) => {
 					console.log(err);
+				})
+				.finally(() => {
+					setListToken(null, 'tcl-shopping-list-token');
+					navigate('/');
 				});
 		}
 	};
