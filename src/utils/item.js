@@ -10,7 +10,7 @@ export const checkIfActive = (ref, current) => {
 
 export const sortByNextDateAlphabetical = (array) => {
 	return array.sort((a, b) => {
-		return a.daysToNext - b.daysToNext || a.name.localeCompare(b.name, 'en');
+		return a.daysToNext - b.daysToNext || a.name.localeCompare(b.name);
 	});
 };
 
@@ -42,7 +42,6 @@ export function comparePurchaseUrgency(data) {
 			.map((item) => {
 				let urgency = 'overdue';
 				let urgencyMessage = 'Overdue';
-				console.log(item.daysToNext);
 				return { ...item, urgency, urgencyMessage };
 			}),
 	);
