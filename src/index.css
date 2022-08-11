@@ -14,7 +14,7 @@
 	--color-bg-well: var(--color-gray-dark);
 	--color-error: var(--color-red);
 	--color-text: var(--color-white);
-	--color-listitem-bg: var(--color-gray-dark); /*added*/
+	--color-listitem-bg: var(--color-gray-dark);
 }
 
 @media screen and (prefers-color-scheme: light) {
@@ -23,7 +23,7 @@
 		--color-bg: var(--color-white);
 		--color-bg-well: var(--color-gray-light);
 		--color-text: var(--color-black);
-		--color-listitem-bg: var(--color-gray-light); /*added*/
+		--color-listitem-bg: var(--color-gray-light);
 	}
 }
 
