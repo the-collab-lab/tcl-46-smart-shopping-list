@@ -8,11 +8,15 @@ export function List({ data, listToken, setListToken }) {
 	const navigate = useNavigate();
 	const [searchTerm, setSearchTerm] = useState('');
 	const [copied, setCopied] = useState('');
+	const [currentListToken, setCurrentListToken] = useState(listToken);
 
 	useEffect(() => {
 		if (copied) setTimeout(() => setCopied(''), 2000);
 	}, [copied]);
 
+	useEffect(() => {
+		console.log(currentListToken);
+	}, [currentListToken]);
 	const filterList = (list) => {
 		const cleanup = (inputString) => {
 			return inputString.toLowerCase().trim().replace(/\s+/g, ' ');
@@ -39,16 +43,26 @@ export function List({ data, listToken, setListToken }) {
 				'Are you sure you want to delete your shopping list? This cannot be undone.',
 			)
 		) {
+			const itemsToBeDeleted = [];
 			data.forEach((item) => {
-				deleteItem(listToken, item.id);
+				itemsToBeDeleted.push(deleteItem(listToken, item.id));
 			});
-			setListToken(null);
-			navigate('/');
+			Promise.all(itemsToBeDeleted)
+				.then(() => {
+					console.log('success');
+					setListToken(null, 'tcl-shopping-list-token');
+					setCurrentListToken(null);
+
+					navigate('/');
+				})
+				.catch((err) => {
+					console.log(err);
+				});
 		}
 	};
 	return (
 		<>
-			{listToken ? (
+			{currentListToken ? (
 				data.length > 1 ? (
 					<div>
 						<label>

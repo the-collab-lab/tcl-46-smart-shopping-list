@@ -145,5 +145,5 @@ export async function updateItem(
 export async function deleteItem(listId, itemId) {
 	const listItemRef = doc(collection(db, listId), itemId);
 
-	await deleteDoc(listItemRef);
+	return await deleteDoc(listItemRef);
 }
