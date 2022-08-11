@@ -35,7 +35,7 @@ describe('check if active function', () => {
 	});
 });
 
-describe('order by daysToNext ascending, then sort alphabetically if days are equal', () => {
+test('order by daysToNext ascending, then sort alphabetically if days are equal', () => {
 	const check = [
 		{
 			name: 'Albatross',
