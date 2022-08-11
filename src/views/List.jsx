@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ListItem } from '../components';
 
-import { comparePurchaseUrgency } from '../api/firebase';
+import { comparePurchaseUrgency } from '../utils/item';
 
 export function List({ data, listToken }) {
 	const navigate = useNavigate();
