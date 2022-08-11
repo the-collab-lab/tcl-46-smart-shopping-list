@@ -3,8 +3,9 @@ import { checkIfActive, sortByNextDateAlphabetical } from '../src/utils/item';
 
 describe('check if active function', () => {
 	const ONE_DAY_IN_MILLISECONDS = 86400000; //Needed to be brought in here?
+	let currentTime = new Date().getTime();
+
 	it('Returns true when passed a time no more than 59 days before current time', () => {
-		let currentTime = new Date().getTime();
 		const check = [
 			currentTime,
 			currentTime - 1,
@@ -19,8 +20,6 @@ describe('check if active function', () => {
 	});
 
 	it('Returns false when passed a time 60 or more days earlier than current time or invalid ref value', () => {
-		let currentTime = new Date().getTime();
-
 		const check = [
 			currentTime - 5184000000, //should be same as below, 60 days prior
 			currentTime - 60 * ONE_DAY_IN_MILLISECONDS,
