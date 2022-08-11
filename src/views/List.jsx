@@ -8,15 +8,11 @@ export function List({ data, listToken, setListToken }) {
 	const navigate = useNavigate();
 	const [searchTerm, setSearchTerm] = useState('');
 	const [copied, setCopied] = useState('');
-	const [currentListToken, setCurrentListToken] = useState(listToken);
 
 	useEffect(() => {
 		if (copied) setTimeout(() => setCopied(''), 2000);
 	}, [copied]);
 
-	useEffect(() => {
-		console.log(currentListToken);
-	}, [currentListToken]);
 	const filterList = (list) => {
 		const cleanup = (inputString) => {
 			return inputString.toLowerCase().trim().replace(/\s+/g, ' ');
@@ -51,7 +47,6 @@ export function List({ data, listToken, setListToken }) {
 				.then(() => {
 					console.log('success');
 					setListToken(null, 'tcl-shopping-list-token');
-					setCurrentListToken(null);
 
 					navigate('/');
 				})
@@ -62,7 +57,7 @@ export function List({ data, listToken, setListToken }) {
 	};
 	return (
 		<>
-			{currentListToken ? (
+			{listToken ? (
 				data.length > 1 ? (
 					<div>
 						<label>
