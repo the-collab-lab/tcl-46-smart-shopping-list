@@ -2,7 +2,7 @@ import { checkIfActive, sortByNextDateAlphabetical } from '../src/utils/item';
 // import { ONE_DAY_IN_MILLISECONDS } from '../src/utils/dates';
 
 describe('check if active function', () => {
-	const ONE_DAY_IN_MILLISECONDS = 86400000; //Needed to be brought in here?
+	const ONE_DAY_IN_MILLISECONDS = 86400000; //Needed to be brought in here
 	let currentTime = new Date().getTime();
 
 	it('Returns true when passed a time no more than 59 days before current time', () => {
@@ -15,7 +15,7 @@ describe('check if active function', () => {
 
 		check.forEach((ref) => {
 			console.log(`ref: ${ref}, currentTime: ${currentTime}`);
-			expect(checkIfActive(ref, currentTime)).toBeTruthy(); //failing this test
+			expect(checkIfActive(ref, currentTime)).toBeTruthy();
 		});
 	});
 
