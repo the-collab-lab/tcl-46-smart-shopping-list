@@ -16,10 +16,13 @@ describe('check if active function', () => {
 		});
 	});
 
-	it('Returns false when passed a time 60 or more days earlier than current time', () => {
+	it('Returns false when passed a time 60 or more days earlier than current time or invalid ref value', () => {
 		const check = [
 			currentTime - 60 * ONE_DAY_IN_MILLISECONDS,
 			currentTime - 61 * ONE_DAY_IN_MILLISECONDS,
+			null,
+			undefined,
+			'%!A@or',
 		];
 
 		check.forEach((ref) => {
