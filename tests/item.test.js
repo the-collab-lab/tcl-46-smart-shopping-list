@@ -28,7 +28,7 @@ describe('check if active function', () => {
 	});
 });
 
-describe('order by daysToNext ascending, then sort by UTF-16 code', () => {
+describe('order by daysToNext ascending, then sort alphabetically if days are equal', () => {
 	const check = [
 		{
 			name: 'Albatross',
@@ -40,6 +40,10 @@ describe('order by daysToNext ascending, then sort by UTF-16 code', () => {
 		},
 		{
 			name: '1lbatross',
+			daysToNext: 3,
+		},
+		{
+			name: '%lbatross',
 			daysToNext: 3,
 		},
 		{
@@ -69,6 +73,7 @@ describe('order by daysToNext ascending, then sort by UTF-16 code', () => {
 		'jar',
 		'hamster',
 		'@lbatross',
+		'%lbatross',
 		'1lbatross',
 		'Albatross',
 		'cheese',

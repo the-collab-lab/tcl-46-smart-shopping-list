@@ -10,7 +10,7 @@ export const checkIfActive = (ref, current) => {
 
 export const sortByNextDateAlphabetical = (array) => {
 	return array.sort((a, b) => {
-		return a.daysToNext - b.daysToNext || a.name.localeCompare(b.name);
+		return a.daysToNext - b.daysToNext || a.name.localeCompare(b.name, 'en');
 	});
 };
 
