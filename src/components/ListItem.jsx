@@ -85,6 +85,7 @@ export function ListItem({
 	}
 
 	return (
+<<<<<<< HEAD
 		<>
 			<li className="ListItem">
 				<div className="section-checkbox">
@@ -117,5 +118,24 @@ export function ListItem({
 				</div>
 			</li>
 		</>
+=======
+		<li className="ListItem">
+			<input
+				className="ListItem-checkbox"
+				type="checkbox"
+				id={name}
+				name={name}
+				value={name}
+				onChange={handleValueChange}
+				defaultChecked={isChecked}
+			/>
+			<label className="ListItem-label" htmlFor={name}>
+				{name}
+			</label>
+			<button onClick={handleDelete} type="button">
+				Delete
+			</button>
+		</li>
+>>>>>>> 805b125 (add type of button for accessibility)
 	);
 }
