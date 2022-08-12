@@ -8,11 +8,7 @@ export const checkIfActive = (ref, current) => {
 	return getDaysBetweenDates(ref, current) < 60;
 };
 
-export const sortByNextDateAlphabetical = (array) => {
-	return array.sort((a, b) => {
-		return a.daysToNext - b.daysToNext || a.name.localeCompare(b.name);
-	});
-};
+export const sortByNextDateAlphabetical = (array) => array.sort((a, b) => a.daysToNext - b.daysToNext || a.name.localeCompare(b.name))
 
 export function comparePurchaseUrgency(data) {
 	/**with the following behaviors
