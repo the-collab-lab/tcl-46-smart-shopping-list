@@ -24,55 +24,27 @@ export function ListItem({
 	// sync up checked or not checked data from the database to the page upon page refresh
 	const [isPurchased, setIsPurchased] = useState(isChecked);
 
-	const [urgency, setUrgency] = useState('');
-	const [urgencyMessage, setUrgencyMessage] = useState('');
-
-	// would prefer the following to work:
-	// inside rendered component would have been: className={urgency[urgencyIndex][0]}, <p>{urgency[urgencyIndex][1]}</p>
-
-	// const urgency = [
-	// 	['overdue', 'Overdue'],
-	// 	['soon', 'Soon'],
-	// 	['kind-of-soon','Kind Of Soon'],
-	// 	['not-soon', 'Not Soon'],
-	// 	['inactive','Inactive']
-	// ]
-	// const [urgencyIndex, setUrgencyIndex] = useState('');
-
-	// useEffect(()=> {
-	// 	console.log('am I looping?')
-	// 	let currentTime = new Date().getTime();
-	// 	console.log(`active? ${checkIfActive(refTime,currentTime)}`)
-	// 	if (!checkIfActive(refTime,currentTime)){
-	// 		setUrgencyIndex(4)
-	// 	} else if (daysToNext < 0) {
-	// 		setUrgencyIndex(0)
-	// 	} else if (daysToNext <= 7){
-	// 		setUrgencyIndex(1)
-	// 	} else if (daysToNext > 7 && daysToNext < 30){
-	// 		setUrgencyIndex(2)
-	// 	} else if (daysToNext >= 30){
-	// 		setUrgencyIndex(3);
-	// 	}
-	// }, [refTime, daysToNext])
+	const urgency = [
+		['overdue', 'Overdue'],
+		['soon', 'Soon'],
+		['kind-of-soon', 'Kind Of Soon'],
+		['not-soon', 'Not Soon'],
+		['inactive', 'Inactive'],
+	];
+	const [urgencyIndex, setUrgencyIndex] = useState(4); //requires a default value else throws error
 
 	useEffect(() => {
 		let currentTime = new Date().getTime();
 		if (!checkIfActive(refTime, currentTime)) {
-			setUrgency('inactive');
-			setUrgencyMessage('Inactive');
+			setUrgencyIndex(4);
 		} else if (daysToNext < 0) {
-			setUrgency('overdue');
-			setUrgencyMessage('Overdue');
+			setUrgencyIndex(0);
 		} else if (daysToNext <= 7) {
-			setUrgency('soon');
-			setUrgencyMessage('Soon');
+			setUrgencyIndex(1);
 		} else if (daysToNext > 7 && daysToNext < 30) {
-			setUrgency('kind-of-soon');
-			setUrgencyMessage('Kind Of Soon');
+			setUrgencyIndex(2);
 		} else if (daysToNext >= 30) {
-			setUrgency('not-soon');
-			setUrgencyMessage('Not Soon');
+			setUrgencyIndex(3);
 		}
 	}, [refTime, daysToNext]);
 
@@ -128,8 +100,8 @@ export function ListItem({
 				</div>
 
 				<div className="section-urgency">
-					<div className={'urgency-icon ' + urgency}></div>
-					<p>{urgencyMessage}</p>
+					<div className={'urgency-icon ' + urgency[urgencyIndex][0]}></div>
+					<p>{urgency[urgencyIndex][1]}</p>
 				</div>
 
 				<div className="section-delete">
