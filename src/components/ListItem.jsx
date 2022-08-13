@@ -100,8 +100,8 @@ export function ListItem({
 				</div>
 
 				<div className="section-urgency">
-					<div className={'urgency-icon ' + urgency[urgencyIndex][0]}></div>
-					<p>{urgency[urgencyIndex][1]}</p>
+					<div className={'urgency-icon ' + urgencyIndex[0]}></div>
+					<p>{urgencyIndex[1]}</p>
 				</div>
 
 				<div className="section-delete">
