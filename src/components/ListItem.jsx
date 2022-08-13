@@ -31,7 +31,7 @@ export function ListItem({
 		['not-soon', 'Not Soon'],
 		['inactive', 'Inactive'],
 	];
-	const [urgencyIndex, setUrgencyIndex] = useState(4); //requires a default value else throws error
+	const [urgencyIndex, setUrgencyIndex] = useState(urgency[4]); //requires a default value else throws error
 
 	useEffect(() => {
 		let currentTime = new Date().getTime();
