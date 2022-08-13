@@ -38,7 +38,7 @@ export function ListItem({
 		if (!checkIfActive(refTime, currentTime)) {
 			setUrgencyIndex(4);
 		} else if (daysToNext < 0) {
-			setUrgencyIndex(0);
+			setUrgencyIndex(urgency[0];
 		} else if (daysToNext <= 7) {
 			setUrgencyIndex(1);
 		} else if (daysToNext > 7 && daysToNext < 30) {
