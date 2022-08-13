@@ -13,7 +13,7 @@ export const sortByNextDateAlphabetical = (array) =>
 		(a, b) => a.daysToNext - b.daysToNext || a.name.localeCompare(b.name),
 	);
 
-const appendDataToDays = (data) =>
+const appendDaysToData = (data) =>
 	data.map((item) => {
 		let refTime = item.dateLastPurchased
 			? item.dateLastPurchased.toMillis()
@@ -43,6 +43,6 @@ const sortedMultiArr = (dataWithDays) =>
 	);
 
 export const comparePurchaseUrgency = (data) => {
-	const dataWithDays = appendDataToDays(data);
+	const dataWithDays = appendDaysToData(data);
 	return sortedMultiArr(dataWithDays).map(sortByNextDateAlphabetical).flat();
 };
