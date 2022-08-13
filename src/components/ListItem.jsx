@@ -36,7 +36,7 @@ export function ListItem({
 	useEffect(() => {
 		let currentTime = new Date().getTime();
 		if (!checkIfActive(refTime, currentTime)) {
-			setUrgencyIndex(4);
+			setUrgencyIndex(urgency[4]);
 		} else if (daysToNext < 0) {
 			setUrgencyIndex(urgency[0];
 		} else if (daysToNext <= 7) {
