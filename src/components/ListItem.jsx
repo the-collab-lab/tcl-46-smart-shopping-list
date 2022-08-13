@@ -40,7 +40,7 @@ export function ListItem({
 		} else if (daysToNext < 0) {
 			setUrgencyIndex(urgency[0];
 		} else if (daysToNext <= 7) {
-			setUrgencyIndex(1);
+			setUrgencyIndex(urgency[1]);
 		} else if (daysToNext > 7 && daysToNext < 30) {
 			setUrgencyIndex(2);
 		} else if (daysToNext >= 30) {
