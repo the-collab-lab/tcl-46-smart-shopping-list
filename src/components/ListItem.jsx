@@ -35,16 +35,16 @@ export function ListItem({
 
 	useEffect(() => {
 		let currentTime = new Date().getTime();
-		if (!checkIfActive(refTime, currentTime)) {
-			setUrgencyIndex(urgency[4]);
-		} else if (daysToNext < 0) {
-			setUrgencyIndex(urgency[0]);
-		} else if (daysToNext <= 7) {
-			setUrgencyIndex(urgency[1]);
-		} else if (daysToNext > 7 && daysToNext < 30) {
-			setUrgencyIndex(urgency[2]);
-		} else if (daysToNext >= 30) {
-			setUrgencyIndex(urgency[3]);
+		if (checkIfActive(refTime, currentTime)) {
+			if (daysToNext < 0) {
+				setUrgencyIndex(urgency[0]);
+			} else if (daysToNext <= 7) {
+				setUrgencyIndex(urgency[1]);
+			} else if (daysToNext > 7 && daysToNext < 30) {
+				setUrgencyIndex(urgency[2]);
+			} else if (daysToNext >= 30) {
+				setUrgencyIndex(urgency[3]);
+			}
 		}
 	}, [refTime, daysToNext]);
 
