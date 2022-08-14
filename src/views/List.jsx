@@ -2,10 +2,14 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ListItem } from '../components';
 
+import { comparePurchaseUrgency } from '../utils/item';
+
 export function List({ data, listToken }) {
 	const navigate = useNavigate();
 	const [searchTerm, setSearchTerm] = useState('');
 	const [copied, setCopied] = useState('');
+
+	const sortedFullList = comparePurchaseUrgency(data);
 
 	useEffect(() => {
 		if (copied) setTimeout(() => setCopied(''), 2000);
@@ -75,7 +79,7 @@ export function List({ data, listToken }) {
 			)}
 
 			<ul>
-				{filterList(data).map((item) => (
+				{filterList(sortedFullList).map((item) => (
 					<ListItem
 						{...item}
 						listToken={listToken}
