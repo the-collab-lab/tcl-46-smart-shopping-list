@@ -1,13 +1,16 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { deleteItem } from '../api';
 import { ListItem } from '../components';
+import { comparePurchaseUrgency } from '../utils/item';
 import NoToken from '../components/NoToken';
 
 export function List({ data, listToken, setListToken }) {
 	const navigate = useNavigate();
 	const [searchTerm, setSearchTerm] = useState('');
 	const [copied, setCopied] = useState('');
+
+	const sortedFullList = useMemo(() => comparePurchaseUrgency(data), [data]);
 
 	useEffect(() => {
 		if (copied) setTimeout(() => setCopied(''), 2000);
@@ -83,7 +86,7 @@ export function List({ data, listToken, setListToken }) {
 							</p>
 						</div>
 						<ul>
-							{filterList(data)
+							{filterList(sortedFullList)
 								.filter((item) => item.name !== '')
 								.map((item) => (
 									<ListItem
