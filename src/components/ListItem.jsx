@@ -24,26 +24,26 @@ export function ListItem({
 	// sync up checked or not checked data from the database to the page upon page refresh
 	const [isPurchased, setIsPurchased] = useState(isChecked);
 
-	const urgency = [
-		['overdue', 'Overdue'],
-		['soon', 'Soon'],
-		['kind-of-soon', 'Kind Of Soon'],
-		['not-soon', 'Not Soon'],
-		['inactive', 'Inactive'],
-	];
-	const [urgencyIndex, setUrgencyIndex] = useState(urgency[4]); //requires a default value else throws error
+	const urgency = {
+		OVERDUE: ['overdue', 'Overdue'],
+		SOON: ['soon', 'Soon'],
+		KIND_OF_SOON: ['kind-of-soon', 'Kind Of Soon'],
+		NOT_SOON: ['not-soon', 'Not Soon'],
+		INACTIVE: ['inactive', 'Inactive'],
+	};
+	const [urgencyIndex, setUrgencyIndex] = useState(urgency.INACTIVE); //requires a default value else throws error
 
 	useEffect(() => {
 		let currentTime = new Date().getTime();
 		if (checkIfActive(refTime, currentTime)) {
 			if (daysToNext < 0) {
-				setUrgencyIndex(urgency[0]);
+				setUrgencyIndex(urgency.OVERDUE);
 			} else if (daysToNext <= 7) {
-				setUrgencyIndex(urgency[1]);
+				setUrgencyIndex(urgency.SOON);
 			} else if (daysToNext > 7 && daysToNext < 30) {
-				setUrgencyIndex(urgency[2]);
+				setUrgencyIndex(urgency.KIND_OF_SOON);
 			} else if (daysToNext >= 30) {
-				setUrgencyIndex(urgency[3]);
+				setUrgencyIndex(urgency.NOT_SOON);
 			}
 		}
 	}, [refTime, daysToNext]);
