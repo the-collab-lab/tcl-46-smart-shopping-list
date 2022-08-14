@@ -1,5 +1,5 @@
-import { useState, useEffect, useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { deleteItem } from '../api';
 import { ListItem } from '../components';
 import { comparePurchaseUrgency } from '../utils/item';
@@ -110,9 +110,9 @@ export function List({ data, listToken, setListToken }) {
 						<button onClick={copyToken} id="token">
 							{copied ? copied : listToken}
 						</button>
-						<button type="button" onClick={() => navigate('/add-item')}>
-							Start adding items
-						</button>
+						<Link to="/add-item">
+							<button type="button">Start adding items</button>
+						</Link>
 						<button onClick={deleteList}>Delete List</button>
 					</div>
 				)
