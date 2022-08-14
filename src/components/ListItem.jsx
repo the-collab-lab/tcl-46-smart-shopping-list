@@ -85,37 +85,35 @@ export function ListItem({
 	}
 
 	return (
-		<>
-			<li className="ListItem">
-				<div className="section-checkbox">
-					<input
-						className="ListItem-checkbox"
-						type="checkbox"
-						id={name}
-						name={name}
-						value={name}
-						onChange={handleValueChange}
-						defaultChecked={isChecked}
-					/>
-				</div>
+		<li className="ListItem">
+			<div className="section-checkbox">
+				<input
+					className="ListItem-checkbox"
+					type="checkbox"
+					id={name}
+					name={name}
+					value={name}
+					onChange={handleValueChange}
+					defaultChecked={isChecked}
+				/>
+			</div>
 
-				<div className="section-label">
-					<label className="ListItem-label" htmlFor={name}>
-						{name}
-					</label>
-				</div>
+			<div className="section-label">
+				<label className="ListItem-label" htmlFor={name}>
+					{name}
+				</label>
+			</div>
 
-				<div className="section-urgency">
-					<div className={'urgency-icon ' + urgencyIndex[0]}></div>
-					<p>{urgencyIndex[1]}</p>
-				</div>
+			<div className="section-urgency">
+				<div className={'urgency-icon ' + urgencyIndex[0]}></div>
+				<p>{urgencyIndex[1]}</p>
+			</div>
 
-				<div className="section-delete">
-					<button type="button" onClick={handleDelete}>
-						delete
-					</button>
-				</div>
-			</li>
-		</>
+			<div className="section-delete">
+				<button type="button" onClick={handleDelete}>
+					delete
+				</button>
+			</div>
+		</li>
 	);
 }
