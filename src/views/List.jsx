@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ListItem } from '../components';
 
@@ -9,7 +9,7 @@ export function List({ data, listToken }) {
 	const [searchTerm, setSearchTerm] = useState('');
 	const [copied, setCopied] = useState('');
 
-	const sortedFullList = comparePurchaseUrgency(data);
+	const sortedFullList = useMemo(() => comparePurchaseUrgency(data), [data]);
 
 	useEffect(() => {
 		if (copied) setTimeout(() => setCopied(''), 2000);
