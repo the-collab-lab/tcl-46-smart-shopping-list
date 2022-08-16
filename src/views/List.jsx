@@ -22,11 +22,8 @@ export function List({ data, listToken, setListToken }) {
 		const newDates = { ...custom, [e.target.name]: e.target.value };
 		setCustom(newDates);
 	};
-	// place in a useEffect? but they are already in state vars - do they need to be? maybe just chain filter
-	// alternately, run this function onChange for either the two inputs?
-	const customDateRange = (start, end) => {
-		// input values are yyyy-mm-dd strings (custom.startDate, custom.endDate)
 
+	const customDateRange = (start, end) => {
 		if (!start || !end) return () => true;
 		const start_IN_MS = new Date(start).getTime();
 		const end_IN_MS = new Date(end).getTime();
@@ -108,7 +105,6 @@ export function List({ data, listToken, setListToken }) {
 						</button>
 						<fieldset>
 							<legend>Search by custom purchase-by date range</legend>
-							{/* are these input types accessible? */}
 							<label>
 								Start date:
 								<input
@@ -140,7 +136,6 @@ export function List({ data, listToken, setListToken }) {
 						<div>
 							<label>
 								Show by urgency
-								{/* some redundancy compared to full storage in listItem? */}
 								<select
 									value={urgencyTerm}
 									onChange={(e) => handleChange(e)}
