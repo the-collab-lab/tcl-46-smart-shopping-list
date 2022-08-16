@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { deleteItem } from '../api';
 import { ListItem } from '../components';
 import { comparePurchaseUrgency } from '../utils/item';
-import { removeList, setTokenFirstList } from '../utils/user';
+import { removeList, setTokenFirstList, getMatchingName } from '../utils/user';
 import NoToken from '../components/NoToken';
 import ListSwitcher from '../components/ListSwitcher';
 
@@ -67,7 +67,11 @@ export function List({ data, listToken, setListToken, user }) {
 					console.log(err);
 				})
 				.finally(() => {
-					setListToken(null, 'tcl-shopping-list-token');
+					const userLists = removeList(
+						user,
+						getMatchingName(userToken, listToken),
+					);
+					setTokenFirstList(setListToken, userLists);
 					navigate('/');
 				});
 		}
@@ -77,6 +81,7 @@ export function List({ data, listToken, setListToken, user }) {
 			{listToken ? (
 				data.length > 1 ? (
 					<div>
+						<h2>{getMatchingName(userToken, listToken)}</h2>
 						<label>
 							Filter Items
 							<input
