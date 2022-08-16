@@ -57,17 +57,17 @@ export function Home({ listToken, setListToken, user }) {
 			<p>
 				Hello from the home (<code>/</code>) page!
 			</p>
-			<label htmlFor="make-list">
-				<input
-					id="make-list"
-					pattern="\w+"
-					onChange={updateListName}
-					value={listName}
-				/>
-			</label>
-			<button type="button" onClick={makeNewList}>
-				Make new list
-			</button>
+			<form onSubmit={makeNewList}>
+				<label htmlFor="make-list">
+					<input
+						id="make-list"
+						type="text"
+						onChange={updateListName}
+						value={listName}
+					/>
+				</label>
+				<button type="submit">Make new list</button>
+			</form>
 			<form onSubmit={joinListSubmit}>
 				<label htmlFor="share-list">
 					Join a List
