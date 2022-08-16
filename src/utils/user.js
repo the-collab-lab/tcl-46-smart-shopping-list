@@ -20,6 +20,20 @@ export const setTokenFirstList = (setListToken, userLists) => {
 	} else setListToken(null);
 };
 
+export const updateName = (user, value, listToken) => {
+	const [userToken, setUserToken] = user;
+	const prevList = JSON.parse(userToken);
+
+	for (let name in prevList) {
+		if (prevList[name] === listToken) {
+			delete prevList[name];
+		}
+	}
+
+	setUserToken(JSON.stringify({ ...prevList, [value]: listToken }));
+	return { ...prevList, [value]: listToken };
+};
+
 export const getMatchingName = (userToken, matchToken) =>
 	getUserListsArr(userToken).find(([, token]) => token === matchToken)[0];
 

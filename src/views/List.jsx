@@ -3,7 +3,12 @@ import { Link, useNavigate } from 'react-router-dom';
 import { deleteItem } from '../api';
 import { ListItem } from '../components';
 import { comparePurchaseUrgency } from '../utils/item';
-import { removeList, setTokenFirstList, getMatchingName } from '../utils/user';
+import {
+	removeList,
+	setTokenFirstList,
+	getMatchingName,
+	updateName,
+} from '../utils/user';
 import NoToken from '../components/NoToken';
 import ListSwitcher from '../components/ListSwitcher';
 
@@ -11,14 +16,21 @@ export function List({ data, listToken, setListToken, user }) {
 	const navigate = useNavigate();
 	const [searchTerm, setSearchTerm] = useState('');
 	const [copied, setCopied] = useState('');
+	const [isDisabled, setIsDisabled] = useState(true);
 
 	const [userToken, setUserToken] = user;
+	const [listName, setListName] = useState(
+		getMatchingName(userToken, listToken),
+	);
 
 	const sortedFullList = useMemo(() => comparePurchaseUrgency(data), [data]);
 
 	useEffect(() => {
 		if (copied) setTimeout(() => setCopied(''), 2000);
-	}, [copied]);
+		if (listName !== getMatchingName(userToken, listToken)) {
+			setListName(getMatchingName(userToken, listToken));
+		}
+	}, [copied, listToken]);
 
 	const filterList = (list) => {
 		const cleanup = (inputString) => {
@@ -76,12 +88,48 @@ export function List({ data, listToken, setListToken, user }) {
 				});
 		}
 	};
+
+	const editName = (e) => {
+		e.preventDefault();
+		if (!isDisabled) {
+			updateName(user, listName, listToken);
+		}
+		setIsDisabled(!isDisabled);
+	};
+
+	const updateListName = (e) => {
+		setListName(e.target.value);
+	};
+
 	return (
 		<>
 			{listToken ? (
 				data.length > 1 ? (
 					<div>
-						<h2>{getMatchingName(userToken, listToken)}</h2>
+						<form onSubmit={editName}>
+							<input
+								readOnly={isDisabled}
+								style={
+									isDisabled
+										? {
+												outline: 'none',
+												borderWidth: 0,
+												backgroundColor: 'transparent',
+												width: '100%',
+												fontSize: '28px',
+										  }
+										: {
+												backgroundColor: 'white',
+												borderWidth: '2px',
+												width: '100%',
+												fontSize: '28px',
+										  }
+								}
+								onChange={updateListName}
+								value={listName}
+							></input>
+							<button type="submit">{isDisabled ? 'Edit' : 'Save'}</button>
+						</form>
 						<label>
 							Filter Items
 							<input
