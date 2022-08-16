@@ -5,10 +5,15 @@ export const addNewListToUser = (user, listName, newToken) => {
 	return { ...tokenLists, [listName]: newToken };
 };
 
-export const setNewUserToken = (user, newToken) => {
+export const setNewUserToken = (user, newToken, listName) => {
 	const [, setUserToken] = user;
-	setUserToken(JSON.stringify({ newToken }));
-	return { newToken };
+	if (listName) {
+		setUserToken(JSON.stringify({ [listName]: newToken }));
+		return { [listName]: newToken };
+	} else {
+		setUserToken(JSON.stringify({ newToken }));
+		return { newToken };
+	}
 };
 
 export const getUserListsArr = (userToken) =>

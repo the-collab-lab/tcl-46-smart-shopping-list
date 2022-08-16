@@ -19,7 +19,7 @@ export function Home({ listToken, setListToken, user }) {
 	function makeNewList() {
 		const newToken = generateToken();
 		if (!listToken) {
-			setNewUserToken(user, newToken);
+			setNewUserToken(user, newToken, listName);
 		} else {
 			addNewListToUser(user, listName, newToken);
 		}
