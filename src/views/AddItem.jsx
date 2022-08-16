@@ -4,9 +4,10 @@ import { addItem } from '../api/firebase';
 import NoToken from '../components/NoToken';
 
 const defaultItem = { itemName: '', daysUntilNextPurchase: 7 };
-export function AddItem({ data, listToken }) {
+export function AddItem({ data, listToken, user }) {
 	const [item, setItem] = useState(defaultItem);
 	const [status, setStatus] = useState('');
+	const [userToken, setUserToken] = user;
 
 	const updateItem = (e) => {
 		if (status) setStatus('');
