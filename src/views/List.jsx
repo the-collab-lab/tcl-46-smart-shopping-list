@@ -2,13 +2,16 @@ import { useState, useEffect, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { deleteItem } from '../api';
 import { ListItem } from '../components';
-import { comparePurchaseUrgency } from '../utils/item';
+import { comparePurchaseUrgency, getUrgency } from '../utils/item';
 import NoToken from '../components/NoToken';
 
 export function List({ data, listToken, setListToken }) {
 	const navigate = useNavigate();
 	const [searchTerm, setSearchTerm] = useState('');
 	const [copied, setCopied] = useState('');
+
+	// temp
+	const [urgencyTerm, setUrgencyTerm] = useState('ALL');
 
 	const sortedFullList = useMemo(() => comparePurchaseUrgency(data), [data]);
 
@@ -56,13 +59,19 @@ export function List({ data, listToken, setListToken }) {
 				});
 		}
 	};
+
+	const handleChange = (e) => {
+		setUrgencyTerm(e.target.value); //async? do I need?
+		//passed to getUrgency
+	};
+
 	return (
 		<>
 			{listToken ? (
 				data.length > 1 ? (
 					<div>
 						<label>
-							Filter Items
+							Find an item
 							<input
 								type="text"
 								placeholder="start typing here..."
@@ -73,6 +82,22 @@ export function List({ data, listToken, setListToken }) {
 									setSearchTerm(e.target.value);
 								}}
 							/>
+						</label>
+						<label>
+							Show by urgency
+							{/* some redundancy compared to full storage in listItem? */}
+							<select
+								value={urgencyTerm}
+								onChange={(e) => handleChange(e)}
+								name="urgency"
+							>
+								<option value="ALL">Choose urgency</option>
+								<option value="SOON">Soon</option>
+								<option value="KIND_OF_SOON">Kind Of Soon</option>
+								<option value="NOT_SOON">Not Soon</option>
+								<option value="OVERDUE">Overdue</option>
+								<option value="INACTIVE">Inactive</option>
+							</select>
 						</label>
 						<button type="button" onClick={clearSearchTerm} aria-live="polite">
 							clear
@@ -88,6 +113,7 @@ export function List({ data, listToken, setListToken }) {
 						<ul>
 							{filterList(sortedFullList)
 								.filter((item) => item.name !== '')
+								.filter(getUrgency(urgencyTerm))
 								.map((item) => (
 									<ListItem
 										{...item}
