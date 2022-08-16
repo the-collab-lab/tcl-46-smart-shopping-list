@@ -12,6 +12,7 @@ import {
 } from '../utils/user';
 import NoToken from '../components/NoToken';
 import ListSwitcher from '../components/ListSwitcher';
+import ListTitle from '../components/ListTitle';
 
 export function List({ data, listToken, setListToken, user }) {
 	const navigate = useNavigate();
@@ -110,30 +111,12 @@ export function List({ data, listToken, setListToken, user }) {
 			{listToken ? (
 				data.length > 1 ? (
 					<div>
-						<form onSubmit={editName}>
-							<input
-								readOnly={isDisabled}
-								style={
-									isDisabled
-										? {
-												outline: 'none',
-												borderWidth: 0,
-												backgroundColor: 'transparent',
-												width: '100%',
-												fontSize: '28px',
-										  }
-										: {
-												backgroundColor: 'white',
-												borderWidth: '2px',
-												width: '100%',
-												fontSize: '28px',
-										  }
-								}
-								onChange={updateListName}
-								value={listName}
-							></input>
-							<button type="submit">{isDisabled ? 'Edit' : 'Save'}</button>
-						</form>
+						<ListTitle
+							editName={editName}
+							isDisabled={isDisabled}
+							updateListName={updateListName}
+							listName={listName}
+						/>
 						<label>
 							Filter Items
 							<input
@@ -184,6 +167,12 @@ export function List({ data, listToken, setListToken, user }) {
 							This app will learn from your purchasing habits and help you
 							prioritize and plan your shopping list.
 						</p>
+						<ListTitle
+							editName={editName}
+							isDisabled={isDisabled}
+							updateListName={updateListName}
+							listName={listName}
+						/>
 						Copy token to share your list with others:
 						<button onClick={copyToken} id="token">
 							{copied ? copied : listToken}
