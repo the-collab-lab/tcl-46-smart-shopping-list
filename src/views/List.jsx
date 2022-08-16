@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { deleteItem } from '../api';
@@ -18,7 +19,7 @@ export function List({ data, listToken, setListToken, user }) {
 	const [copied, setCopied] = useState('');
 	const [isDisabled, setIsDisabled] = useState(true);
 
-	const [userToken, setUserToken] = user;
+	const [userToken] = user;
 	const [listName, setListName] = useState(
 		getMatchingName(userToken, listToken),
 	);
@@ -27,10 +28,13 @@ export function List({ data, listToken, setListToken, user }) {
 
 	useEffect(() => {
 		if (copied) setTimeout(() => setCopied(''), 2000);
+	}, [copied]);
+
+	useEffect(() => {
 		if (listName !== getMatchingName(userToken, listToken)) {
 			setListName(getMatchingName(userToken, listToken));
 		}
-	}, [copied, listToken]);
+	}, [userToken, listToken]);
 
 	const filterList = (list) => {
 		const cleanup = (inputString) => {
