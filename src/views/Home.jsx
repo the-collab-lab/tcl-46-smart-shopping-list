@@ -3,10 +3,12 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { generateToken } from '@the-collab-lab/shopping-list-utils';
 import { getItemData, streamListItems, addItem } from '../api';
+import { setNewUserToken, addNewListToUser } from '../utils/user';
 
-export function Home({ setListToken }) {
+export function Home({ listToken, setListToken, user }) {
 	const [errorMessage, setErrorMessage] = useState('');
 	const [joinListToken, setJoinListToken] = useState('');
+	const [listName, setListName] = useState('');
 
 	const navigate = useNavigate();
 
@@ -16,8 +18,14 @@ export function Home({ setListToken }) {
 
 	function makeNewList() {
 		const newToken = generateToken();
+		if (!listToken) {
+			setNewUserToken(user, newToken);
+		} else {
+			addNewListToUser(user, listName, newToken);
+		}
 		setListToken(newToken);
 		addPlaceholderItem(newToken);
+
 		navigate('/list');
 	}
 
@@ -28,6 +36,7 @@ export function Home({ setListToken }) {
 			const data = getItemData(snapshot);
 			if (data.length) {
 				setListToken(joinListToken);
+				addNewListToUser(user, joinListToken, joinListToken);
 				navigate('/list');
 			} else {
 				setErrorMessage('Could not join the list.');
@@ -39,11 +48,23 @@ export function Home({ setListToken }) {
 		if (errorMessage) setErrorMessage('');
 		setJoinListToken(event.target.value);
 	}
+
+	const updateListName = (e) => {
+		setListName(e.target.value);
+	};
 	return (
 		<div className="Home">
 			<p>
 				Hello from the home (<code>/</code>) page!
 			</p>
+			<label htmlFor="make-list">
+				<input
+					id="make-list"
+					pattern="\w+"
+					onChange={updateListName}
+					value={listName}
+				/>
+			</label>
 			<button type="button" onClick={makeNewList}>
 				Make new list
 			</button>

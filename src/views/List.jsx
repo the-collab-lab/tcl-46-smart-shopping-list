@@ -3,12 +3,16 @@ import { Link, useNavigate } from 'react-router-dom';
 import { deleteItem } from '../api';
 import { ListItem } from '../components';
 import { comparePurchaseUrgency } from '../utils/item';
+import { removeList, setTokenFirstList } from '../utils/user';
 import NoToken from '../components/NoToken';
+import ListSwitcher from '../components/ListSwitcher';
 
-export function List({ data, listToken, setListToken }) {
+export function List({ data, listToken, setListToken, user }) {
 	const navigate = useNavigate();
 	const [searchTerm, setSearchTerm] = useState('');
 	const [copied, setCopied] = useState('');
+
+	const [userToken, setUserToken] = user;
 
 	const sortedFullList = useMemo(() => comparePurchaseUrgency(data), [data]);
 
@@ -23,6 +27,18 @@ export function List({ data, listToken, setListToken }) {
 		return list.filter(({ name }) =>
 			cleanup(name).includes(cleanup(searchTerm)),
 		);
+	};
+
+	const switchList = (token) => {
+		setListToken(token);
+	};
+
+	const rmListUpdate = (name, token) => {
+		const userLists = removeList(user, name);
+
+		if (token === listToken) {
+			setTokenFirstList(setListToken, userLists);
+		}
 	};
 
 	const clearSearchTerm = () => {
@@ -98,6 +114,11 @@ export function List({ data, listToken, setListToken }) {
 								))}
 						</ul>
 						<button onClick={deleteList}>Delete List</button>
+						<ListSwitcher
+							userToken={userToken}
+							switchList={switchList}
+							rmListUpdate={rmListUpdate}
+						/>
 					</div>
 				) : (
 					<div>
@@ -114,6 +135,11 @@ export function List({ data, listToken, setListToken }) {
 							<button type="button">Start adding items</button>
 						</Link>
 						<button onClick={deleteList}>Delete List</button>
+						<ListSwitcher
+							userToken={userToken}
+							switchList={switchList}
+							rmListUpdate={rmListUpdate}
+						/>
 					</div>
 				)
 			) : (
