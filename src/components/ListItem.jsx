@@ -5,7 +5,6 @@ import { updateItem, deleteItem } from '../api/firebase';
 import { getFutureDate } from '../utils';
 
 import { checkIfActive } from '../utils/item';
-import { getUrgency } from '../utils/item';
 
 import './ListItem.css';
 
@@ -36,7 +35,6 @@ export function ListItem({
 
 	useEffect(() => {
 		let currentTime = new Date().getTime();
-
 		if (checkIfActive(refTime, currentTime)) {
 			if (daysToNext < 0) {
 				setUrgencyIndex(urgency.OVERDUE);

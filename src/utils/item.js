@@ -46,23 +46,3 @@ export const comparePurchaseUrgency = (data) => {
 	const dataWithDays = appendDaysToData(data);
 	return sortedMultiArr(dataWithDays).map(sortByNextDateAlphabetical).flat();
 };
-
-export const getUrgency = (urgencyGroup) => {
-	const urgencyLevels = {
-		ALL: () => true,
-		OVERDUE: (item) =>
-			item.daysToNext < 0 && checkIfActive(item.refTime, currentTime),
-		SOON: (item) =>
-			item.daysToNext > 0 &&
-			item.daysToNext <= 7 &&
-			checkIfActive(item.refTime, currentTime),
-		KIND_OF_SOON: (item) =>
-			item.daysToNext > 7 &&
-			item.daysToNext < 30 &&
-			checkIfActive(item.refTime, currentTime),
-		NOT_SOON: (item) =>
-			item.daysToNext >= 30 && checkIfActive(item.refTime, currentTime),
-		INACTIVE: (item) => !checkIfActive(item.refTime, currentTime),
-	};
-	return urgencyLevels[urgencyGroup];
-};
