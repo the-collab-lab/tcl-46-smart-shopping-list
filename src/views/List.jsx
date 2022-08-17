@@ -18,7 +18,6 @@ export function List({ data, listToken, setListToken }) {
 
 	const updateRange = (e) => {
 		if (e.target.name !== 'startDate' && e.target.name !== 'endDate') return;
-		console.log(`range is updating with ${e.target.name}: ${e.target.value}`);
 		const newDates = { ...custom, [e.target.name]: e.target.value };
 		setCustom(newDates);
 	};
@@ -27,10 +26,15 @@ export function List({ data, listToken, setListToken }) {
 		if (!start || !end) return () => true;
 		const start_IN_MS = new Date(start).getTime();
 		const end_IN_MS = new Date(end).getTime();
-		console.log('I am running too');
 		return (item) =>
 			item.dateNextPurchased.toMillis() >= start_IN_MS &&
 			item.dateNextPurchased.toMillis() < end_IN_MS;
+	};
+
+	const undoUrgency = () => {
+		const selected = document.querySelector('select[name="urgency"]');
+		selected.selectedIndex = 0;
+		setUrgencyTerm('ALL');
 	};
 
 	useEffect(() => {
@@ -76,10 +80,6 @@ export function List({ data, listToken, setListToken }) {
 					navigate('/');
 				});
 		}
-	};
-
-	const handleChange = (e) => {
-		setUrgencyTerm(e.target.value); //this is passed to getUrgency
 	};
 
 	return (
@@ -138,7 +138,7 @@ export function List({ data, listToken, setListToken }) {
 								Show by urgency
 								<select
 									value={urgencyTerm}
-									onChange={(e) => handleChange(e)}
+									onChange={(e) => setUrgencyTerm(e.target.value)}
 									name="urgency"
 								>
 									<option value="ALL">Choose urgency</option>
@@ -149,6 +149,9 @@ export function List({ data, listToken, setListToken }) {
 									<option value="INACTIVE">Inactive</option>
 								</select>
 							</label>
+							<button type="button" onClick={undoUrgency} aria-live="polite">
+								Clear urgency selection
+							</button>
 						</div>
 						<div>
 							<p>
