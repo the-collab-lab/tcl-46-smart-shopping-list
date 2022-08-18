@@ -6,6 +6,9 @@
 		"react-app/jest"
 	],
 	"rules": {
-		"react/jsx-filename-extension": "error"
+		"react/jsx-filename-extension": [
+			1,
+			{ "extensions": [".jsx", ".js", ".tsx", ".ts"] }
+		]
 	}
 }
