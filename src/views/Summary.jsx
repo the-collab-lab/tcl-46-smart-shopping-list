@@ -52,37 +52,36 @@ export function Summary({ data }) {
 				<div>
 					<h2>Your purchase history to date</h2>
 					<h3>Five most frequently purchased items:</h3>
-					<ul>
+					<ol>
 						{fiveMostPurchased.map((item) => (
 							<li key={item.itemId}>
 								{item.name}: bought {item.totalPurchases} times
 							</li>
 						))}
-					</ul>
+					</ol>
 
 					<h3>Five most recent purchases:</h3>
-					<ul>
+					<ol>
 						{fiveMostRecentPurchases.map((item) => (
 							<li key={item.itemId}>
 								{item.name}: bought on{' '}
-								{item.dateLastPurchased
-									.toDate()
-									.toLocaleDateString('en-us', {
-										weekday: 'long',
-										year: 'numeric',
-										month: 'short',
-										day: 'numeric',
-									})}
+								{item.dateLastPurchased.toDate().toLocaleDateString('en-us', {
+									weekday: 'long',
+									year: 'numeric',
+									month: 'short',
+									day: 'numeric',
+								})}
 							</li>
 						))}
-					</ul>
+					</ol>
 
 					<h3>Item(s) you may have forgotten about:</h3>
 					<ul>
 						{mostNeglectedItems.map((item) => (
 							<li key={item.itemId}>
-								{item.name} is {getDaysBetweenDates(item.refTime, currentTime)}{' '}
-								days old and was never purchased.
+								The item "{item.name}" is{' '}
+								{getDaysBetweenDates(item.refTime, currentTime)} days old and
+								was never purchased.
 							</li> //ambivalent about this one and also where the logic is
 						))}
 					</ul>
