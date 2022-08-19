@@ -8,6 +8,7 @@ import {
 	removeList,
 	setTokenFirstList,
 	getMatchingName,
+	getUserListsArr,
 	updateName,
 } from '../utils/user';
 import NoToken from '../components/NoToken';
@@ -21,9 +22,7 @@ export function List({ data, listToken, setListToken, user }) {
 	const [isDisabled, setIsDisabled] = useState(true);
 
 	const [userToken] = user;
-	const [listName, setListName] = useState(
-		getMatchingName(userToken, listToken),
-	);
+	const [listName, setListName] = useState('');
 
 	const sortedFullList = useMemo(() => comparePurchaseUrgency(data), [data]);
 
@@ -32,6 +31,11 @@ export function List({ data, listToken, setListToken, user }) {
 	}, [copied]);
 
 	useEffect(() => {
+		if (getUserListsArr(userToken).length === 0) {
+			setListName('');
+			return;
+		}
+
 		if (listName !== getMatchingName(userToken, listToken)) {
 			setListName(getMatchingName(userToken, listToken));
 		}
