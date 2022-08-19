@@ -5,8 +5,11 @@ import { comparePurchaseUrgency } from '../utils/item';
 export function Summary({ data }) {
 	const [goals, setGoals] = useState(''); //these should be drawn from association with userID, if we build out user database
 
-	// duplicated fr List - not set up when data is passed to this component
-	const sortedFullList = useMemo(() => comparePurchaseUrgency(data), [data]);
+	// duplicated fr List - not set up when data is passed to this component. get rid of placeholder as well
+	const sortedFullList = useMemo(
+		() => comparePurchaseUrgency(data.filter((item) => item.name !== '')),
+		[data],
+	);
 
 	/**
     Summary of data keys - to remove on finalization
@@ -75,7 +78,7 @@ export function Summary({ data }) {
 						))}
 					</ol>
 
-					{mostNeglectedItems.length ? ( //if not length, it still shows heading below because the variable exists as empty array
+					{mostNeglectedItems.length ? ( //need to hide placeholder item
 						<>
 							<h3>Did you forget about these?</h3>
 
@@ -89,7 +92,7 @@ export function Summary({ data }) {
 						</>
 					) : (
 						<h3>
-							You've bought everything on your list at least once! Good job.
+							You have bought everything on your list at least once. Good job!
 						</h3>
 					)}
 				</div>
