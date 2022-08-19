@@ -16,9 +16,6 @@ export function Summary({ data, goal }) {
 
 	const editGoals = (e) => {
 		e.preventDefault();
-		if (!isDisabled) {
-			updateGoals(e);
-		}
 		setIsDisabled(!isDisabled);
 	};
 
