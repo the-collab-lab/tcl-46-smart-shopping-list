@@ -1,11 +1,21 @@
 export const addNewListToUser = (user, listName, newToken) => {
 	const [userToken, setUserToken] = user;
 	const tokenLists = JSON.parse(userToken);
-	if (!listName) listName = 'My List';
+	if (!listName) listName = `My List ${countMyLists(tokenLists) + 1}`;
 	const updatedList = rmNullToken({ ...tokenLists, [listName]: newToken });
 	setUserToken(JSON.stringify(updatedList));
 	return updatedList;
 };
+
+export function countMyLists(tokenLists) {
+	console.log(Object.keys(tokenLists));
+	return Object.keys(tokenLists).reduce((key, curr) => {
+		if (curr.includes('My List')) {
+			key++;
+		}
+		return key;
+	}, 0);
+}
 
 export const setNewUserToken = (user, newToken, listName) => {
 	const [, setUserToken] = user;
