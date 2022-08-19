@@ -88,7 +88,7 @@ export function Summary({ data }) {
 						))}
 					</ol>
 
-					{mostNeglectedItem.length ? ( //need to hide placeholder item
+					{mostNeglectedItem.length ? (
 						<>
 							<h3>Did you forget about these?</h3>
 
