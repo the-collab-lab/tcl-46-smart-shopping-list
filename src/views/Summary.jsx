@@ -63,7 +63,12 @@ export function Summary({ data }) {
 					<ol>
 						{fiveMostPurchased.map((item) => (
 							<li key={item.itemId}>
-								{item.name}: bought {item.totalPurchases} times
+								{item.name}: bought{' '}
+								{item.totalPurchases === 1 ? (
+									<span>{item.totalPurchases} time</span>
+								) : (
+									<span>{item.totalPurchases} times</span>
+								)}
 							</li>
 						))}
 					</ol>
@@ -89,9 +94,11 @@ export function Summary({ data }) {
 
 							{mostNeglectedItem.map((item) => (
 								<div key={item.itemId}>
-									The item "{item.name}" is{' '}
-									{getDaysBetweenDates(item.refTime, currentTime)} days old and
-									was never purchased.
+									<p>
+										The item "{item.name}" is{' '}
+										{getDaysBetweenDates(item.refTime, currentTime)} days old
+										and was never purchased.
+									</p>
 								</div> //ambivalent about this one and also where the logic is
 							))}
 						</>
