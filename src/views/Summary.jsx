@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo } from 'react';
 import { getDaysBetweenDates, useStateWithStorage } from '../utils';
 import { comparePurchaseUrgency } from '../utils/item';
 import { Goals } from '../components/Goals';
@@ -21,10 +21,6 @@ export function Summary({ data, goal }) {
 		}
 		setIsDisabled(!isDisabled);
 	};
-
-	useEffect(() => {
-		console.log(data.map((item) => Object.entries(item)));
-	});
 
 	//memoize below?
 	const getPurchased = (array) =>
