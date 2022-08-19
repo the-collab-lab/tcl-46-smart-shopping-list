@@ -13,8 +13,8 @@ export const setNewUserToken = (user, newToken, listName) => {
 		setUserToken(JSON.stringify({ [listName]: newToken }));
 		return { [listName]: newToken };
 	} else {
-		setUserToken(JSON.stringify({ newToken }));
-		return { newToken };
+		setUserToken(JSON.stringify({ [newToken]: newToken }));
+		return { [newToken]: newToken };
 	}
 };
 
