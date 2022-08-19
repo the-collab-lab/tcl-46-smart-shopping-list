@@ -5,12 +5,6 @@ import { comparePurchaseUrgency } from '../utils/item';
 export function Summary({ data }) {
 	const [goals, setGoals] = useState(''); //these should be drawn from association with userID, if we build out user database
 
-	// duplicated fr List - not set up when data is passed to this component. get rid of placeholder as well
-	const sortedFullList = useMemo(
-		() => comparePurchaseUrgency(data.filter((item) => item.name !== '')),
-		[data],
-	);
-
 	/**
     Summary of data keys - to remove on finalization
   
@@ -38,6 +32,17 @@ export function Summary({ data }) {
 		return arr;
 	};
 
+	const removePlaceholder = (array) => {
+		return array.filter((item) => item.name !== '');
+	};
+
+	// duplicated fr List - not set up when data is passed to this component.
+	// but unlike List's similar variable, the placeholder is removed at this time
+	const sortedFullList = useMemo(
+		() => removePlaceholder(comparePurchaseUrgency(data)),
+		[data],
+	);
+
 	const currentTime = new Date().getTime();
 	const purchased = getPurchased(sortedFullList);
 	const fiveMostRecentPurchases = getFiveMost(purchased, 'refTime'); //descending order of most recently purchased items
@@ -45,9 +50,9 @@ export function Summary({ data }) {
 	const mostPurchased = [...purchased].filter(
 		(item) => item.totalPurchases === Math.max(),
 	);
-	const mostNeglectedItems = getOldest(
+	const mostNeglectedItem = getOldest(
 		sortedFullList.filter((item) => !item.dateLastPurchased),
-	); //oldest never purchased item(s)
+	); //oldest never purchased item
 
 	return (
 		<div className="Summary">
@@ -78,11 +83,11 @@ export function Summary({ data }) {
 						))}
 					</ol>
 
-					{mostNeglectedItems.length ? ( //need to hide placeholder item
+					{mostNeglectedItem.length ? ( //need to hide placeholder item
 						<>
 							<h3>Did you forget about these?</h3>
 
-							{mostNeglectedItems.map((item) => (
+							{mostNeglectedItem.map((item) => (
 								<div key={item.itemId}>
 									The item "{item.name}" is{' '}
 									{getDaysBetweenDates(item.refTime, currentTime)} days old and
