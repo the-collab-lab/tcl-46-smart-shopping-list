@@ -48,7 +48,7 @@ export function Summary({ data }) {
 
 	return (
 		<div className="Summary">
-			{purchased ? (
+			{purchased.length ? (
 				<div>
 					<h2>Your purchase history to date</h2>
 					<h3>Top 5 purchases by frequency:</h3>
@@ -79,7 +79,7 @@ export function Summary({ data }) {
 				<p>No purchase history found.</p>
 			)}
 
-			{mostNeglectedItems ? (
+			{mostNeglectedItems.length ? ( //if not length, it still shows heading below because the variable exists as empty array
 				<>
 					<h3>Did you forget about these?</h3>
 
@@ -92,7 +92,7 @@ export function Summary({ data }) {
 					))}
 				</>
 			) : (
-				"You've bought everything on your list at least once! Good job."
+				<h3>You've bought everything on your list at least once! Good job.</h3>
 			)}
 
 			<h2>Personal Goals</h2>
