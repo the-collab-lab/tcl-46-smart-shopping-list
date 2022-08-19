@@ -74,25 +74,27 @@ export function Summary({ data }) {
 							</li>
 						))}
 					</ol>
+
+					{mostNeglectedItems.length ? ( //if not length, it still shows heading below because the variable exists as empty array
+						<>
+							<h3>Did you forget about these?</h3>
+
+							{mostNeglectedItems.map((item) => (
+								<div key={item.itemId}>
+									The item "{item.name}" is{' '}
+									{getDaysBetweenDates(item.refTime, currentTime)} days old and
+									was never purchased.
+								</div> //ambivalent about this one and also where the logic is
+							))}
+						</>
+					) : (
+						<h3>
+							You've bought everything on your list at least once! Good job.
+						</h3>
+					)}
 				</div>
 			) : (
 				<p>No purchase history found.</p>
-			)}
-
-			{mostNeglectedItems.length ? ( //if not length, it still shows heading below because the variable exists as empty array
-				<>
-					<h3>Did you forget about these?</h3>
-
-					{mostNeglectedItems.map((item) => (
-						<div key={item.itemId}>
-							The item "{item.name}" is{' '}
-							{getDaysBetweenDates(item.refTime, currentTime)} days old and was
-							never purchased.
-						</div> //ambivalent about this one and also where the logic is
-					))}
-				</>
-			) : (
-				<h3>You've bought everything on your list at least once! Good job.</h3>
 			)}
 
 			<h2>Personal Goals</h2>
