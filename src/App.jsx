@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 
-import { AddItem, Home, Layout, List } from './views';
+import { AddItem, Home, Layout, List, Summary } from './views';
 
 import { getItemData, streamListItems } from './api';
 import { useStateWithStorage } from './utils';
@@ -71,6 +71,7 @@ export function App() {
 					path="/add-item"
 					element={<AddItem data={data} listToken={listToken} />}
 				/>
+				<Route path="/summary" element={<Summary data={data} />} />
 			</Route>
 		</Routes>
 	);

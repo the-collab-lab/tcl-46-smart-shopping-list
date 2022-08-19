@@ -21,6 +21,9 @@ export function Layout() {
 				<NavLink to="/add-item" className="Nav-link">
 					Add Item
 				</NavLink>
+				<NavLink to="/summary" className="Nav-link">
+					Summary
+				</NavLink>
 			</nav>
 		</div>
 	);
