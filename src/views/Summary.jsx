@@ -48,10 +48,10 @@ export function Summary({ data }) {
 
 	return (
 		<div className="Summary">
-			{purchased.length ? (
+			{purchased ? (
 				<div>
 					<h2>Your purchase history to date</h2>
-					<h3>Five most frequently purchased items:</h3>
+					<h3>Top 5 purchases by frequency:</h3>
 					<ol>
 						{fiveMostPurchased.map((item) => (
 							<li key={item.itemId}>
@@ -60,7 +60,7 @@ export function Summary({ data }) {
 						))}
 					</ol>
 
-					<h3>Five most recent purchases:</h3>
+					<h3>5 most recent purchases:</h3>
 					<ol>
 						{fiveMostRecentPurchases.map((item) => (
 							<li key={item.itemId}>
@@ -74,21 +74,27 @@ export function Summary({ data }) {
 							</li>
 						))}
 					</ol>
-
-					<h3>Item(s) you may have forgotten about:</h3>
-					<ul>
-						{mostNeglectedItems.map((item) => (
-							<li key={item.itemId}>
-								The item "{item.name}" is{' '}
-								{getDaysBetweenDates(item.refTime, currentTime)} days old and
-								was never purchased.
-							</li> //ambivalent about this one and also where the logic is
-						))}
-					</ul>
 				</div>
 			) : (
 				<p>No purchase history found.</p>
 			)}
+
+			{mostNeglectedItems ? (
+				<>
+					<h3>Did you forget about these?</h3>
+
+					{mostNeglectedItems.map((item) => (
+						<div key={item.itemId}>
+							The item "{item.name}" is{' '}
+							{getDaysBetweenDates(item.refTime, currentTime)} days old and was
+							never purchased.
+						</div> //ambivalent about this one and also where the logic is
+					))}
+				</>
+			) : (
+				"You've bought everything on your list at least once! Good job."
+			)}
+
 			<h2>Personal Goals</h2>
 			{goals ? <p>{goals}</p> : 'Set some goals for your shopping habits!'}
 		</div>
