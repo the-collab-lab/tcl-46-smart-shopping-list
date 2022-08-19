@@ -1,6 +1,7 @@
 export const addNewListToUser = (user, listName, newToken) => {
 	const [userToken, setUserToken] = user;
 	const tokenLists = JSON.parse(userToken);
+	if (!listName) listName = 'My List';
 	const updatedList = rmNullToken({ ...tokenLists, [listName]: newToken });
 	setUserToken(JSON.stringify(updatedList));
 	return updatedList;
@@ -51,8 +52,8 @@ export function rmNullToken(list) {
 	return userList;
 }
 
-export const getMatchingName = (userToken, matchToken) =>
-	getUserListsArr(userToken).find(([, token]) => token === matchToken)[0];
+export const getMatchingName = (userToken, listToken) =>
+	getUserListsArr(userToken).find(([, token]) => token === listToken)[0];
 
 export const removeList = (user, name) => {
 	const [userToken, setUserToken] = user;
