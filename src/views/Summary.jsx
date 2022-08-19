@@ -1,23 +1,29 @@
 import { useState, useMemo } from 'react';
-import { getDaysBetweenDates } from '../utils';
+import { getDaysBetweenDates, useStateWithStorage } from '../utils';
 import { comparePurchaseUrgency } from '../utils/item';
+import { Goals } from '../components/Goals';
 
 export function Summary({ data }) {
-	const [goals, setGoals] = useState(''); //these should be drawn from association with userID, if we build out user database
+	// as noted in Goals - componetize here and fr multList approach
+	const [isDisabled, setIsDisabled] = useState(true);
 
-	/**
-    Summary of data keys - to remove on finalization
-  
-	itemId,
-	name,
-	isChecked,
-	dateCreated,
-	dateLastPurchased,
-	dateNextPurchased,
-	totalPurchases,
-	refTime,
-	daysToNext,
-    */
+	const [goals, setGoals] = useStateWithStorage(
+		'Set a goal for your shopping habits!',
+		'tcl-shopping-list-goals',
+	); //these should be drawn from association with userID, if we build out user database
+
+	const updateGoals = (e) => {
+		const newGoal = e.target.value;
+		setGoals(newGoal);
+	};
+
+	const editGoals = (e) => {
+		e.preventDefault();
+		if (!isDisabled) {
+			updateGoals(e);
+		}
+		setIsDisabled(!isDisabled);
+	};
 
 	//memoize below?
 	const getPurchased = (array) =>
@@ -113,7 +119,12 @@ export function Summary({ data }) {
 			)}
 
 			<h2>Personal Goals</h2>
-			{goals ? <p>{goals}</p> : 'Set some goals for your shopping habits!'}
+			<Goals
+				goals={goals}
+				isDisabled={isDisabled}
+				updateGoals={updateGoals}
+				editGoals={editGoals}
+			/>
 		</div>
 	);
 }
