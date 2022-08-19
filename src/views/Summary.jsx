@@ -1,16 +1,13 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { getDaysBetweenDates, useStateWithStorage } from '../utils';
 import { comparePurchaseUrgency } from '../utils/item';
 import { Goals } from '../components/Goals';
 
-export function Summary({ data }) {
+export function Summary({ data, goal }) {
 	// as noted in Goals - componetize here and fr multList approach
 	const [isDisabled, setIsDisabled] = useState(true);
 
-	const [goals, setGoals] = useStateWithStorage(
-		'Set a goal for your shopping habits!',
-		'tcl-shopping-list-goals',
-	); //these should be drawn from association with userID, if we build out user database
+	const [goals, setGoals] = goal;
 
 	const updateGoals = (e) => {
 		const newGoal = e.target.value;
@@ -24,6 +21,10 @@ export function Summary({ data }) {
 		}
 		setIsDisabled(!isDisabled);
 	};
+
+	useEffect(() => {
+		console.log(data.map((item) => Object.entries(item)));
+	});
 
 	//memoize below?
 	const getPurchased = (array) =>
@@ -68,7 +69,7 @@ export function Summary({ data }) {
 					<h3>Top 5 purchases by frequency:</h3>
 					<ol>
 						{fiveMostPurchased.map((item) => (
-							<li key={item.itemId}>
+							<li key={item.id}>
 								{item.name}: bought{' '}
 								{item.totalPurchases === 1 ? (
 									<span>{item.totalPurchases} time</span>
@@ -82,7 +83,7 @@ export function Summary({ data }) {
 					<h3>5 most recent purchases:</h3>
 					<ol>
 						{fiveMostRecentPurchases.map((item) => (
-							<li key={item.itemId}>
+							<li key={item.id}>
 								{item.name}: bought on{' '}
 								{item.dateLastPurchased.toDate().toLocaleDateString('en-us', {
 									weekday: 'long',
@@ -99,7 +100,7 @@ export function Summary({ data }) {
 							<h3>Did you forget about these?</h3>
 
 							{mostNeglectedItem.map((item) => (
-								<div key={item.itemId}>
+								<div key={item.id}>
 									<p>
 										The item "{item.name}" is{' '}
 										{getDaysBetweenDates(item.refTime, currentTime)} days old
