@@ -1,7 +1,22 @@
 import { useState } from 'react';
+import { useStateWithStorage } from '../utils';
+
 import { isEmpty } from '../utils/validateStrings';
 
-export function Goals({ updateGoals, goals, isDisabled, editGoals }) {
+export function Goals() {
+	const [goals, setGoals] = useStateWithStorage(
+		'Set a goal for your shopping habits!',
+		'tcl-shopping-list-goals',
+	); //these should be drawn from association with userID, if we build out user database
+
+	// as noted in Goals - componetize here and fr multList approach
+	const [isDisabled, setIsDisabled] = useState(true);
+
+	const editGoals = (e) => {
+		e.preventDefault();
+		setIsDisabled(!isDisabled);
+	};
+
 	return (
 		// componentize here and multList?
 		// also consider building out into array so that multiple goals can be formatted nicely in list.
@@ -25,7 +40,7 @@ export function Goals({ updateGoals, goals, isDisabled, editGoals }) {
 									marginBottom: '1rem',
 							  }
 					}
-					onChange={updateGoals}
+					onChange={(e) => setGoals(e.target.value)}
 					value={goals}
 				/>
 				<button

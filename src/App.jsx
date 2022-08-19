@@ -26,11 +26,6 @@ export function App() {
 		'tcl-shopping-list-token',
 	);
 
-	const [goals, setGoals] = useStateWithStorage(
-		'Set a goal for your shopping habits!',
-		'tcl-shopping-list-goals',
-	); //these should be drawn from association with userID, if we build out user database
-
 	useEffect(() => {
 		if (!listToken) return;
 		else {
@@ -76,10 +71,7 @@ export function App() {
 					path="/add-item"
 					element={<AddItem data={data} listToken={listToken} />}
 				/>
-				<Route
-					path="/summary"
-					element={<Summary data={data} goal={[goals, setGoals]} />}
-				/>
+				<Route path="/summary" element={<Summary data={data} />} />
 			</Route>
 		</Routes>
 	);

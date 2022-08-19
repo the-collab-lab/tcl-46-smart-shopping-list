@@ -1,24 +1,9 @@
 import { useState, useMemo } from 'react';
-import { getDaysBetweenDates, useStateWithStorage } from '../utils';
+import { getDaysBetweenDates } from '../utils';
 import { comparePurchaseUrgency } from '../utils/item';
 import { Goals } from '../components/Goals';
 
 export function Summary({ data, goal }) {
-	// as noted in Goals - componetize here and fr multList approach
-	const [isDisabled, setIsDisabled] = useState(true);
-
-	const [goals, setGoals] = goal;
-
-	const updateGoals = (e) => {
-		const newGoal = e.target.value;
-		setGoals(newGoal);
-	};
-
-	const editGoals = (e) => {
-		e.preventDefault();
-		setIsDisabled(!isDisabled);
-	};
-
 	//memoize below?
 	const getPurchased = (array) =>
 		array.filter((item) => item.dateLastPurchased); //purchased at least once, not null value
@@ -113,12 +98,7 @@ export function Summary({ data, goal }) {
 			)}
 
 			<h2>Personal Goals</h2>
-			<Goals
-				goals={goals}
-				isDisabled={isDisabled}
-				updateGoals={updateGoals}
-				editGoals={editGoals}
-			/>
+			<Goals />
 		</div>
 	);
 }
