@@ -82,6 +82,16 @@ export const updateName = (
 	return { ...prevList, [value]: listToken };
 };
 
+/** Checks whether the name passed in has an existing duplicate name */
+export const isDuplicateName = (
+	userToken: UserList,
+	listName: ListName,
+	listToken: ListToken,
+): boolean =>
+	getUserListsArr(userToken)
+		.filter(([, token]) => token !== listToken)
+		.some(([name]) => name === listName);
+
 /** Remove any user lists that are null */
 export function rmNullToken(list: ParsedUserList): ParsedUserList {
 	const userList = list;

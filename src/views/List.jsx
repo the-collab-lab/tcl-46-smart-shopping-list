@@ -10,6 +10,7 @@ import {
 	getMatchingName,
 	getUserListsArr,
 	updateName,
+	isDuplicateName,
 } from '../utils/user';
 import NoToken from '../components/NoToken';
 import ListSwitcher from '../components/ListSwitcher';
@@ -56,7 +57,7 @@ export function List({ data, listToken, setListToken, user }) {
 	}, [copied]);
 
 	useEffect(() => {
-		if (getUserListsArr(userToken).length === 0) {
+		if (!getUserListsArr(userToken).length) {
 			setListName('');
 			return;
 		}
@@ -125,11 +126,14 @@ export function List({ data, listToken, setListToken, user }) {
 
 	const editName = (e) => {
 		e.preventDefault();
-		if (!isDisabled) {
-			updateName(user, listName, listToken);
-		}
-		if (listName === '') setListName(listToken);
 		setIsDisabled(!isDisabled);
+
+		if (isDisabled) return;
+
+		if (listName === '' || isDuplicateName(userToken, listName, listToken)) {
+			setListName(listToken);
+			updateName(user, listToken, listToken);
+		} else updateName(user, listName, listToken);
 	};
 
 	const updateListName = (e) => {
