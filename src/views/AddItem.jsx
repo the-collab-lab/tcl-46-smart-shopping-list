@@ -2,11 +2,14 @@ import { useState } from 'react';
 import { isEmpty, isDuplicate } from '../utils/validateStrings';
 import { addItem } from '../api/firebase';
 import NoToken from '../components/NoToken';
+import { getUserListsArr } from '../utils/user';
 
 const defaultItem = { itemName: '', daysUntilNextPurchase: 7 };
-export function AddItem({ data, listToken }) {
+export function AddItem({ data, listToken, user }) {
 	const [item, setItem] = useState(defaultItem);
 	const [status, setStatus] = useState('');
+	const [selectedListToken, setSelectedListToken] = useState(listToken);
+	const [userToken] = user;
 
 	const updateItem = (e) => {
 		if (status) setStatus('');
@@ -21,6 +24,8 @@ export function AddItem({ data, listToken }) {
 		}
 		setItem({ ...item, [e.target.name]: updateVal });
 	};
+
+	const updateSelectedList = (e) => setSelectedListToken(e.target.value);
 
 	const isInvalid = (name) => {
 		if (isEmpty(name)) {
@@ -40,7 +45,7 @@ export function AddItem({ data, listToken }) {
 		e.preventDefault();
 		if (isInvalid(item.itemName)) return;
 
-		addItem(listToken, item)
+		addItem(selectedListToken, item)
 			.then(() => setStatus('Item added successfully!'))
 			.then(() => setItem(defaultItem))
 			.catch(() => setStatus('Item could not be added.'));
@@ -72,6 +77,20 @@ export function AddItem({ data, listToken }) {
 								<option value={7}>Soon</option>
 								<option value={14}>Kind of Soon</option>
 								<option value={30}>Not Soon</option>
+							</select>
+						</label>
+						<label htmlFor="userList">
+							Select List
+							<select
+								value={selectedListToken}
+								onChange={updateSelectedList}
+								id="userList"
+							>
+								{getUserListsArr(userToken).map(([name, token]) => (
+									<option key={token} value={token}>
+										{name}
+									</option>
+								))}
 							</select>
 						</label>
 						<button type="submit">Submit</button>

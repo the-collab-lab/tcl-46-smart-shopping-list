@@ -1,4 +1,5 @@
 import { Outlet, NavLink } from 'react-router-dom';
+import FoodPuns from '../components/FoodPuns';
 
 import './Layout.css';
 
@@ -11,6 +12,7 @@ export function Layout() {
 			<main className="Layout-main">
 				<Outlet />
 			</main>
+			<FoodPuns />
 			<nav className="Nav">
 				<NavLink to="/" className="Nav-link">
 					Home
@@ -20,6 +22,9 @@ export function Layout() {
 				</NavLink>
 				<NavLink to="/add-item" className="Nav-link">
 					Add Item
+				</NavLink>
+				<NavLink to="/summary" className="Nav-link">
+					Summary
 				</NavLink>
 			</nav>
 		</div>
