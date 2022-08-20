@@ -128,6 +128,7 @@ export function List({ data, listToken, setListToken, user }) {
 		if (!isDisabled) {
 			updateName(user, listName, listToken);
 		}
+		if (listName === '') setListName(listToken);
 		setIsDisabled(!isDisabled);
 	};
 

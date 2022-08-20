@@ -8,6 +8,8 @@ import {
 	UserListArr,
 } from '../types';
 
+import { isEmpty } from '../utils';
+
 /** Adds a new list to User List Token with a new List Name and Token */
 export const addNewListToUser = (
 	user: User,
@@ -71,7 +73,12 @@ export const updateName = (
 		}
 	}
 
-	setUserToken(JSON.stringify({ ...prevList, [value]: listToken }));
+	setUserToken(
+		JSON.stringify({
+			...prevList,
+			[isEmpty(value) ? listToken : value]: listToken,
+		}),
+	);
 	return { ...prevList, [value]: listToken };
 };
 
