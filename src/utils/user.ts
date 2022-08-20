@@ -29,6 +29,10 @@ export const addNewListToUser = (
 	return updatedList;
 };
 
+/** Checks if token already exists in user list */
+export const hasToken = (userToken: UserList, listToken: ListToken): boolean =>
+	Object.values(JSON.parse(userToken)).includes(listToken);
+
 /** Sets a new user token */
 export const setNewUserToken = (
 	user: User,

@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { generateToken } from '@the-collab-lab/shopping-list-utils';
 import { getItemData, streamListItems, addItem } from '../api';
-import { setNewUserToken, addNewListToUser } from '../utils/user';
+import { setNewUserToken, addNewListToUser, hasToken } from '../utils/user';
 
 export function Home({ listToken, setListToken, user }) {
 	const [errorMessage, setErrorMessage] = useState('');
@@ -34,12 +34,15 @@ export function Home({ listToken, setListToken, user }) {
 
 		return streamListItems(joinListToken, (snapshot) => {
 			const data = getItemData(snapshot);
-			if (data.length) {
+			try {
+				if (!data.length) throw new Error('That list does not exist.');
+				if (hasToken(user[0], listToken))
+					throw new Error('You have already joined that list.');
 				setListToken(joinListToken);
 				addNewListToUser(user, joinListToken, joinListToken);
 				navigate('/list');
-			} else {
-				setErrorMessage('Could not join the list.');
+			} catch (err) {
+				setErrorMessage(err.message);
 			}
 		});
 	}

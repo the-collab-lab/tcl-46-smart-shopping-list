@@ -26,7 +26,7 @@ export function List({ data, listToken, setListToken, user }) {
 	const [custom, setCustom] = useState(defaultDates);
 	const [isDisabled, setIsDisabled] = useState(true);
 
-	const [userToken] = user;
+	const [userToken, setUserToken] = user;
 	const [listName, setListName] = useState('');
 
 	const sortedFullList = useMemo(() => comparePurchaseUrgency(data), [data]);
@@ -57,6 +57,10 @@ export function List({ data, listToken, setListToken, user }) {
 	}, [copied]);
 
 	useEffect(() => {
+		if (listToken === 'null') {
+			setUserToken('{}');
+			return;
+		}
 		if (!getUserListsArr(userToken).length) {
 			setListName('');
 			return;
@@ -142,7 +146,7 @@ export function List({ data, listToken, setListToken, user }) {
 
 	return (
 		<>
-			{listToken ? (
+			{listToken && listToken !== 'null' ? (
 				data.length > 1 ? (
 					<div>
 						<ListTitle
