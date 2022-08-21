@@ -36,27 +36,33 @@
 
 .Nav {
 	align-items: stretch;
-	background-color: var(--color-bg);
+	background-color: rgba(56, 70, 197, 0.09);
+	border-radius: 30px;
 	bottom: 0;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-around;
 	margin-top: auto;
 	position: sticky;
+	font-weight: 700;
 }
 
 .Nav-link {
-	--color-text: var(--color-accent);
-
-	color: var(--color-text);
+	text-decoration: none;
+	color: #fffcfc;
 	font-size: 1.45em;
 	flex: 0 1 auto;
 	padding: 0.8rem;
 	text-align: center;
-	text-underline-offset: 0.1em;
 }
 
-.Nav-link.active {
-	text-decoration-thickness: 0.22em;
-	text-underline-offset: 0.1em;
+.Nav-link__shadow {
+	border-radius: 30px;
+	background-color: rgba(56, 70, 197, 0.5);
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	width: 22%;
 }
