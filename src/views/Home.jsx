@@ -36,7 +36,7 @@ export function Home({ listToken, setListToken, user }) {
 			const data = getItemData(snapshot);
 			try {
 				if (!data.length) throw new Error('That list does not exist.');
-				if (hasToken(user[0], listToken))
+				if (hasToken(user[0], joinListToken))
 					throw new Error('You have already joined that list.');
 				setListToken(joinListToken);
 				addNewListToUser(user, joinListToken, joinListToken);
