@@ -328,7 +328,12 @@ export function List({ data, listToken, setListToken, user }) {
 					You have {listOfShoppingListItems.length} items in your current
 					shopping cart.
 				</p>
-				<button type="button" onClick={() => setExclude(!exclude)}>
+				<button
+					type="button"
+					id="excludeCheckedItems"
+					aria-pressed="false"
+					onClick={() => setExclude(!exclude)}
+				>
 					{exclude ? `Include checked items` : `Exclude checked items`}
 				</button>
 				<p>Want to add a shopping trip to your calendar? </p>
