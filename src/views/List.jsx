@@ -80,6 +80,10 @@ export function List({ data, listToken, setListToken, user }) {
 			cleanup(name).includes(cleanup(searchTerm)),
 		);
 	};
+	const renderedList = filterList(sortedFullList)
+		.filter((item) => item.name !== '')
+		.filter(getUrgency(urgencyTerm))
+		.filter(customDateRange(custom.startDate, custom.endDate));
 
 	const switchList = (token) => {
 		setListToken(token);
@@ -129,7 +133,7 @@ export function List({ data, listToken, setListToken, user }) {
 		}
 	};
 	const listOfShoppingListItems = [];
-	data.forEach((item) => {
+	renderedList.forEach((item) => {
 		listOfShoppingListItems.push(item.name);
 	});
 	const handleCalendarDownload = (evt) => {
@@ -256,18 +260,14 @@ export function List({ data, listToken, setListToken, user }) {
 							</p>
 						</div>
 						<ul>
-							{filterList(sortedFullList)
-								.filter((item) => item.name !== '')
-								.filter(getUrgency(urgencyTerm))
-								.filter(customDateRange(custom.startDate, custom.endDate))
-								.map((item) => (
-									<ListItem
-										{...item}
-										listToken={listToken}
-										key={item.id}
-										itemId={item.id}
-									/>
-								))}
+							{renderedList.map((item) => (
+								<ListItem
+									{...item}
+									listToken={listToken}
+									key={item.id}
+									itemId={item.id}
+								/>
+							))}
 						</ul>
 						<button onClick={deleteList}>Delete List</button>
 						<ListSwitcher
