@@ -33,6 +33,7 @@ export function List({ data, listToken, setListToken, user }) {
 
 	const [userToken] = user;
 	const [listName, setListName] = useState('');
+	const [exclude, setExclude] = useState(false);
 
 	const sortedFullList = useMemo(() => comparePurchaseUrgency(data), [data]);
 
@@ -80,10 +81,17 @@ export function List({ data, listToken, setListToken, user }) {
 			cleanup(name).includes(cleanup(searchTerm)),
 		);
 	};
+
+	const excludeChecked = (array) => {
+		return array.filter((item) => !item.isChecked);
+	};
+
 	const renderedList = filterList(sortedFullList)
 		.filter((item) => item.name !== '')
 		.filter(getUrgency(urgencyTerm))
 		.filter(customDateRange(custom.startDate, custom.endDate));
+
+	const excludeCheckList = excludeChecked(renderedList);
 
 	const switchList = (token) => {
 		setListToken(token);
@@ -133,9 +141,16 @@ export function List({ data, listToken, setListToken, user }) {
 		}
 	};
 	const listOfShoppingListItems = [];
-	renderedList.forEach((item) => {
-		listOfShoppingListItems.push(item.name);
-	});
+
+	// this is not inside a function?
+	!exclude
+		? renderedList.forEach((item) => {
+				listOfShoppingListItems.push(item.name);
+		  })
+		: excludeChecked(renderedList).forEach((item) => {
+				listOfShoppingListItems.push(item.name);
+		  });
+
 	const handleCalendarDownload = (evt) => {
 		const defaultStartTime = new Date(Date());
 		const dt = new Date();
@@ -251,10 +266,11 @@ export function List({ data, listToken, setListToken, user }) {
 								Clear urgency selection
 							</button>
 						</div>
+
 						<div>
 							<p>
 								Copy token to allow others join your list:
-								<button onClick={copyToken} id="token">
+								<button type="button" onClick={copyToken} id="token">
 									{copied ? copied : listToken}
 								</button>
 							</p>
@@ -307,19 +323,28 @@ export function List({ data, listToken, setListToken, user }) {
 			) : (
 				<NoToken />
 			)}
-			<p>Want to add a shopping trip to your calendar?</p>
-			<button type="button" onClick={handleCalendarDownload} name="ical">
-				iCalendar
-			</button>
-			<button type="button" onClick={handleCalendarDownload} name="google">
-				Google Calendar
-			</button>
-			<button type="button" onClick={handleCalendarDownload} name="outlook">
-				Outlook Calendar
-			</button>
-			<button type="button" onClick={handleCalendarDownload} name="yahoo">
-				Yahoo Calendar
-			</button>
+			<div>
+				<p>
+					You have {listOfShoppingListItems.length} items in your current
+					shopping cart.
+				</p>
+				<button type="button" onClick={() => setExclude(!exclude)}>
+					{exclude ? `Include checked items` : `Exclude checked items`}
+				</button>
+				<p>Want to add a shopping trip to your calendar? </p>
+				<button type="button" onClick={handleCalendarDownload} name="ical">
+					iCalendar
+				</button>
+				<button type="button" onClick={handleCalendarDownload} name="google">
+					Google Calendar
+				</button>
+				<button type="button" onClick={handleCalendarDownload} name="outlook">
+					Outlook Calendar
+				</button>
+				<button type="button" onClick={handleCalendarDownload} name="yahoo">
+					Yahoo Calendar
+				</button>
+			</div>
 		</>
 	);
 }
