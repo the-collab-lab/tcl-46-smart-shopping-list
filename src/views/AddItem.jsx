@@ -1,11 +1,14 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { isEmpty, isDuplicate } from '../utils/validateStrings';
 import { addItem } from '../api/firebase';
 import NoToken from '../components/NoToken';
 import { getUserListsArr } from '../utils/user';
 
 const defaultItem = { itemName: '', daysUntilNextPurchase: 7 };
-export function AddItem({ data, listToken, user }) {
+export function AddItem({ data, listToken, user, setActiveComponent }) {
+	useEffect(() => {
+		setActiveComponent('add-item');
+	}, []);
 	const [item, setItem] = useState(defaultItem);
 	const [status, setStatus] = useState('');
 	const [selectedListToken, setSelectedListToken] = useState(listToken);

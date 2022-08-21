@@ -1,12 +1,9 @@
 import { Outlet, NavLink } from 'react-router-dom';
 import FoodPuns from '../components/FoodPuns';
-import { useState } from 'react';
 
 import './Layout.css';
 
-export function Layout() {
-	const [activeNavLink, setActiveNavLink] = useState('');
-	console.log(activeNavLink);
+export function Layout({ activeComponent }) {
 	return (
 		<div className="Layout">
 			<header className="Layout-header">
@@ -17,44 +14,21 @@ export function Layout() {
 			</main>
 			<FoodPuns />
 			<nav className="Nav">
-				<NavLink
-					to="/"
-					// className={({ isActive }) => {
-					// 	if (isActive) setActiveNavLink('home');
-					// 	return 'Nav-link';
-					// }}
-					className="Nav-link"
-				>
+				<NavLink to="/" className="Nav-link">
 					Home
 				</NavLink>
-				<NavLink
-					to="/list"
-					className={({ isActive }) => {
-						if (isActive) setActiveNavLink('list');
-						return 'Nav-link';
-					}}
-				>
+				<NavLink to="/list" className="Nav-link">
 					List
 				</NavLink>
-				<NavLink
-					to="/add-item"
-					className={({ isActive }) => {
-						if (isActive) setActiveNavLink('add-item');
-						return 'Nav-link';
-					}}
-				>
+				<NavLink to="/add-item" className="Nav-link">
 					Add Item
 				</NavLink>
-				<NavLink
-					to="/summary"
-					className={({ isActive }) => {
-						if (isActive) setActiveNavLink('summary');
-						return 'Nav-link';
-					}}
-				>
+				<NavLink to="/summary" className="Nav-link">
 					Summary
 				</NavLink>
-				<div className="Nav-link__shadow"></div>
+				<div
+					className={`Nav-link__shadow Nav-link__shadow_${activeComponent}`}
+				></div>
 			</nav>
 		</div>
 	);

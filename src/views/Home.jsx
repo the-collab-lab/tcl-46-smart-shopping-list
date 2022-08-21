@@ -1,11 +1,14 @@
 import './Home.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { generateToken } from '@the-collab-lab/shopping-list-utils';
 import { getItemData, streamListItems, addItem } from '../api';
 import { setNewUserToken, addNewListToUser } from '../utils/user';
 
-export function Home({ listToken, setListToken, user }) {
+export function Home({ listToken, setListToken, user, setActiveComponent }) {
+	useEffect(() => {
+		setActiveComponent('home');
+	}, []);
 	const [errorMessage, setErrorMessage] = useState('');
 	const [joinListToken, setJoinListToken] = useState('');
 	const [listName, setListName] = useState('');

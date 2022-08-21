@@ -54,6 +54,8 @@
 	flex: 0 1 auto;
 	padding: 0.8rem;
 	text-align: center;
+	position: relative;
+	z-index: 1;
 }
 
 .Nav-link__shadow {
@@ -65,4 +67,50 @@
 	left: 0;
 	right: 0;
 	width: 22%;
+	transition: left 0.3s ease-in;
+	z-index: 0;
+}
+
+.Nav-link__shadow_home {
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	width: 22%;
+}
+
+.Nav-link__shadow_list {
+	top: 0;
+	bottom: 0;
+	left: 22%;
+	right: 0;
+	width: 20%;
+}
+
+.Nav-link__shadow_add-item {
+	top: 0;
+	bottom: 0;
+	left: 44%;
+	right: 0;
+	width: 22%;
+}
+
+.Nav-link__shadow_summary {
+	top: 0;
+	bottom: 0;
+	left: 70%;
+	right: 0;
+	width: 30%;
+}
+
+@media screen and (max-width: 768px) {
+	.Nav-link {
+		font-size: 1.25em;
+	}
+}
+
+@media screen and (max-width: 375px) {
+	.Nav-link {
+		font-size: 1em;
+	}
 }

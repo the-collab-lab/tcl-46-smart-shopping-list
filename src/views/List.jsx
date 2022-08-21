@@ -17,7 +17,16 @@ import ListTitle from '../components/ListTitle';
 
 const defaultDates = { startDate: '', endDate: '' };
 
-export function List({ data, listToken, setListToken, user }) {
+export function List({
+	data,
+	listToken,
+	setListToken,
+	user,
+	setActiveComponent,
+}) {
+	useEffect(() => {
+		setActiveComponent('list');
+	}, []);
 	const navigate = useNavigate();
 	const [searchTerm, setSearchTerm] = useState('');
 	const [copied, setCopied] = useState('');

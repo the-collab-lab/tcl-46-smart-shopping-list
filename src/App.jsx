@@ -8,6 +8,7 @@ import { useStateWithStorage } from './utils';
 
 export function App() {
 	const [data, setData] = useState([]);
+	const [activeComponent, setActiveComponent] = useState();
 	const navigate = useNavigate();
 
 	const [listToken, setListToken] = useStateWithStorage(
@@ -34,7 +35,7 @@ export function App() {
 
 	return (
 		<Routes>
-			<Route path="/" element={<Layout />}>
+			<Route path="/" element={<Layout activeComponent={activeComponent} />}>
 				<Route
 					index
 					element={
@@ -42,6 +43,7 @@ export function App() {
 							listToken={listToken}
 							setListToken={setListToken}
 							user={[userToken, setUserToken]}
+							setActiveComponent={setActiveComponent}
 						/>
 					}
 				/>
@@ -53,6 +55,7 @@ export function App() {
 							listToken={listToken}
 							setListToken={setListToken}
 							user={[userToken, setUserToken]}
+							setActiveComponent={setActiveComponent}
 						/>
 					}
 				/>
@@ -63,10 +66,16 @@ export function App() {
 							data={data}
 							listToken={listToken}
 							user={[userToken, setUserToken]}
+							setActiveComponent={setActiveComponent}
 						/>
 					}
 				/>
-				<Route path="/summary" element={<Summary data={data} />} />
+				<Route
+					path="/summary"
+					element={
+						<Summary data={data} setActiveComponent={setActiveComponent} />
+					}
+				/>
 			</Route>
 		</Routes>
 	);
