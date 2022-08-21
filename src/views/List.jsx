@@ -331,7 +331,7 @@ export function List({ data, listToken, setListToken, user }) {
 				<button
 					type="button"
 					id="excludeCheckedItems"
-					aria-pressed="false"
+					aria-pressed={exclude}
 					onClick={() => setExclude(!exclude)}
 				>
 					{exclude ? `Include checked items` : `Exclude checked items`}
