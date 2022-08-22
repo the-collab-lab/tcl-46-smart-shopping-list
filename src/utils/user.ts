@@ -10,24 +10,18 @@ import {
 
 import { isEmpty } from '../utils';
 
-/** Adds a new list to User List Token with a new List Name and Token */
-export const addNewListToUser = (
-	user: User,
+/** Returns updated User List with new List */
+export const addList = (
+	userToken: UserList,
 	listName: ListName,
 	newToken: ListToken,
-): ParsedUserList => {
-	const [userToken, setUserToken] = user;
-	const tokenLists: ParsedUserList = JSON.parse(userToken);
-
-	if (!listName) listName = newToken;
-	const updatedList: ParsedUserList = rmNullToken({
-		...tokenLists,
-		[listName]: newToken,
-	});
-
-	setUserToken(JSON.stringify(updatedList));
-	return updatedList;
-};
+): UserList =>
+	JSON.stringify(
+		rmNullToken({
+			...JSON.parse(userToken),
+			[listName || newToken]: newToken,
+		}),
+	);
 
 /** Checks if token already exists in user list */
 export const hasToken = (userToken: UserList, listToken: ListToken): boolean =>
