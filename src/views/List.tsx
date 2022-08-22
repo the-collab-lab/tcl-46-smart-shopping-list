@@ -136,8 +136,8 @@ export function List({ data, listToken, setListToken, user }) {
 
 		if (listName === '' || isDuplicateName(userToken, listName, listToken)) {
 			setListName(listToken);
-			updateName(user, listToken, listToken);
-		} else updateName(user, listName, listToken);
+			setUserToken(updateName(userToken, listToken));
+		} else setUserToken(updateName(userToken, listToken, listName));
 	};
 
 	const updateListName = (e) => {

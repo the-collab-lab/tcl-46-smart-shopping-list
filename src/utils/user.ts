@@ -31,17 +31,16 @@ export const hasToken = (userToken: UserList, listToken: ListToken): boolean =>
 export const getUserListsArr = (userToken: UserList): UserListArr =>
 	Object.entries(JSON.parse(userToken));
 
-/** Updates List Token to First entry in User List */
+/** Returns first token in user list or null if none */
 export const getFirstToken = (userLists: ParsedUserList): ListToken | null =>
 	Object.entries(userLists).length ? Object.entries(userLists)[0][1] : null;
 
-/** Update Name of a list  */
+/** Returns list with updated name  */
 export const updateName = (
-	user: User,
-	value: ListName,
+	userToken: UserList,
 	listToken: ListToken,
-): ParsedUserList => {
-	const [userToken, setUserToken] = user;
+	value?: ListName,
+): UserList => {
 	const prevList: ParsedUserList = JSON.parse(userToken);
 
 	for (let name in prevList) {
@@ -50,13 +49,10 @@ export const updateName = (
 		}
 	}
 
-	setUserToken(
-		JSON.stringify({
-			...prevList,
-			[isEmpty(value) ? listToken : value]: listToken,
-		}),
-	);
-	return { ...prevList, [value]: listToken };
+	return JSON.stringify({
+		...prevList,
+		[value || listToken]: listToken,
+	});
 };
 
 /** Checks whether the name passed in has an existing duplicate name */
