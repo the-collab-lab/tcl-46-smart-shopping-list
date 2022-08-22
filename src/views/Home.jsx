@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { generateToken } from '@the-collab-lab/shopping-list-utils';
 import { getItemData, streamListItems, addItem } from '../api';
-import { setNewUserToken, addList, hasToken } from '../utils/user';
+import { addList, hasToken } from '../utils/user';
 
 export function Home({ listToken, setListToken, user }) {
 	const [errorMessage, setErrorMessage] = useState('');
@@ -19,11 +19,8 @@ export function Home({ listToken, setListToken, user }) {
 
 	function makeNewList() {
 		const newToken = generateToken();
-		if (!listToken) {
-			setNewUserToken(user, newToken, listName);
-		} else {
-			setUserToken(addList(userToken, listName, newToken));
-		}
+
+		setUserToken(addList(userToken, listName, newToken));
 		setListToken(newToken);
 		addPlaceholderItem(newToken);
 

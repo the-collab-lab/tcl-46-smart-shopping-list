@@ -27,34 +27,13 @@ export const addList = (
 export const hasToken = (userToken: UserList, listToken: ListToken): boolean =>
 	Object.values(JSON.parse(userToken)).includes(listToken);
 
-/** Sets a new user token */
-export const setNewUserToken = (
-	user: User,
-	newToken: ListToken,
-	listName: ListName,
-): ParsedUserList => {
-	const [, setUserToken] = user;
-
-	setUserToken(JSON.stringify({ [listName ? listName : newToken]: newToken }));
-	return { [listName]: newToken };
-};
-
 /** Converts user list to a 2D List Array */
 export const getUserListsArr = (userToken: UserList): UserListArr =>
 	Object.entries(JSON.parse(userToken));
 
 /** Updates List Token to First entry in User List */
-export const setTokenFirstList = (
-	setListToken: SetUserList,
-	userLists: ParsedUserList,
-): ListToken => {
-	let token: ListToken = null;
-	if (Object.entries(userLists).length) {
-		token = Object.entries(userLists)[0][1];
-	}
-	setListToken(token);
-	return token;
-};
+export const getFirstToken = (userLists: ParsedUserList): ListToken | null =>
+	Object.entries(userLists).length ? Object.entries(userLists)[0][1] : null;
 
 /** Update Name of a list  */
 export const updateName = (

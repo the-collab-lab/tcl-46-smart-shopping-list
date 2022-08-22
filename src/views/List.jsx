@@ -6,7 +6,7 @@ import { ListItem } from '../components';
 import { comparePurchaseUrgency, getUrgency } from '../utils/item';
 import {
 	removeList,
-	setTokenFirstList,
+	getFirstToken,
 	getMatchingName,
 	getUserListsArr,
 	updateName,
@@ -88,7 +88,7 @@ export function List({ data, listToken, setListToken, user }) {
 		const userLists = removeList(user, name);
 
 		if (token === listToken) {
-			setTokenFirstList(setListToken, userLists);
+			setListToken(getFirstToken(userLists));
 		}
 	};
 
@@ -122,7 +122,7 @@ export function List({ data, listToken, setListToken, user }) {
 						user,
 						getMatchingName(userToken, listToken),
 					);
-					setTokenFirstList(setListToken, userLists);
+					setListToken(getFirstToken(userLists));
 					navigate('/');
 				});
 		}
