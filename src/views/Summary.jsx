@@ -3,10 +3,7 @@ import { getDaysBetweenDates } from '../utils';
 import { comparePurchaseUrgency } from '../utils/item';
 import { Goals } from '../components/Goals';
 
-export function Summary({ data, goal, setActiveComponent }) {
-	useEffect(() => {
-		setActiveComponent('summary');
-	}, []);
+export function Summary({ data, goal }) {
 	//memoize below?
 	const getPurchased = (array) =>
 		array.filter((item) => item.dateLastPurchased); //purchased at least once, not null value

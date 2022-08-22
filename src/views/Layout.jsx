@@ -1,9 +1,23 @@
 import { Outlet, NavLink } from 'react-router-dom';
 import FoodPuns from '../components/FoodPuns';
+import { useState, useEffect } from 'react';
 
 import './Layout.css';
 
-export function Layout({ activeComponent }) {
+function NavBarToggle() {
+	const [activeComponent, setActiveComponent] = useState();
+	useEffect(() => {
+		setActiveComponent(`${window.location.pathname.replace('/', '')}`);
+	}, [window.location.pathname]);
+
+	return (
+		<div
+			className={`Nav-link__shadow Nav-link__shadow_${activeComponent}`}
+		></div>
+	);
+}
+
+export function Layout() {
 	return (
 		<div className="Layout">
 			<header className="Layout-header">
@@ -26,9 +40,7 @@ export function Layout({ activeComponent }) {
 				<NavLink to="/summary" className="Nav-link">
 					Summary
 				</NavLink>
-				<div
-					className={`Nav-link__shadow Nav-link__shadow_${activeComponent}`}
-				></div>
+				<NavBarToggle />
 			</nav>
 		</div>
 	);

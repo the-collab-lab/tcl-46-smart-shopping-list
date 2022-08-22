@@ -5,10 +5,7 @@ import NoToken from '../components/NoToken';
 import { getUserListsArr } from '../utils/user';
 
 const defaultItem = { itemName: '', daysUntilNextPurchase: 7 };
-export function AddItem({ data, listToken, user, setActiveComponent }) {
-	useEffect(() => {
-		setActiveComponent('add-item');
-	}, []);
+export function AddItem({ data, listToken, user }) {
 	const [item, setItem] = useState(defaultItem);
 	const [status, setStatus] = useState('');
 	const [selectedListToken, setSelectedListToken] = useState(listToken);
