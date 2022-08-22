@@ -1,7 +1,5 @@
 import {
-	type User,
 	UserList,
-	SetUserList,
 	ParsedUserList,
 	ListToken,
 	ListName,
