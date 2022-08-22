@@ -71,14 +71,6 @@
 	z-index: 0;
 }
 
-.Nav-link__shadow_home {
-	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	width: 22%;
-}
-
 .Nav-link__shadow_list {
 	top: 0;
 	bottom: 0;
