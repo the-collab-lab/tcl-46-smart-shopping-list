@@ -85,10 +85,12 @@ export function List({ data, listToken, setListToken, user }) {
 	};
 
 	const rmListUpdate = (name, token) => {
-		const userLists = removeList(user, name);
+		const updatedList = removeList(userToken, name);
+
+		setUserToken(updatedList);
 
 		if (token === listToken) {
-			setListToken(getFirstToken(userLists));
+			setListToken(getFirstToken(JSON.parse(updatedList)));
 		}
 	};
 
@@ -118,11 +120,12 @@ export function List({ data, listToken, setListToken, user }) {
 					console.log(err);
 				})
 				.finally(() => {
-					const userLists = removeList(
-						user,
+					const updatedList = removeList(
+						userToken,
 						getMatchingName(userToken, listToken),
 					);
-					setListToken(getFirstToken(userLists));
+					setUserToken(updatedList);
+					setListToken(getFirstToken(JSON.parse(updatedList)));
 					navigate('/');
 				});
 		}

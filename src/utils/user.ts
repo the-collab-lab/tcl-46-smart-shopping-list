@@ -8,8 +8,6 @@ import {
 	UserListArr,
 } from '../types';
 
-import { isEmpty } from '../utils';
-
 /** Returns updated User List with new List */
 export const addList = (
 	userToken: UserList,
@@ -85,12 +83,9 @@ export const getMatchingName = (
 	getUserListsArr(userToken).find(([, token]) => token === listToken)[0];
 
 /** Remove list from user lists by name */
-export const removeList = (user: User, name: ListName): ParsedUserList => {
-	const [userToken, setUserToken] = user;
-
+export const removeList = (userToken, name: ListName): UserList => {
 	const tokenLists: ParsedUserList = JSON.parse(userToken);
 	delete tokenLists[name];
 
-	setUserToken(JSON.stringify(tokenLists));
-	return tokenLists;
+	return JSON.stringify(tokenLists);
 };
