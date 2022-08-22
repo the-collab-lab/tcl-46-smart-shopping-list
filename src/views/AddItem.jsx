@@ -53,7 +53,7 @@ export function AddItem({ data, listToken, user }) {
 
 	return (
 		<>
-			{listToken ? (
+			{listToken && listToken !== 'null' ? (
 				<div>
 					<form onSubmit={addItemToDatabase}>
 						<label htmlFor="addItem">

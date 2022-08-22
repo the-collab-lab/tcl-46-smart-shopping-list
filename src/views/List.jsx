@@ -10,6 +10,7 @@ import {
 	getMatchingName,
 	getUserListsArr,
 	updateName,
+	isDuplicateName,
 } from '../utils/user';
 import NoToken from '../components/NoToken';
 import {
@@ -31,7 +32,7 @@ export function List({ data, listToken, setListToken, user }) {
 	const [custom, setCustom] = useState(defaultDates);
 	const [isDisabled, setIsDisabled] = useState(true);
 
-	const [userToken] = user;
+	const [userToken, setUserToken] = user;
 	const [listName, setListName] = useState('');
 	const [exclude, setExclude] = useState(false);
 
@@ -63,7 +64,11 @@ export function List({ data, listToken, setListToken, user }) {
 	}, [copied]);
 
 	useEffect(() => {
-		if (getUserListsArr(userToken).length === 0) {
+		if (listToken === 'null') {
+			setUserToken('{}');
+			return;
+		}
+		if (!getUserListsArr(userToken).length) {
 			setListName('');
 			return;
 		}
@@ -179,10 +184,14 @@ export function List({ data, listToken, setListToken, user }) {
 
 	const editName = (e) => {
 		e.preventDefault();
-		if (!isDisabled) {
-			updateName(user, listName, listToken);
-		}
 		setIsDisabled(!isDisabled);
+
+		if (isDisabled) return;
+
+		if (listName === '' || isDuplicateName(userToken, listName, listToken)) {
+			setListName(listToken);
+			updateName(user, listToken, listToken);
+		} else updateName(user, listName, listToken);
 	};
 
 	const updateListName = (e) => {
@@ -191,7 +200,7 @@ export function List({ data, listToken, setListToken, user }) {
 
 	return (
 		<>
-			{listToken ? (
+			{listToken && listToken !== 'null' ? (
 				data.length > 1 ? (
 					<div>
 						<ListTitle
