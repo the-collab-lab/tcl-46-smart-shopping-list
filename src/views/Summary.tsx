@@ -1,9 +1,12 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useContext } from 'react';
+import { MyContext } from '../App';
 import { getDaysBetweenDates } from '../utils';
 import { comparePurchaseUrgency } from '../utils/item';
 import { Goals } from '../components/Goals';
 
-export function Summary({ data, goal }) {
+export function Summary() {
+	const [data] = useContext(MyContext).dataCtx;
+
 	//memoize below?
 	const getPurchased = (array) =>
 		array.filter((item) => item.dateLastPurchased); //purchased at least once, not null value

@@ -8,8 +8,8 @@ export type ParsedUserList =
 
 export type UserList = string;
 
-export type SetUserList = React.Dispatch<any>;
+export type setUserList = React.Dispatch<any>;
 
-export type User = [UserList, SetUserList];
+export type User = [UserList, setUserList];
 
 export type UserListArr = [ListName, ListToken][];
