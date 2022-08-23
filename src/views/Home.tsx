@@ -4,9 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import { generateToken } from '@the-collab-lab/shopping-list-utils';
 import { getItemData, streamListItems, addItem } from '../api';
 import { addList, hasToken } from '../utils/user';
+import { Summary } from '../components/Summary';
 import { ListToken } from '../types';
 
-export function Home({ listToken, setListToken, user }) {
+export function Home({ listToken, setListToken, user, data }) {
 	const [errorMessage, setErrorMessage] = useState('');
 	const [joinListToken, setJoinListToken] = useState('');
 	const [listName, setListName] = useState('');
@@ -58,9 +59,6 @@ export function Home({ listToken, setListToken, user }) {
 	};
 	return (
 		<div className="Home">
-			<p>
-				Hello from the home (<code>/</code>) page!
-			</p>
 			<form onSubmit={makeNewList}>
 				<label htmlFor="make-list">
 					<input
@@ -86,6 +84,7 @@ export function Home({ listToken, setListToken, user }) {
 				<button type="submit">Submit</button>
 			</form>
 			{errorMessage && <p>{errorMessage}</p>}
+			<Summary data={data} />
 		</div>
 	);
 }

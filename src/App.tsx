@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 
-import { Home, Layout, List, Export, Summary } from './views';
+import { Home, Layout, List, Export } from './views';
 
 import { getItemData, streamListItems } from './api';
 import { useStateWithStorage } from './utils';
@@ -42,6 +42,7 @@ export function App() {
 							listToken={listToken}
 							setListToken={setListToken}
 							user={[userToken, setUserToken]}
+							data={data} //temp for moving
 						/>
 					}
 				/>
@@ -56,8 +57,8 @@ export function App() {
 						/>
 					}
 				/>
-
-				<Route path="/summary" element={<Summary data={data} />} />
+				{/* path needs update but breaks currently */}
+				<Route path="/export" element={<Export data={data} />} />
 			</Route>
 		</Routes>
 	);
