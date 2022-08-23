@@ -22,7 +22,6 @@ const defaultDates = { startDate: '', endDate: '' };
 export function List({ data, listToken, setListToken, user }) {
 	const navigate = useNavigate();
 	const [searchTerm, setSearchTerm] = useState('');
-	const [copied, setCopied] = useState('');
 	const [urgencyTerm, setUrgencyTerm] = useState('ALL');
 	const [custom, setCustom] = useState(defaultDates);
 	const [isDisabled, setIsDisabled] = useState(true);
@@ -51,10 +50,6 @@ export function List({ data, listToken, setListToken, user }) {
 		const selected = document.querySelector('select[name="urgency"]');
 		setUrgencyTerm('ALL');
 	};
-
-	useEffect(() => {
-		if (copied) setTimeout(() => setCopied(''), 2000);
-	}, [copied]);
 
 	useEffect(() => {
 		if (listToken === 'null') {
@@ -96,13 +91,6 @@ export function List({ data, listToken, setListToken, user }) {
 
 	const clearSearchTerm = () => {
 		setSearchTerm('');
-	};
-
-	const copyToken = () => {
-		navigator.clipboard
-			.writeText(listToken)
-			.then(() => setCopied('Copied!'))
-			.catch(() => setCopied('Not Copied.'));
 	};
 
 	const deleteList = () => {
@@ -225,14 +213,6 @@ export function List({ data, listToken, setListToken, user }) {
 								Clear urgency selection
 							</button>
 						</div>
-						<div>
-							<p>
-								Copy token to allow others join your list:
-								<button onClick={copyToken} id="token">
-									{copied ? copied : listToken}
-								</button>
-							</p>
-						</div>
 						<ul>
 							{filterList(sortedFullList)
 								.filter((item) => item.name !== '')
@@ -267,10 +247,6 @@ export function List({ data, listToken, setListToken, user }) {
 							updateListName={updateListName}
 							listName={listName}
 						/>
-						Copy token to share your list with others:
-						<button onClick={copyToken} id="token">
-							{copied ? copied : listToken}
-						</button>
 						<Link to="/add-item">
 							<button type="button">Start adding items</button>
 						</Link>

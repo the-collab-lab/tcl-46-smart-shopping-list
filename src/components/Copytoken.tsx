@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
-import { Copytoken } from '../components/Copytoken';
 
-export function Export({ data, user, listToken }) {
-	const [userToken, setUserToken] = user;
+export function Copytoken({ data, user, listToken }) {
+	const [userToken, setUserToken] = user; //for dropdown later
 	const [copied, setCopied] = useState('');
 
 	// need listName to add dropdown to update listToken for sharing. listName is currently provided only within List component
@@ -21,8 +20,12 @@ export function Export({ data, user, listToken }) {
 
 	return (
 		<div>
-			<Copytoken data={data} user={user} listToken={listToken} />
-			<p>Add to calendar.</p>
+			<p>
+				Copy token to allow others join your list:
+				<button onClick={copyToken} id="token">
+					{copied ? copied : listToken}
+				</button>
+			</p>
 		</div>
 	);
 }

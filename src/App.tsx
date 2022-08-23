@@ -58,7 +58,16 @@ export function App() {
 					}
 				/>
 				{/* path needs update but breaks currently */}
-				<Route path="/export" element={<Export data={data} />} />
+				<Route
+					path="/export"
+					element={
+						<Export
+							data={data}
+							listToken={listToken}
+							user={[userToken, setUserToken]}
+						/>
+					}
+				/>
 			</Route>
 		</Routes>
 	);
