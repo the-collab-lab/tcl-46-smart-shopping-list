@@ -48,7 +48,6 @@ export function List({ data, listToken, setListToken, user }) {
 
 	const undoUrgency = () => {
 		const selected = document.querySelector('select[name="urgency"]');
-		selected.selectedIndex = 0;
 		setUrgencyTerm('ALL');
 	};
 
