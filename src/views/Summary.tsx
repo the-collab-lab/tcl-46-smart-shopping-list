@@ -1,9 +1,12 @@
-import { useState, useMemo } from 'react';
+import { useMemo, useContext } from 'react';
+import { MyContext } from '../App';
 import { getDaysBetweenDates } from '../utils';
 import { comparePurchaseUrgency } from '../utils/item';
 import { Goals } from '../components/Goals';
 
-export function Summary({ data, goal }) {
+export function Summary() {
+	const [data] = useContext(MyContext).dataCtx;
+
 	//memoize below?
 	const getPurchased = (array) =>
 		array.filter((item) => item.dateLastPurchased); //purchased at least once, not null value
@@ -32,9 +35,6 @@ export function Summary({ data, goal }) {
 	const purchased = getPurchased(sortedFullList);
 	const fiveMostRecentPurchases = getFiveMost(purchased, 'refTime'); //descending order of most recently purchased items
 	const fiveMostPurchased = getFiveMost(purchased, 'totalPurchases');
-	const mostPurchased = [...purchased].filter(
-		(item) => item.totalPurchases === Math.max(),
-	);
 	const mostNeglectedItem = getOldest(
 		sortedFullList.filter((item) => !item.dateLastPurchased),
 	); //oldest never purchased item

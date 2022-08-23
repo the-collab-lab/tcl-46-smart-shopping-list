@@ -1,15 +1,18 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { MyContext } from '../App';
 import { isEmpty, isDuplicate } from '../utils/validateStrings';
 import { addItem } from '../api/firebase';
 import NoToken from '../components/NoToken';
 import { getUserListsArr } from '../utils/user';
 
 const defaultItem = { itemName: '', daysUntilNextPurchase: 7 };
-export function AddItem({ data, listToken, user }) {
+export function AddItem() {
 	const [item, setItem] = useState(defaultItem);
 	const [status, setStatus] = useState('');
+	const [listToken] = useContext(MyContext).listTokenCtx;
+	const [data] = useContext(MyContext).dataCtx;
+	const [userList] = useContext(MyContext).userListCtx;
 	const [selectedListToken, setSelectedListToken] = useState(listToken);
-	const [userToken] = user;
 
 	const updateItem = (e) => {
 		if (status) setStatus('');
@@ -86,7 +89,7 @@ export function AddItem({ data, listToken, user }) {
 								onChange={updateSelectedList}
 								id="userList"
 							>
-								{getUserListsArr(userToken).map(([name, token]) => (
+								{getUserListsArr(userList).map(([name, token]) => (
 									<option key={token} value={token}>
 										{name}
 									</option>

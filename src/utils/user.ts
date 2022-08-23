@@ -8,24 +8,24 @@ import {
 
 /** Returns updated User List with new List */
 export const addList = (
-	userToken: UserList,
+	userList: UserList,
 	listName: ListName,
 	newToken: ListToken,
 ): UserList =>
 	JSON.stringify(
 		rmNullToken({
-			...JSON.parse(userToken),
+			...JSON.parse(userList),
 			[listName || newToken]: newToken,
 		}),
 	);
 
 /** Checks if token already exists in user list */
-export const hasToken = (userToken: UserList, listToken: ListToken): boolean =>
-	Object.values(JSON.parse(userToken)).includes(listToken);
+export const hasToken = (userList: UserList, listToken: ListToken): boolean =>
+	Object.values(JSON.parse(userList)).includes(listToken);
 
 /** Converts user list to a 2D List Array */
-export const getUserListsArr = (userToken: UserList): UserListArr =>
-	Object.entries(JSON.parse(userToken));
+export const getUserListsArr = (userList: UserList): UserListArr =>
+	Object.entries(JSON.parse(userList));
 
 /** Returns first token in user list or null if none */
 export const getFirstToken = (userLists: ParsedUserList): ListToken | null =>
@@ -33,11 +33,11 @@ export const getFirstToken = (userLists: ParsedUserList): ListToken | null =>
 
 /** Returns list with updated name  */
 export const updateName = (
-	userToken: UserList,
+	userList: UserList,
 	listToken: ListToken,
 	value?: ListName,
 ): UserList => {
-	const prevList: ParsedUserList = JSON.parse(userToken);
+	const prevList: ParsedUserList = JSON.parse(userList);
 
 	for (let name in prevList) {
 		if (prevList[name] === listToken) {
@@ -53,11 +53,11 @@ export const updateName = (
 
 /** Checks whether the name passed in has an existing duplicate name */
 export const isDuplicateName = (
-	userToken: UserList,
+	userList: UserList,
 	listName: ListName,
 	listToken: ListToken,
 ): boolean =>
-	getUserListsArr(userToken)
+	getUserListsArr(userList)
 		.filter(([, token]) => token !== listToken)
 		.some(([name]) => name === listName);
 
@@ -75,14 +75,14 @@ export function rmNullToken(list: ParsedUserList): ParsedUserList {
 
 /** Finds name that matches passed in token */
 export const getMatchingName = (
-	userToken: UserList,
+	userList: UserList,
 	listToken: ListToken,
 ): ListName =>
-	getUserListsArr(userToken).find(([, token]) => token === listToken)[0];
+	getUserListsArr(userList).find(([, token]) => token === listToken)[0];
 
 /** Remove list from user lists by name */
-export const removeList = (userToken, name: ListName): UserList => {
-	const tokenLists: ParsedUserList = JSON.parse(userToken);
+export const removeList = (userList, name: ListName): UserList => {
+	const tokenLists: ParsedUserList = JSON.parse(userList);
 	delete tokenLists[name];
 
 	return JSON.stringify(tokenLists);

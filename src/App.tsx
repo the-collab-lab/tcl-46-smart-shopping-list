@@ -1,21 +1,31 @@
-import { useEffect, useState } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useState, createContext, Context } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 
 import { AddItem, Home, Layout, List, Summary } from './views';
 
 import { getItemData, streamListItems } from './api';
 import { useStateWithStorage } from './utils';
+import { type GlobalContext } from './types';
+
+export const MyContext: Context<GlobalContext> | Context<any> = createContext({
+	dataCtx: [],
+	userListCtx: [],
+	listTokenCtx: [],
+	adjustedDataCtx: [],
+});
 
 export function App() {
 	const [data, setData] = useState([]);
 	const navigate = useNavigate();
+	const [adjustedData, setAdjustedData] = useState(data);
 
 	const [listToken, setListToken] = useStateWithStorage(
 		null,
 		'tcl-shopping-list-token',
 	);
 
-	const [userToken, setUserToken] = useStateWithStorage(
+	const [userList, setUserList] = useStateWithStorage(
 		JSON.stringify({ listToken }),
 		'tcl-user-lists',
 	);
@@ -33,41 +43,22 @@ export function App() {
 	}, [listToken]);
 
 	return (
-		<Routes>
-			<Route path="/" element={<Layout />}>
-				<Route
-					index
-					element={
-						<Home
-							listToken={listToken}
-							setListToken={setListToken}
-							user={[userToken, setUserToken]}
-						/>
-					}
-				/>
-				<Route
-					path="/list"
-					element={
-						<List
-							data={data}
-							listToken={listToken}
-							setListToken={setListToken}
-							user={[userToken, setUserToken]}
-						/>
-					}
-				/>
-				<Route
-					path="/add-item"
-					element={
-						<AddItem
-							data={data}
-							listToken={listToken}
-							user={[userToken, setUserToken]}
-						/>
-					}
-				/>
-				<Route path="/summary" element={<Summary data={data} />} />
-			</Route>
-		</Routes>
+		<MyContext.Provider
+			value={{
+				dataCtx: [data, setData],
+				listTokenCtx: [listToken, setListToken],
+				userListCtx: [userList, setUserList],
+				adjustedDataCtx: [adjustedData, setAdjustedData],
+			}}
+		>
+			<Routes>
+				<Route path="/" element={<Layout />}>
+					<Route index element={<Home />} />
+					<Route path="/list" element={<List />} />
+					<Route path="/add-item" element={<AddItem />} />
+					<Route path="/summary" element={<Summary />} />
+				</Route>
+			</Routes>
+		</MyContext.Provider>
 	);
 }

@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { deleteItem } from '../api';
 import { ListItem } from '../components';
@@ -21,10 +21,11 @@ import {
 } from 'datebook';
 import ListSwitcher from '../components/ListSwitcher';
 import ListTitle from '../components/ListTitle';
+import { MyContext } from '../App';
 
 const defaultDates = { startDate: '', endDate: '' };
 
-export function List({ data, listToken, setListToken, user }) {
+export function List() {
 	const navigate = useNavigate();
 	const [searchTerm, setSearchTerm] = useState('');
 	const [copied, setCopied] = useState('');
@@ -32,7 +33,10 @@ export function List({ data, listToken, setListToken, user }) {
 	const [custom, setCustom] = useState(defaultDates);
 	const [isDisabled, setIsDisabled] = useState(true);
 
-	const [userToken, setUserToken] = user;
+	const [listToken, setListToken] = useContext(MyContext).listTokenCtx;
+	const [userList, setUserList] = useContext(MyContext).userListCtx;
+	const [data] = useContext(MyContext).dataCtx;
+
 	const [listName, setListName] = useState('');
 	const [exclude, setExclude] = useState(false);
 
@@ -54,7 +58,6 @@ export function List({ data, listToken, setListToken, user }) {
 	};
 
 	const undoUrgency = () => {
-		const selected = document.querySelector('select[name="urgency"]');
 		setUrgencyTerm('ALL');
 	};
 
@@ -64,18 +67,18 @@ export function List({ data, listToken, setListToken, user }) {
 
 	useEffect(() => {
 		if (listToken === 'null') {
-			setUserToken('{}');
+			setUserList('{}');
 			return;
 		}
-		if (!getUserListsArr(userToken).length) {
+		if (!getUserListsArr(userList).length) {
 			setListName('');
 			return;
 		}
 
-		if (listName !== getMatchingName(userToken, listToken)) {
-			setListName(getMatchingName(userToken, listToken));
+		if (listName !== getMatchingName(userList, listToken)) {
+			setListName(getMatchingName(userList, listToken));
 		}
-	}, [userToken, listToken]);
+	}, [userList, listToken]);
 
 	const filterList = (list) => {
 		const cleanup = (inputString) => {
@@ -95,16 +98,14 @@ export function List({ data, listToken, setListToken, user }) {
 		.filter(getUrgency(urgencyTerm))
 		.filter(customDateRange(custom.startDate, custom.endDate));
 
-	const excludeCheckList = excludeChecked(renderedList);
-
 	const switchList = (token) => {
 		setListToken(token);
 	};
 
 	const rmListUpdate = (name, token) => {
-		const updatedList = removeList(userToken, name);
+		const updatedList = removeList(userList, name);
 
-		setUserToken(updatedList);
+		setUserList(updatedList);
 
 		if (token === listToken) {
 			setListToken(getFirstToken(JSON.parse(updatedList)));
@@ -138,10 +139,10 @@ export function List({ data, listToken, setListToken, user }) {
 				})
 				.finally(() => {
 					const updatedList = removeList(
-						userToken,
-						getMatchingName(userToken, listToken),
+						userList,
+						getMatchingName(userList, listToken),
 					);
-					setUserToken(updatedList);
+					setUserList(updatedList);
 					setListToken(getFirstToken(JSON.parse(updatedList)));
 					navigate('/');
 				});
@@ -190,10 +191,10 @@ export function List({ data, listToken, setListToken, user }) {
 
 		if (isDisabled) return;
 
-		if (listName === '' || isDuplicateName(userToken, listName, listToken)) {
+		if (listName === '' || isDuplicateName(userList, listName, listToken)) {
 			setListName(listToken);
-			setUserToken(updateName(userToken, listToken));
-		} else setUserToken(updateName(userToken, listToken, listName));
+			setUserList(updateName(userList, listToken));
+		} else setUserList(updateName(userList, listToken, listName));
 	};
 
 	const updateListName = (e) => {
@@ -298,7 +299,7 @@ export function List({ data, listToken, setListToken, user }) {
 						</ul>
 						<button onClick={deleteList}>Delete List</button>
 						<ListSwitcher
-							userToken={userToken}
+							userList={userList}
 							switchList={switchList}
 							rmListUpdate={rmListUpdate}
 						/>
@@ -325,7 +326,7 @@ export function List({ data, listToken, setListToken, user }) {
 						</Link>
 						<button onClick={deleteList}>Delete List</button>
 						<ListSwitcher
-							userToken={userToken}
+							userList={userList}
 							switchList={switchList}
 							rmListUpdate={rmListUpdate}
 						/>
