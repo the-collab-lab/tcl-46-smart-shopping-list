@@ -26,7 +26,6 @@ export function List({ data, listToken, setListToken, user }) {
 	const [urgencyTerm, setUrgencyTerm] = useState('ALL');
 	const [custom, setCustom] = useState(defaultDates);
 	const [isDisabled, setIsDisabled] = useState(true);
-	const [exclude, setExclude] = useState(false);
 
 	const [userToken, setUserToken] = user;
 	const [listName, setListName] = useState('');
@@ -264,7 +263,8 @@ export function List({ data, listToken, setListToken, user }) {
 			) : (
 				<NoToken />
 			)}
-			<Calendar excludes={[exclude, setExclude]} renderedList={renderedList} />
+			{/* need renderedList lifted up before calendar can be moved nicely */}
+			<Calendar renderedList={renderedList} />
 		</>
 	);
 }

@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
 	ICalendar,
 	GoogleCalendar,
@@ -5,8 +6,9 @@ import {
 	YahooCalendar,
 } from 'datebook';
 
-export function Calendar({ excludes, renderedList }) {
-	const [exclude, setExclude] = excludes;
+// need renderedList lifted up before calendar can be moved nicely
+export function Calendar({ renderedList }) {
+	const [exclude, setExclude] = useState(false);
 
 	const excludeChecked = (array) => {
 		return array.filter((item) => !item.isChecked);
