@@ -37,7 +37,7 @@ export function Home() {
 			const data = getItemData(snapshot);
 			try {
 				if (!data.length) throw new Error('That list does not exist.');
-				if (hasToken(user[0], joinListToken as ListToken))
+				if (hasToken(userList, joinListToken as ListToken))
 					throw new Error('You have already joined that list.');
 				setListToken(joinListToken);
 				setUserList(
@@ -60,9 +60,6 @@ export function Home() {
 	};
 	return (
 		<div className="Home">
-			<p>
-				Hello from the home (<code>/</code>) page!
-			</p>
 			<form onSubmit={makeNewList}>
 				<label htmlFor="make-list">
 					<input

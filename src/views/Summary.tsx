@@ -1,4 +1,4 @@
-import { useState, useMemo, useContext } from 'react';
+import { useMemo, useContext } from 'react';
 import { MyContext } from '../App';
 import { getDaysBetweenDates } from '../utils';
 import { comparePurchaseUrgency } from '../utils/item';
@@ -35,9 +35,6 @@ export function Summary() {
 	const purchased = getPurchased(sortedFullList);
 	const fiveMostRecentPurchases = getFiveMost(purchased, 'refTime'); //descending order of most recently purchased items
 	const fiveMostPurchased = getFiveMost(purchased, 'totalPurchases');
-	const mostPurchased = [...purchased].filter(
-		(item) => item.totalPurchases === Math.max(),
-	);
 	const mostNeglectedItem = getOldest(
 		sortedFullList.filter((item) => !item.dateLastPurchased),
 	); //oldest never purchased item

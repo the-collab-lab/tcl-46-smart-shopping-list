@@ -1,10 +1,13 @@
-import { useEffect, useState } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useState, createContext } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 
 import { AddItem, Home, Layout, List, Summary } from './views';
 
 import { getItemData, streamListItems } from './api';
 import { useStateWithStorage } from './utils';
+
+export const MyContext = createContext({});
 
 export function App() {
 	const [data, setData] = useState([]);
@@ -15,7 +18,7 @@ export function App() {
 		'tcl-shopping-list-token',
 	);
 
-	const [userToken, setUserToken] = useStateWithStorage(
+	const [userList, setUserList] = useStateWithStorage(
 		JSON.stringify({ listToken }),
 		'tcl-user-lists',
 	);
@@ -33,41 +36,21 @@ export function App() {
 	}, [listToken]);
 
 	return (
-		<Routes>
-			<Route path="/" element={<Layout />}>
-				<Route
-					index
-					element={
-						<Home
-							listToken={listToken}
-							setListToken={setListToken}
-							user={[userToken, setUserToken]}
-						/>
-					}
-				/>
-				<Route
-					path="/list"
-					element={
-						<List
-							data={data}
-							listToken={listToken}
-							setListToken={setListToken}
-							user={[userToken, setUserToken]}
-						/>
-					}
-				/>
-				<Route
-					path="/add-item"
-					element={
-						<AddItem
-							data={data}
-							listToken={listToken}
-							user={[userToken, setUserToken]}
-						/>
-					}
-				/>
-				<Route path="/summary" element={<Summary data={data} />} />
-			</Route>
-		</Routes>
+		<MyContext.Provider
+			value={{
+				dataCtx: [data, setData],
+				listTokenCtx: [listToken, setListToken],
+				userListCtx: [userList, setUserList],
+			}}
+		>
+			<Routes>
+				<Route path="/" element={<Layout />}>
+					<Route index element={<Home />} />
+					<Route path="/list" element={<List />} />
+					<Route path="/add-item" element={<AddItem />} />
+					<Route path="/summary" element={<Summary />} />
+				</Route>
+			</Routes>
+		</MyContext.Provider>
 	);
 }
