@@ -6,7 +6,6 @@ import { updateItem, deleteItem } from '../api/firebase';
 import { getFutureDate } from '../utils';
 
 import { checkIfActive } from '../utils/item';
-import { getUrgency } from '../utils/item';
 
 import './ListItem.css';
 

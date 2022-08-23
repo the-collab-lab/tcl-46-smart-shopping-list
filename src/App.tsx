@@ -1,13 +1,18 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState, createContext } from 'react';
+import { useEffect, useState, createContext, Context } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 
 import { AddItem, Home, Layout, List, Summary } from './views';
 
 import { getItemData, streamListItems } from './api';
 import { useStateWithStorage } from './utils';
+import { type GlobalContext } from './types';
 
-export const MyContext = createContext({});
+export const MyContext: Context<GlobalContext> | Context<any> = createContext({
+	dataCtx: [],
+	userListCtx: [],
+	listTokenCtx: [],
+});
 
 export function App() {
 	const [data, setData] = useState([]);
