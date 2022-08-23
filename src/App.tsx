@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 
-import { AddItem, Home, Layout, List, Summary } from './views';
+import { AddItem, Home, Layout, List, Export, Summary } from './views';
 
 import { getItemData, streamListItems } from './api';
 import { useStateWithStorage } from './utils';
@@ -66,6 +66,7 @@ export function App() {
 						/>
 					}
 				/>
+				{/* <Route path="/export" element={<Export />} /> */}
 				<Route path="/summary" element={<Summary data={data} />} />
 			</Route>
 		</Routes>
