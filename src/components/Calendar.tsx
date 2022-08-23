@@ -6,7 +6,6 @@ import {
 	YahooCalendar,
 } from 'datebook';
 
-// need renderedList lifted up before calendar can be moved nicely
 export function Calendar({ renderedList }) {
 	const [exclude, setExclude] = useState(false);
 
