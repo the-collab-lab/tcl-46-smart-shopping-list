@@ -58,7 +58,6 @@ export function List() {
 	};
 
 	const undoUrgency = () => {
-		const selected = document.querySelector('select[name="urgency"]');
 		setUrgencyTerm('ALL');
 	};
 
@@ -98,8 +97,6 @@ export function List() {
 		.filter((item) => item.name !== '')
 		.filter(getUrgency(urgencyTerm))
 		.filter(customDateRange(custom.startDate, custom.endDate));
-
-	const excludeCheckList = excludeChecked(renderedList);
 
 	const switchList = (token) => {
 		setListToken(token);
