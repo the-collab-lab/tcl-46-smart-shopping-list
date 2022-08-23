@@ -20,11 +20,8 @@ export function Layout() {
 				<NavLink to="/list" className="Nav-link">
 					List
 				</NavLink>
-				<NavLink to="/add-item" className="Nav-link">
-					Add Item
-				</NavLink>
-				<NavLink to="/summary" className="Nav-link">
-					Summary
+				<NavLink to="/export" className="Nav-link">
+					Export
 				</NavLink>
 			</nav>
 		</div>

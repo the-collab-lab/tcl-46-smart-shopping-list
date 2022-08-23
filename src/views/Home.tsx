@@ -19,7 +19,6 @@ export function Home() {
 	function addPlaceholderItem(listId) {
 		addItem(listId, { itemName: '', daysUntilNextPurchase: 0 });
 	}
-
 	function makeNewList() {
 		const newToken = generateToken();
 

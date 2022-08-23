@@ -13,15 +13,11 @@ import {
 	isDuplicateName,
 } from '../utils/user';
 import NoToken from '../components/NoToken';
-import {
-	ICalendar,
-	GoogleCalendar,
-	OutlookCalendar,
-	YahooCalendar,
-} from 'datebook';
+
 import ListSwitcher from '../components/ListSwitcher';
 import ListTitle from '../components/ListTitle';
 import { MyContext } from '../App';
+import { AddItem } from './AddItem';
 
 const defaultDates = { startDate: '', endDate: '' };
 
@@ -36,6 +32,7 @@ export function List() {
 	const [listToken, setListToken] = useContext(MyContext).listTokenCtx;
 	const [userList, setUserList] = useContext(MyContext).userListCtx;
 	const [data] = useContext(MyContext).dataCtx;
+	const [adjustedData, setAdjustedData] = useContext(MyContext).adjustedDataCtx;
 
 	const [listName, setListName] = useState('');
 	const [exclude, setExclude] = useState(false);
@@ -87,10 +84,6 @@ export function List() {
 		return list.filter(({ name }) =>
 			cleanup(name).includes(cleanup(searchTerm)),
 		);
-	};
-
-	const excludeChecked = (array) => {
-		return array.filter((item) => !item.isChecked);
 	};
 
 	const renderedList = filterList(sortedFullList)
@@ -148,42 +141,6 @@ export function List() {
 				});
 		}
 	};
-	const listOfShoppingListItems = [];
-
-	// this is not inside a function?
-	!exclude
-		? renderedList.forEach((item) => {
-				listOfShoppingListItems.push(item.name);
-		  })
-		: excludeChecked(renderedList).forEach((item) => {
-				listOfShoppingListItems.push(item.name);
-		  });
-
-	const handleCalendarDownload = (evt) => {
-		const defaultStartTime = new Date(Date());
-		const dt = new Date();
-		dt.setHours(dt.getHours() + 1);
-		const defaultEndTime = dt;
-		const eventConfig = {
-			title: 'Shopping trip',
-			description: listOfShoppingListItems.join('\n'),
-			start: defaultStartTime,
-			end: defaultEndTime,
-		};
-		if (evt.target.name === 'ical') {
-			const ical = new ICalendar(eventConfig);
-			ical.download();
-		} else if (evt.target.name === 'google') {
-			const googleCalendar = new GoogleCalendar(eventConfig);
-			window.open(googleCalendar.render());
-		} else if (evt.target.name === 'outlook') {
-			const outlookCalendar = new OutlookCalendar(eventConfig);
-			window.open(outlookCalendar.render());
-		} else {
-			const yahooCalendar = new YahooCalendar(eventConfig);
-			window.open(yahooCalendar.render());
-		}
-	};
 
 	const editName = (e) => {
 		e.preventDefault();
@@ -212,6 +169,7 @@ export function List() {
 							updateListName={updateListName}
 							listName={listName}
 						/>
+						<AddItem />
 						<label>
 							Find an item
 							<input
@@ -311,25 +269,20 @@ export function List() {
 							This app will learn from your purchasing habits and help you
 							prioritize and plan your shopping list.
 						</p>
+						<AddItem />
 						<ListTitle
 							editName={editName}
 							isDisabled={isDisabled}
 							updateListName={updateListName}
 							listName={listName}
 						/>
-						Copy token to share your list with others:
-						<button onClick={copyToken} id="token">
-							{copied ? copied : listToken}
-						</button>
-						<Link to="/add-item">
-							<button type="button">Start adding items</button>
-						</Link>
+
 						<button onClick={deleteList}>Delete List</button>
-						<ListSwitcher
-							userList={userList}
+						{/* <ListSwitcher
+							userToken={userToken}
 							switchList={switchList}
 							rmListUpdate={rmListUpdate}
-						/>
+						/> */}
 					</div>
 				)
 			) : (
@@ -337,8 +290,9 @@ export function List() {
 			)}
 			<div>
 				<p>
-					You have {listOfShoppingListItems.length} items in your current
-					shopping cart.
+					You have{' '}
+					{adjustedData.length ? adjustedData.length : renderedList.length}{' '}
+					items in your current shopping cart.
 				</p>
 				<button
 					type="button"
@@ -347,19 +301,6 @@ export function List() {
 					onClick={() => setExclude(!exclude)}
 				>
 					{exclude ? `Include checked items` : `Exclude checked items`}
-				</button>
-				<p>Want to add a shopping trip to your calendar? </p>
-				<button type="button" onClick={handleCalendarDownload} name="ical">
-					iCalendar
-				</button>
-				<button type="button" onClick={handleCalendarDownload} name="google">
-					Google Calendar
-				</button>
-				<button type="button" onClick={handleCalendarDownload} name="outlook">
-					Outlook Calendar
-				</button>
-				<button type="button" onClick={handleCalendarDownload} name="yahoo">
-					Yahoo Calendar
 				</button>
 			</div>
 		</>
