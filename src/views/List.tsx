@@ -6,7 +6,7 @@ import { ListItem } from '../components';
 import { comparePurchaseUrgency, getUrgency } from '../utils/item';
 import {
 	removeList,
-	setTokenFirstList,
+	getFirstToken,
 	getMatchingName,
 	getUserListsArr,
 	updateName,
@@ -55,7 +55,6 @@ export function List({ data, listToken, setListToken, user }) {
 
 	const undoUrgency = () => {
 		const selected = document.querySelector('select[name="urgency"]');
-		selected.selectedIndex = 0;
 		setUrgencyTerm('ALL');
 	};
 
@@ -103,10 +102,12 @@ export function List({ data, listToken, setListToken, user }) {
 	};
 
 	const rmListUpdate = (name, token) => {
-		const userLists = removeList(user, name);
+		const updatedList = removeList(userToken, name);
+
+		setUserToken(updatedList);
 
 		if (token === listToken) {
-			setTokenFirstList(setListToken, userLists);
+			setListToken(getFirstToken(JSON.parse(updatedList)));
 		}
 	};
 
@@ -136,11 +137,12 @@ export function List({ data, listToken, setListToken, user }) {
 					console.log(err);
 				})
 				.finally(() => {
-					const userLists = removeList(
-						user,
+					const updatedList = removeList(
+						userToken,
 						getMatchingName(userToken, listToken),
 					);
-					setTokenFirstList(setListToken, userLists);
+					setUserToken(updatedList);
+					setListToken(getFirstToken(JSON.parse(updatedList)));
 					navigate('/');
 				});
 		}
@@ -190,8 +192,8 @@ export function List({ data, listToken, setListToken, user }) {
 
 		if (listName === '' || isDuplicateName(userToken, listName, listToken)) {
 			setListName(listToken);
-			updateName(user, listToken, listToken);
-		} else updateName(user, listName, listToken);
+			setUserToken(updateName(userToken, listToken));
+		} else setUserToken(updateName(userToken, listToken, listName));
 	};
 
 	const updateListName = (e) => {

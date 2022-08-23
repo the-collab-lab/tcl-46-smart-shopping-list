@@ -1,74 +1,42 @@
 import {
-	type User,
 	UserList,
-	SetUserList,
 	ParsedUserList,
 	ListToken,
 	ListName,
 	UserListArr,
 } from '../types';
 
-import { isEmpty } from '../utils';
-
-/** Adds a new list to User List Token with a new List Name and Token */
-export const addNewListToUser = (
-	user: User,
+/** Returns updated User List with new List */
+export const addList = (
+	userToken: UserList,
 	listName: ListName,
 	newToken: ListToken,
-): ParsedUserList => {
-	const [userToken, setUserToken] = user;
-	const tokenLists: ParsedUserList = JSON.parse(userToken);
-
-	if (!listName) listName = newToken;
-	const updatedList: ParsedUserList = rmNullToken({
-		...tokenLists,
-		[listName]: newToken,
-	});
-
-	setUserToken(JSON.stringify(updatedList));
-	return updatedList;
-};
+): UserList =>
+	JSON.stringify(
+		rmNullToken({
+			...JSON.parse(userToken),
+			[listName || newToken]: newToken,
+		}),
+	);
 
 /** Checks if token already exists in user list */
 export const hasToken = (userToken: UserList, listToken: ListToken): boolean =>
 	Object.values(JSON.parse(userToken)).includes(listToken);
 
-/** Sets a new user token */
-export const setNewUserToken = (
-	user: User,
-	newToken: ListToken,
-	listName: ListName,
-): ParsedUserList => {
-	const [, setUserToken] = user;
-
-	setUserToken(JSON.stringify({ [listName ? listName : newToken]: newToken }));
-	return { [listName]: newToken };
-};
-
 /** Converts user list to a 2D List Array */
 export const getUserListsArr = (userToken: UserList): UserListArr =>
 	Object.entries(JSON.parse(userToken));
 
-/** Updates List Token to First entry in User List */
-export const setTokenFirstList = (
-	setListToken: SetUserList,
-	userLists: ParsedUserList,
-): ListToken => {
-	let token: ListToken = null;
-	if (Object.entries(userLists).length) {
-		token = Object.entries(userLists)[0][1];
-	}
-	setListToken(token);
-	return token;
-};
+/** Returns first token in user list or null if none */
+export const getFirstToken = (userLists: ParsedUserList): ListToken | null =>
+	Object.entries(userLists).length ? Object.entries(userLists)[0][1] : null;
 
-/** Update Name of a list  */
+/** Returns list with updated name  */
 export const updateName = (
-	user: User,
-	value: ListName,
+	userToken: UserList,
 	listToken: ListToken,
-): ParsedUserList => {
-	const [userToken, setUserToken] = user;
+	value?: ListName,
+): UserList => {
 	const prevList: ParsedUserList = JSON.parse(userToken);
 
 	for (let name in prevList) {
@@ -77,13 +45,10 @@ export const updateName = (
 		}
 	}
 
-	setUserToken(
-		JSON.stringify({
-			...prevList,
-			[isEmpty(value) ? listToken : value]: listToken,
-		}),
-	);
-	return { ...prevList, [value]: listToken };
+	return JSON.stringify({
+		...prevList,
+		[value || listToken]: listToken,
+	});
 };
 
 /** Checks whether the name passed in has an existing duplicate name */
@@ -116,12 +81,9 @@ export const getMatchingName = (
 	getUserListsArr(userToken).find(([, token]) => token === listToken)[0];
 
 /** Remove list from user lists by name */
-export const removeList = (user: User, name: ListName): ParsedUserList => {
-	const [userToken, setUserToken] = user;
-
+export const removeList = (userToken, name: ListName): UserList => {
 	const tokenLists: ParsedUserList = JSON.parse(userToken);
 	delete tokenLists[name];
 
-	setUserToken(JSON.stringify(tokenLists));
-	return tokenLists;
+	return JSON.stringify(tokenLists);
 };

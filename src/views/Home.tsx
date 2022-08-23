@@ -3,12 +3,14 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { generateToken } from '@the-collab-lab/shopping-list-utils';
 import { getItemData, streamListItems, addItem } from '../api';
-import { setNewUserToken, addNewListToUser, hasToken } from '../utils/user';
+import { addList, hasToken } from '../utils/user';
+import { ListToken } from '../types';
 
 export function Home({ listToken, setListToken, user }) {
 	const [errorMessage, setErrorMessage] = useState('');
 	const [joinListToken, setJoinListToken] = useState('');
 	const [listName, setListName] = useState('');
+	const [userToken, setUserToken] = user;
 
 	const navigate = useNavigate();
 
@@ -18,11 +20,8 @@ export function Home({ listToken, setListToken, user }) {
 
 	function makeNewList() {
 		const newToken = generateToken();
-		if (!listToken) {
-			setNewUserToken(user, newToken, listName);
-		} else {
-			addNewListToUser(user, listName, newToken);
-		}
+
+		setUserToken(addList(userToken, listName, newToken as ListToken));
 		setListToken(newToken);
 		addPlaceholderItem(newToken);
 
@@ -36,10 +35,12 @@ export function Home({ listToken, setListToken, user }) {
 			const data = getItemData(snapshot);
 			try {
 				if (!data.length) throw new Error('That list does not exist.');
-				if (hasToken(user[0], joinListToken))
+				if (hasToken(user[0], joinListToken as ListToken))
 					throw new Error('You have already joined that list.');
 				setListToken(joinListToken);
-				addNewListToUser(user, joinListToken, joinListToken);
+				setUserToken(
+					addList(userToken, joinListToken, joinListToken as ListToken),
+				);
 				navigate('/list');
 			} catch (err) {
 				setErrorMessage(err.message);
