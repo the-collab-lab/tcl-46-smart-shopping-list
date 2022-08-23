@@ -1,4 +1,3 @@
-import React from 'react';
 import { getUserListsArr } from '../utils/user';
 
 const ListSwitcher = ({ userToken, switchList, rmListUpdate }) => {

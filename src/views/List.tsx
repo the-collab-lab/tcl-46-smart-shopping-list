@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect, useMemo } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { deleteItem } from '../api';
 import { ListItem } from '../components';
 import { comparePurchaseUrgency, getUrgency } from '../utils/item';
@@ -230,11 +230,11 @@ export function List({ data, listToken, setListToken, user }) {
 							))}
 						</ul>
 						<button onClick={deleteList}>Delete List</button>
-						<ListSwitcher
+						{/* <ListSwitcher
 							userToken={userToken}
 							switchList={switchList}
 							rmListUpdate={rmListUpdate}
-						/>
+						/> */}
 					</div>
 				) : (
 					<div>
@@ -249,15 +249,13 @@ export function List({ data, listToken, setListToken, user }) {
 							updateListName={updateListName}
 							listName={listName}
 						/>
-						<Link to="/add-item">
-							<button type="button">Start adding items</button>
-						</Link>
+
 						<button onClick={deleteList}>Delete List</button>
-						<ListSwitcher
+						{/* <ListSwitcher
 							userToken={userToken}
 							switchList={switchList}
 							rmListUpdate={rmListUpdate}
-						/>
+						/> */}
 					</div>
 				)
 			) : (

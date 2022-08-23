@@ -64,6 +64,7 @@ export function App() {
 						<Export
 							data={data}
 							listToken={listToken}
+							setListToken={setListToken}
 							user={[userToken, setUserToken]}
 						/>
 					}

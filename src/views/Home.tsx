@@ -6,6 +6,8 @@ import { getItemData, streamListItems, addItem } from '../api';
 import { addList, hasToken } from '../utils/user';
 import { Summary } from '../components/Summary';
 import { ListToken } from '../types';
+import ListSwitcher from '../components/ListSwitcher';
+import { removeList, getFirstToken } from '../utils';
 
 export function Home({ listToken, setListToken, user, data }) {
 	const [errorMessage, setErrorMessage] = useState('');
@@ -57,6 +59,21 @@ export function Home({ listToken, setListToken, user, data }) {
 	const updateListName = (e) => {
 		setListName(e.target.value);
 	};
+
+	const switchList = (token) => {
+		setListToken(token);
+	};
+
+	const rmListUpdate = (name, token) => {
+		const updatedList = removeList(userToken, name);
+
+		setUserToken(updatedList);
+
+		if (token === listToken) {
+			setListToken(getFirstToken(JSON.parse(updatedList)));
+		}
+	};
+
 	return (
 		<div className="Home">
 			<form onSubmit={makeNewList}>
@@ -84,6 +101,11 @@ export function Home({ listToken, setListToken, user, data }) {
 				<button type="submit">Submit</button>
 			</form>
 			{errorMessage && <p>{errorMessage}</p>}
+			<ListSwitcher
+				userToken={userToken}
+				switchList={switchList}
+				rmListUpdate={rmListUpdate}
+			/>
 			<Summary data={data} />
 		</div>
 	);

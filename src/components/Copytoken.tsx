@@ -21,7 +21,7 @@ export function Copytoken({ data, user, listToken }) {
 	return (
 		<div>
 			<p>
-				Copy token to allow others join your list:
+				Copy token to share your list with others:
 				<button onClick={copyToken} id="token">
 					{copied ? copied : listToken}
 				</button>
