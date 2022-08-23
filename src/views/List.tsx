@@ -16,6 +16,7 @@ import { AddItem } from '../components/AddItem';
 import NoToken from '../components/NoToken';
 import ListSwitcher from '../components/ListSwitcher';
 import ListTitle from '../components/ListTitle';
+import { Calendar } from '../components/Calendar';
 
 const defaultDates = { startDate: '', endDate: '' };
 
@@ -25,6 +26,7 @@ export function List({ data, listToken, setListToken, user }) {
 	const [urgencyTerm, setUrgencyTerm] = useState('ALL');
 	const [custom, setCustom] = useState(defaultDates);
 	const [isDisabled, setIsDisabled] = useState(true);
+	const [exclude, setExclude] = useState(false);
 
 	const [userToken, setUserToken] = user;
 	const [listName, setListName] = useState('');
@@ -74,6 +76,11 @@ export function List({ data, listToken, setListToken, user }) {
 			cleanup(name).includes(cleanup(searchTerm)),
 		);
 	};
+
+	const renderedList = filterList(sortedFullList)
+		.filter((item) => item.name !== '')
+		.filter(getUrgency(urgencyTerm))
+		.filter(customDateRange(custom.startDate, custom.endDate));
 
 	const switchList = (token) => {
 		setListToken(token);
@@ -214,18 +221,14 @@ export function List({ data, listToken, setListToken, user }) {
 							</button>
 						</div>
 						<ul>
-							{filterList(sortedFullList)
-								.filter((item) => item.name !== '')
-								.filter(getUrgency(urgencyTerm))
-								.filter(customDateRange(custom.startDate, custom.endDate))
-								.map((item) => (
-									<ListItem
-										{...item}
-										listToken={listToken}
-										key={item.id}
-										itemId={item.id}
-									/>
-								))}
+							{renderedList.map((item) => (
+								<ListItem
+									{...item}
+									listToken={listToken}
+									key={item.id}
+									itemId={item.id}
+								/>
+							))}
 						</ul>
 						<button onClick={deleteList}>Delete List</button>
 						<ListSwitcher
@@ -261,6 +264,7 @@ export function List({ data, listToken, setListToken, user }) {
 			) : (
 				<NoToken />
 			)}
+			<Calendar excludes={[exclude, setExclude]} renderedList={renderedList} />
 		</>
 	);
 }
