@@ -12,11 +12,13 @@ export const MyContext: Context<GlobalContext> | Context<any> = createContext({
 	dataCtx: [],
 	userListCtx: [],
 	listTokenCtx: [],
+	adjustedDataCtx: [],
 });
 
 export function App() {
 	const [data, setData] = useState([]);
 	const navigate = useNavigate();
+	const [adjustedData, setAdjustedData] = useState(data);
 
 	const [listToken, setListToken] = useStateWithStorage(
 		null,
@@ -46,6 +48,7 @@ export function App() {
 				dataCtx: [data, setData],
 				listTokenCtx: [listToken, setListToken],
 				userListCtx: [userList, setUserList],
+				adjustedDataCtx: [adjustedData, setAdjustedData],
 			}}
 		>
 			<Routes>
