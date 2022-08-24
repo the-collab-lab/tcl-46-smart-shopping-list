@@ -1,0 +1,16 @@
+.foodpuns__content {
+	background-color: #f3eee7;
+	padding: 14px;
+	border-radius: 12px;
+	width: 100px;
+	text-align: center;
+	height: auto;
+	overflow-wrap: break-word;
+}
+
+.foodpuns {
+	position: fixed;
+	bottom: 75px;
+	z-index: 1;
+	right: 5%;
+}

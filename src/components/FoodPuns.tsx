@@ -1,26 +1,11 @@
 import puns from '../utils/puns';
+import './FoodPuns.css';
 
 function FoodPuns() {
 	let pun = puns[Math.floor(Math.random() * puns.length)];
 	return (
-		<div
-			className="foodpuns"
-			style={{ position: 'fixed', bottom: '75px', zIndex: 1, right: '5%' }}
-		>
-			<p
-				className="foodpuns__content"
-				style={{
-					backgroundColor: '#F3EEE7',
-					padding: '14px',
-					borderRadius: '12px',
-					width: '100px',
-					textAlign: 'center',
-					height: 'auto',
-					overflowWrap: 'break-word',
-				}}
-			>
-				{pun}
-			</p>
+		<div className="foodpuns">
+			<p className="foodpuns__content">{pun}</p>
 			<div>
 				<svg
 					width="50"
