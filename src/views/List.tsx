@@ -59,10 +59,6 @@ export function List() {
 	};
 
 	useEffect(() => {
-		if (copied) setTimeout(() => setCopied(''), 2000);
-	}, [copied]);
-
-	useEffect(() => {
 		if (listToken === 'null') {
 			setUserList('{}');
 			return;
@@ -288,21 +284,6 @@ export function List() {
 			) : (
 				<NoToken />
 			)}
-			<div>
-				<p>
-					You have{' '}
-					{adjustedData.length ? adjustedData.length : renderedList.length}{' '}
-					items in your current shopping cart.
-				</p>
-				<button
-					type="button"
-					id="excludeCheckedItems"
-					aria-pressed={exclude}
-					onClick={() => setExclude(!exclude)}
-				>
-					{exclude ? `Include checked items` : `Exclude checked items`}
-				</button>
-			</div>
 		</>
 	);
 }

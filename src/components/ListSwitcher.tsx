@@ -1,7 +1,9 @@
-import React from 'react';
+import { useContext } from 'react';
+import { MyContext } from '../App';
 import { getUserListsArr } from '../utils/user';
 
-const ListSwitcher = ({ userList, switchList, rmListUpdate }) => {
+const ListSwitcher = ({ switchList, rmListUpdate }) => {
+	const [userList, setUserList] = useContext(MyContext).userListCtx;
 	return (
 		<div>
 			<h1>My Lists</h1>

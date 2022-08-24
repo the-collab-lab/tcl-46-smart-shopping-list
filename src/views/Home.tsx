@@ -6,13 +6,16 @@ import { generateToken } from '@the-collab-lab/shopping-list-utils';
 import { getItemData, streamListItems, addItem } from '../api';
 import { addList, hasToken } from '../utils/user';
 import { ListToken } from '../types';
+import { removeList, getFirstToken } from '../utils';
+import ListSwitcher from '../components/ListSwitcher';
+import { Summary } from './Summary';
 
 export function Home() {
 	const [errorMessage, setErrorMessage] = useState('');
 	const [joinListToken, setJoinListToken] = useState('');
 	const [listName, setListName] = useState('');
 	const [userList, setUserList] = useContext(MyContext).userListCtx;
-	const [, setListToken] = useContext(MyContext).listTokenCtx;
+	const [listToken, setListToken] = useContext(MyContext).listTokenCtx;
 
 	const navigate = useNavigate();
 
@@ -57,6 +60,20 @@ export function Home() {
 	const updateListName = (e) => {
 		setListName(e.target.value);
 	};
+
+	const switchList = (token) => {
+		setListToken(token);
+	};
+
+	const rmListUpdate = (name, token) => {
+		const updatedList = removeList(listToken, name);
+
+		setListToken(updatedList);
+
+		if (token === listToken) {
+			setListToken(getFirstToken(JSON.parse(updatedList)));
+		}
+	};
 	return (
 		<div className="Home">
 			<form onSubmit={makeNewList}>
@@ -84,6 +101,8 @@ export function Home() {
 				<button type="submit">Submit</button>
 			</form>
 			{errorMessage && <p>{errorMessage}</p>}
+			<ListSwitcher switchList={switchList} rmListUpdate={rmListUpdate} />
+			<Summary />
 		</div>
 	);
 }
