@@ -6,7 +6,7 @@ import { generateToken } from '@the-collab-lab/shopping-list-utils';
 import { getItemData, streamListItems, addItem } from '../api';
 import { addList, hasToken } from '../utils/user';
 import { ListToken } from '../types';
-import { removeList, getFirstToken } from '../utils';
+import { removeList, getFirstToken, isValidToken } from '../utils';
 import ListSwitcher from '../components/ListSwitcher';
 import { Summary } from './Summary';
 
@@ -115,6 +115,9 @@ export function Home() {
 	};
 	return (
 		<div className="Home">
+			<header>
+				<h1>Home</h1>
+			</header>
 			<form onSubmit={makeNewList}>
 				<label htmlFor="make-list">
 					<input
@@ -140,12 +143,19 @@ export function Home() {
 				<button type="submit">Submit</button>
 			</form>
 			{errorMessage && <p>{errorMessage}</p>}
-			<ListSwitcher
-				switchList={switchList}
-				rmListUpdate={rmListUpdate}
-				deleteListFake={deleteListFake}
-			/>
-			<Summary />
+
+			{isValidToken(listToken) ? (
+				<>
+					<ListSwitcher
+						switchList={switchList}
+						rmListUpdate={rmListUpdate}
+						deleteListFake={deleteListFake}
+					/>
+					<Summary />
+				</>
+			) : (
+				<Summary />
+			)}
 		</div>
 	);
 }

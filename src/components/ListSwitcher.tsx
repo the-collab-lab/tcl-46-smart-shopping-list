@@ -6,7 +6,7 @@ const ListSwitcher = ({ switchList, rmListUpdate, deleteListFake }) => {
 	const [userList] = useContext(MyContext).userListCtx;
 	return (
 		<div>
-			<h1>My Lists</h1>
+			<h2>Manage Lists</h2>
 			{getUserListsArr(userList)
 				.filter(([_, token]) => token)
 				.map(([name, token]) => (

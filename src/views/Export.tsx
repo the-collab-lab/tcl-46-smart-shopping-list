@@ -13,12 +13,15 @@ export function Export() {
 		<>
 			{listToken && isValidToken(listToken) ? (
 				<>
-					<Calendar listOfShoppingListItems={adjustedData} />
+					<header>
+						<h1>Share</h1>
+					</header>
 					<CopyToken
 						listToken={listToken}
 						setListToken={setListToken}
 						userList={userList}
 					/>
+					<Calendar listOfShoppingListItems={adjustedData} />
 				</>
 			) : (
 				<NoToken />

@@ -49,6 +49,7 @@ export function Calendar({ listOfShoppingListItems }) {
 
 	return (
 		<>
+			<h2>Plan a shopping trip</h2>
 			<p>
 				You have {listOfItemNames.length} items in your current shopping cart.
 			</p>
@@ -60,7 +61,7 @@ export function Calendar({ listOfShoppingListItems }) {
 			>
 				{exclude ? `Include checked items` : `Exclude checked items`}
 			</button>
-			<p>Want to add a shopping trip to your calendar? </p>
+			<h4>Export to calendar</h4>
 			<button type="button" onClick={handleCalendarDownload} name="ical">
 				iCalendar
 			</button>
