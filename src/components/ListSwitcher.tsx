@@ -3,7 +3,7 @@ import { MyContext } from '../App';
 import { getUserListsArr } from '../utils/user';
 
 const ListSwitcher = ({ switchList, rmListUpdate }) => {
-	const [userList, setUserList] = useContext(MyContext).userListCtx;
+	const [userList] = useContext(MyContext).userListCtx;
 	return (
 		<div>
 			<h1>My Lists</h1>
