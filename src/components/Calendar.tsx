@@ -49,7 +49,7 @@ export function Calendar({ listOfShoppingListItems }) {
 
 	return (
 		<div className="calendar">
-			<h2 className="calendar__heading">Export to Calendar</h2>
+			<h2 className="calendar__heading">Schedule a Shopping Trip 🛒</h2>
 			<div className="calendar__exclude-container">
 				<p className="calendar__subheading">
 					You have {listOfItemNames.length} items in your current shopping cart.
@@ -61,7 +61,7 @@ export function Calendar({ listOfShoppingListItems }) {
 					onClick={() => setExclude(!exclude)}
 					className="calendar__exclude-button"
 				>
-					{exclude ? `Include checked items` : `Exclude checked items`}
+					{exclude ? `Include Checked Items` : `Exclude Checked Items`}
 				</button>
 			</div>
 

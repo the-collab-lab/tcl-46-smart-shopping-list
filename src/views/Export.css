@@ -13,8 +13,11 @@
 	border: 1px solid #d2a072;
 	border-radius: 20px;
 	padding: 28px;
-	display: flex;
+	display: grid;
 	align-items: center;
+	grid-template-areas: 'message dropdown button';
+	gap: 10px;
+	width: 100%;
 }
 .export__footer {
 	margin-top: 30px;
@@ -24,12 +27,17 @@
 	font-size: 18px;
 	text-align: middle;
 	margin-right: 32px;
+	grid-area: message;
 }
 .copytoken__select {
 	font-size: 16px;
 	width: 235px;
 	height: 36px;
-	margin-right: 23.67px;
+	grid-area: dropdown;
+	background-color: #f7efe3;
+	border-radius: 23px;
+	padding: 5px;
+	border: none;
 }
 
 .copytoken__copy-button {
@@ -37,6 +45,7 @@
 	border-radius: 22px;
 	padding: 10px 20px;
 	border: none;
+	grid-area: button;
 }
 .calendar {
 	display: flex;
@@ -55,6 +64,7 @@
 .calendar__exclude-container {
 	display: flex;
 	justify-content: space-between;
+	align-items: baseline;
 }
 .calendar__exclude-button {
 	background-color: #f7efe3;
@@ -84,4 +94,25 @@ button {
 }
 button:hover {
 	opacity: 0.8;
+}
+
+@media screen and (max-width: 768px) {
+	.calendar__container {
+		grid-template-columns: 1fr;
+	}
+	.calendar__exclude-container {
+		flex-wrap: wrap;
+	}
+	.calendar__subheading {
+		margin-bottom: 20px;
+	}
+	.copytoken {
+		padding: 16px;
+		grid-template-areas:
+			'message message'
+			'dropdown button';
+	}
+	.copytoken__select {
+		width: 191px;
+	}
 }
