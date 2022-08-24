@@ -76,6 +76,16 @@ export function Home() {
 		}
 	};
 
+	/**
+	 Changes needed from deleteList functionality in List:
+	 * data provided to the List's deleteList function is based on the current listToken.
+	 * the new button in Home needs to 
+	 * 	take listToken from matching listname being mapped, rather than the current listToken
+	 * iterate over data based on that list, rather than the current listToken, to push to itemstodelete
+	 * the above list token also needs to be passed to removeList.
+	
+	 * 
+	 */
 	const deleteListFake = () => {
 		if (
 			window.confirm(
