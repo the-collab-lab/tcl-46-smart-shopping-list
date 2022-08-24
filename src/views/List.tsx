@@ -35,9 +35,17 @@ export function List() {
 	const [adjustedData, setAdjustedData] = useContext(MyContext).adjustedDataCtx;
 
 	const [listName, setListName] = useState('');
-	const [exclude, setExclude] = useState(false);
+	// const [exclude, setExclude] = useState(false);
 
 	const sortedFullList = useMemo(() => comparePurchaseUrgency(data), [data]);
+	useEffect(() => {
+		setAdjustedData(
+			filterList(sortedFullList)
+				.filter((item) => item.name !== '')
+				.filter(getUrgency(urgencyTerm))
+				.filter(customDateRange(custom.startDate, custom.endDate)),
+		);
+	}, [urgencyTerm, sortedFullList, custom]);
 
 	const updateRange = (e) => {
 		if (e.target.name !== 'startDate' && e.target.name !== 'endDate') return;
@@ -81,11 +89,6 @@ export function List() {
 			cleanup(name).includes(cleanup(searchTerm)),
 		);
 	};
-
-	const renderedList = filterList(sortedFullList)
-		.filter((item) => item.name !== '')
-		.filter(getUrgency(urgencyTerm))
-		.filter(customDateRange(custom.startDate, custom.endDate));
 
 	const switchList = (token) => {
 		setListToken(token);
@@ -242,7 +245,7 @@ export function List() {
 							</p>
 						</div>
 						<ul>
-							{renderedList.map((item) => (
+							{adjustedData.map((item) => (
 								<ListItem
 									{...item}
 									listToken={listToken}
@@ -274,11 +277,6 @@ export function List() {
 						/>
 
 						<button onClick={deleteList}>Delete List</button>
-						{/* <ListSwitcher
-							userToken={userToken}
-							switchList={switchList}
-							rmListUpdate={rmListUpdate}
-						/> */}
 					</div>
 				)
 			) : (

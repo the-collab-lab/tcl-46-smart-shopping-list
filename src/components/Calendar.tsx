@@ -6,6 +6,8 @@ import {
 } from 'datebook';
 
 export function Calendar({ listOfShoppingListItems }) {
+	const listOfItemNames = [];
+	listOfShoppingListItems.forEach((item) => listOfItemNames.push(item.name));
 	const handleCalendarDownload = (evt) => {
 		const defaultStartTime = new Date(Date());
 		const dt = new Date();
@@ -13,7 +15,7 @@ export function Calendar({ listOfShoppingListItems }) {
 		const defaultEndTime = dt;
 		const eventConfig = {
 			title: 'Shopping trip',
-			description: listOfShoppingListItems.join('\n'),
+			description: listOfItemNames.join('\n'),
 			start: defaultStartTime,
 			end: defaultEndTime,
 		};
