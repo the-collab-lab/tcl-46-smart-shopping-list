@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { getUserListsArr } from '../utils';
 
-export function Copytoken({ listToken, /*setListToken,*/ userList }) {
+export function CopyToken({ listToken, /*setListToken,*/ userList }) {
 	const [copied, setCopied] = useState('');
 
 	// this echoes List but is not a shared context

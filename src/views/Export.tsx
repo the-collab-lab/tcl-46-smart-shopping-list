@@ -1,7 +1,7 @@
 import { Calendar } from '../components/Calendar';
 import { useContext } from 'react';
 import { MyContext } from '../App';
-import { Copytoken } from '../components/Copytoken';
+import { CopyToken } from '../components/CopyToken';
 export function Export() {
 	const [adjustedData] = useContext(MyContext).adjustedDataCtx;
 	const [listToken, setListToken] = useContext(MyContext).listTokenCtx;
@@ -10,7 +10,7 @@ export function Export() {
 	return (
 		<>
 			<Calendar listOfShoppingListItems={adjustedData} />
-			<Copytoken
+			<CopyToken
 				listToken={listToken}
 				setListToken={setListToken}
 				userList={userList}
