@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
 	ICalendar,
 	GoogleCalendar,
@@ -6,8 +7,21 @@ import {
 } from 'datebook';
 
 export function Calendar({ listOfShoppingListItems }) {
+	const [exclude, setExclude] = useState(false);
+	const excludeChecked = (array) => {
+		return array.filter((item) => !item.isChecked);
+	};
 	const listOfItemNames = [];
-	listOfShoppingListItems.forEach((item) => listOfItemNames.push(item.name));
+
+	// this is not inside a function?
+	!exclude
+		? listOfShoppingListItems.forEach((item) => {
+				listOfItemNames.push(item.name);
+		  })
+		: excludeChecked(listOfShoppingListItems).forEach((item) => {
+				listOfItemNames.push(item.name);
+		  });
+
 	const handleCalendarDownload = (evt) => {
 		const defaultStartTime = new Date(Date());
 		const dt = new Date();
@@ -36,6 +50,17 @@ export function Calendar({ listOfShoppingListItems }) {
 
 	return (
 		<>
+			<p>
+				You have {listOfItemNames.length} items in your current shopping cart.
+			</p>
+			<button
+				type="button"
+				id="excludeCheckedItems"
+				aria-pressed={exclude}
+				onClick={() => setExclude(!exclude)}
+			>
+				{exclude ? `Include checked items` : `Exclude checked items`}
+			</button>
 			<p>Want to add a shopping trip to your calendar? </p>
 			<button type="button" onClick={handleCalendarDownload} name="ical">
 				iCalendar
