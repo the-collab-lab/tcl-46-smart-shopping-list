@@ -48,31 +48,57 @@ export function Calendar({ listOfShoppingListItems }) {
 	};
 
 	return (
-		<>
-			<p>
-				You have {listOfItemNames.length} items in your current shopping cart.
-			</p>
-			<button
-				type="button"
-				id="excludeCheckedItems"
-				aria-pressed={exclude}
-				onClick={() => setExclude(!exclude)}
-			>
-				{exclude ? `Include checked items` : `Exclude checked items`}
-			</button>
-			<p>Want to add a shopping trip to your calendar? </p>
-			<button type="button" onClick={handleCalendarDownload} name="ical">
-				iCalendar
-			</button>
-			<button type="button" onClick={handleCalendarDownload} name="google">
-				Google Calendar
-			</button>
-			<button type="button" onClick={handleCalendarDownload} name="outlook">
-				Outlook Calendar
-			</button>
-			<button type="button" onClick={handleCalendarDownload} name="yahoo">
-				Yahoo Calendar
-			</button>
-		</>
+		<div className="calendar">
+			<h2 className="calendar__heading">Export to Calendar</h2>
+			<div className="calendar__exclude-container">
+				<p className="calendar__subheading">
+					You have {listOfItemNames.length} items in your current shopping cart.
+				</p>
+				<button
+					type="button"
+					id="excludeCheckedItems"
+					aria-pressed={exclude}
+					onClick={() => setExclude(!exclude)}
+					className="calendar__exclude-button"
+				>
+					{exclude ? `Include checked items` : `Exclude checked items`}
+				</button>
+			</div>
+
+			<div className="calendar__container">
+				<button
+					className="calendar__option"
+					type="button"
+					onClick={handleCalendarDownload}
+					name="ical"
+				>
+					iCalendar
+				</button>
+				<button
+					className="calendar__option"
+					type="button"
+					onClick={handleCalendarDownload}
+					name="google"
+				>
+					Google Calendar
+				</button>
+				<button
+					className="calendar__option"
+					type="button"
+					onClick={handleCalendarDownload}
+					name="outlook"
+				>
+					Outlook Calendar
+				</button>
+				<button
+					className="calendar__option"
+					type="button"
+					onClick={handleCalendarDownload}
+					name="yahoo"
+				>
+					Yahoo Calendar
+				</button>
+			</div>
+		</div>
 	);
 }

@@ -1,0 +1,87 @@
+.export {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+}
+
+.export__heading {
+	font-size: 40px;
+	font-weight: 700;
+}
+.copytoken {
+	border: 1px solid #d2a072;
+	border-radius: 20px;
+	padding: 28px;
+	display: flex;
+	align-items: center;
+}
+.export__footer {
+	margin-top: 30px;
+}
+.copytoken__message {
+	font-weight: 700;
+	font-size: 18px;
+	text-align: middle;
+	margin-right: 32px;
+}
+.copytoken__select {
+	font-size: 16px;
+	width: 235px;
+	height: 36px;
+	margin-right: 23.67px;
+}
+
+.copytoken__copy-button {
+	background-color: #f7efe3;
+	border-radius: 22px;
+	padding: 10px 20px;
+	border: none;
+}
+.calendar {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	width: 100%;
+}
+.calendar__heading {
+	font-size: 28px;
+	font-weight: 400;
+}
+.calendar__subheading {
+	font-size: 16px;
+	margin: 0;
+}
+.calendar__exclude-container {
+	display: flex;
+	justify-content: space-between;
+}
+.calendar__exclude-button {
+	background-color: #f7efe3;
+	border-radius: 22px;
+	padding: 10px 20px;
+	border: none;
+}
+.calendar__container {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-template-rows: 1fr 1fr;
+	gap: 13px;
+	margin-top: 25px;
+}
+.calendar__option {
+	color: #835151;
+	border-radius: 6px;
+	background-color: #f3eee7;
+	border: none;
+	padding: 20px 30px;
+	font-size: 20px;
+}
+
+button {
+	transition: 0.2s ease-out opacity;
+	cursor: pointer;
+}
+button:hover {
+	opacity: 0.8;
+}

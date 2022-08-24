@@ -1,5 +1,6 @@
+import './Export.css';
 import { Calendar } from '../components/Calendar';
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { MyContext } from '../App';
 import { CopyToken } from '../components/CopyToken';
 import NoToken from '../components/NoToken';
@@ -16,17 +17,22 @@ export function Export() {
 	return (
 		<>
 			{listToken && isValidToken(listToken) ? (
-				<>
-					<Calendar listOfShoppingListItems={adjustedData} />
+				<div className="export">
+					<h1 className="export__heading">Share</h1>
 					<CopyToken
 						listToken={listToken}
 						setListToken={setListToken}
 						userList={userList}
 					/>
-				</>
+					<Calendar listOfShoppingListItems={adjustedData} />
+				</div>
 			) : (
 				<NoToken />
 			)}
+
+			<p className="export__footer">
+				This shopping app was created with love by members of The Collab Lab.
+			</p>
 		</>
 	);
 }
