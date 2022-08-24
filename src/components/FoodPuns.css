@@ -14,3 +14,12 @@
 	z-index: 1;
 	right: 5%;
 }
+
+@media only screen and (max-width: 600px) {
+	.foodpuns__content {
+		position: fixed;
+		bottom: 75px;
+		right: 20%;
+		width: 75vw;
+	}
+}
