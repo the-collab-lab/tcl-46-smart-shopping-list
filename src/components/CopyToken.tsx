@@ -26,7 +26,7 @@ export function CopyToken({ listToken, userList }) {
 			<label htmlFor="userList">
 				Select list to share:
 				<select
-					value={selectedListToken}
+					value={selectedListToken | ''}
 					onChange={updateSelectedList}
 					id="userList"
 				>
