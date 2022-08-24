@@ -1,15 +1,18 @@
 import { useState, useEffect } from 'react';
+import { getUserListsArr } from '../utils';
 
-export function Copytoken({ listToken }) {
-	//for dropdown later
+export function Copytoken({ listToken, /*setListToken,*/ userList }) {
 	const [copied, setCopied] = useState('');
 
-	// need listName to add dropdown to update listToken for sharing. listName is currently provided only within List component
-	// ref AddItem for listName
+	// this echoes List but is not a shared context
+	const [selectedListToken, setSelectedListToken] = useState(listToken);
+	const updateSelectedList = (e) => {
+		setSelectedListToken(e.target.value);
+	};
 
 	const copyToken = () => {
 		navigator.clipboard
-			.writeText(listToken)
+			.writeText(selectedListToken)
 			.then(() => setCopied('Copied!'))
 			.catch(() => setCopied('Not Copied.'));
 	};
@@ -20,10 +23,24 @@ export function Copytoken({ listToken }) {
 
 	return (
 		<div>
+			<label htmlFor="userList">
+				Select list to share:
+				<select
+					value={selectedListToken}
+					onChange={updateSelectedList}
+					id="userList"
+				>
+					{getUserListsArr(userList).map(([name, token]) => (
+						<option key={token} value={token}>
+							{name}
+						</option>
+					))}
+				</select>
+			</label>
 			<p>
 				Copy token to share your list with others:
 				<button onClick={copyToken} id="token">
-					{copied ? copied : listToken}
+					{copied ? copied : selectedListToken}
 				</button>
 			</p>
 		</div>

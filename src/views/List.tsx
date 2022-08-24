@@ -35,7 +35,6 @@ export function List() {
 	const [adjustedData, setAdjustedData] = useContext(MyContext).adjustedDataCtx;
 
 	const [listName, setListName] = useState('');
-	// const [exclude, setExclude] = useState(false);
 
 	const sortedFullList = useMemo(() => comparePurchaseUrgency(data), [data]);
 	useEffect(() => {
