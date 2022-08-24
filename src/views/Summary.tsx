@@ -41,6 +41,7 @@ export function Summary() {
 
 	return (
 		<div className="Summary">
+			<h2>Summary</h2>
 			{purchased.length ? (
 				<div>
 					<h2>Your purchase history to date</h2>
@@ -97,7 +98,7 @@ export function Summary() {
 				<p>No purchase history found.</p>
 			)}
 
-			<h2>Personal Goals</h2>
+			<h3>Personal Goals</h3>
 			<Goals />
 		</div>
 	);
