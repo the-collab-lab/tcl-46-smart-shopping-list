@@ -1,19 +1,13 @@
 import { useState, useEffect } from 'react';
 import { getUserListsArr } from '../utils';
 
-export function CopyToken({ listToken, /*setListToken,*/ userList }) {
+export function CopyToken({ listToken, userList }) {
 	const [copied, setCopied] = useState('');
 
 	// this echoes List but is not a shared context
 	const [selectedListToken, setSelectedListToken] = useState(listToken);
 	const updateSelectedList = (e) => {
 		setSelectedListToken(e.target.value);
-		//FOR REVIEW/FEEDBACK:
-		/*The following line syncs the list selection on the List page as well, but also redirects to the List page once a change is made, which can be abrupt.
-
-		setListToken(e.target.value); //synchronize list shown on List page? this also redirects people to the main list page, however.
-		And may need a note like "if you change your list selection here, you will need to reapply any filters for your calendar export."
-		*/
 	};
 
 	const copyToken = () => {

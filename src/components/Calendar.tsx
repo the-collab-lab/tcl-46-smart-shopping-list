@@ -13,7 +13,6 @@ export function Calendar({ listOfShoppingListItems }) {
 	};
 	const listOfItemNames = [];
 
-	// this is not inside a function?
 	!exclude
 		? listOfShoppingListItems.forEach((item) => {
 				listOfItemNames.push(item.name);
