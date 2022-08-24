@@ -88,6 +88,16 @@ export function ListItem({
 
 	return (
 		<li className="ListItem">
+			<div className={'section-urgency ' + urgencyIndex[0]}>
+				<p>{urgencyIndex[1]}</p>
+			</div>
+
+			<div className="section-label">
+				<label className="ListItem-label" htmlFor={name}>
+					{name}
+				</label>
+			</div>
+
 			<div className="section-checkbox">
 				<input
 					className="ListItem-checkbox"
@@ -100,22 +110,9 @@ export function ListItem({
 				/>
 			</div>
 
-			<div className="section-label">
-				<label className="ListItem-label" htmlFor={name}>
-					{name}
-				</label>
-			</div>
-
-			<div className="section-urgency">
-				<div className={'urgency-icon ' + urgencyIndex[0]}></div>
-				<p>{urgencyIndex[1]}</p>
-			</div>
-
-			<div className="section-delete">
-				<button type="button" onClick={handleDelete}>
-					delete
-				</button>
-			</div>
+			<button className="delete-button" type="button" onClick={handleDelete}>
+				<div className="delete-icon" />
+			</button>
 		</li>
 	);
 }

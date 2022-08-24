@@ -1,67 +1,112 @@
 .ListItem {
 	background-color: var(--color-listitem-bg);
 
-	font-size: 1.2em;
-
-	min-height: 2.4em;
 	width: 100%;
 
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: space-around;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-auto-rows: minmax(min-content, max-content);
+	grid-auto-flow: row;
+	grid-template-areas:
+		'urgency urgency'
+		'name name'
+		'checkbox delete';
 
-	margin-bottom: 1em;
-	padding: 0.6em 0;
+	border: solid 2px var(--color-text);
+
+	margin-bottom: 2rem;
 }
 
-.section-checkbox {
-	height: 100%;
-	width: 10%;
+.section-urgency {
+	grid-area: urgency;
+
+	font-size: 1.6rem;
 
 	display: flex;
 	align-items: center;
 	justify-content: center;
+
+	border-bottom: solid 2px var(--color-text);
+
+	margin-bottom: 1rem;
+}
+
+.section-urgency p {
+	margin: 0.5rem;
+}
+
+.section-checkbox {
+	grid-area: checkbox;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	padding: 1rem;
+
+	min-height: 64px;
 }
 
 .ListItem-checkbox {
 	accent-color: var(--color-accent);
+
+	margin: 0;
+	padding: 0;
+
+	height: 60%;
+	aspect-ratio: 1/1;
 }
 
 .section-label {
-	height: 100%;
-	width: 40%;
+	grid-area: name;
 
-	display: flex;
-	align-items: center;
+	font-size: 2.4rem;
+
+	padding: 0 1.6rem 3.4rem 1.6rem;
+
+	border-bottom: solid 2px var(--color-text);
 }
 
-.section-urgency {
-	height: 100%;
-	width: 30%;
+.delete-button {
+	grid-area: delete;
 
-	display: flex;
-	align-items: center;
-
-	padding-left: 0.6em;
-}
-
-.urgency-icon {
-	border-radius: 50%;
-	height: 0.8em;
-	aspect-ratio: 1/1;
-}
-.section-urgency p {
-	margin: 0 0 0 0.6em;
-}
-
-.section-delete {
-	height: 100%;
-	width: 20%;
+	border: none;
+	background: none;
 
 	display: flex;
 	align-items: center;
 	justify-content: center;
+
+	min-height: 64px;
+
+	padding: 1rem;
+
+	border-left: solid 2px var(--color-text);
+}
+
+.delete-icon {
+	background-color: var(--color-text);
+
+	height: 6.4px;
+	width: 40px;
+
+	border-radius: 10px;
+
+	transform: rotate(45deg);
+}
+
+.delete-icon::after {
+	background-color: var(--color-text);
+
+	content: '';
+	display: block;
+
+	height: 6.4px;
+	width: 40px;
+
+	border-radius: 10px;
+
+	transform: rotate(90deg);
 }
 
 .soon {
