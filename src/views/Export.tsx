@@ -11,7 +11,7 @@ export function Export() {
 
 	return (
 		<>
-			{listToken !== 'null' && getUserListsArr(userList) ? (
+			{listToken && listToken !== 'null' ? (
 				<>
 					<Calendar listOfShoppingListItems={adjustedData} />
 					<CopyToken
