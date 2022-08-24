@@ -12,6 +12,7 @@ import {
 	updateName,
 	isDuplicateName,
 } from '../utils/user';
+import { isEmpty } from '../utils';
 import NoToken from '../components/NoToken';
 
 import ListTitle from '../components/ListTitle';
@@ -131,7 +132,7 @@ export function List() {
 
 		if (isDisabled) return;
 
-		if (listName === '' || isDuplicateName(userList, listName, listToken)) {
+		if (isEmpty(listName) || isDuplicateName(userList, listName, listToken)) {
 			setListName(listToken);
 			setUserList(updateName(userList, listToken));
 		} else setUserList(updateName(userList, listToken, listName));
