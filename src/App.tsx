@@ -2,7 +2,7 @@
 import { useEffect, useState, createContext, Context } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 
-import { AddItem, Home, Layout, List, Summary } from './views';
+import { Home, Layout, List, Export } from './views';
 
 import { getItemData, streamListItems } from './api';
 import { useStateWithStorage } from './utils';
@@ -55,8 +55,7 @@ export function App() {
 				<Route path="/" element={<Layout />}>
 					<Route index element={<Home />} />
 					<Route path="/list" element={<List />} />
-					<Route path="/add-item" element={<AddItem />} />
-					<Route path="/summary" element={<Summary />} />
+					<Route path="/export" element={<Export />} />
 				</Route>
 			</Routes>
 		</MyContext.Provider>
