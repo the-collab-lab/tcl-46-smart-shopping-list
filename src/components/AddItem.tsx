@@ -2,7 +2,7 @@ import { useState, useContext } from 'react';
 import { MyContext } from '../App';
 import { isEmpty, isDuplicate } from '../utils/validateStrings';
 import { addItem } from '../api/firebase';
-import NoToken from '../components/NoToken';
+import NoToken from './NoToken';
 import { getUserListsArr } from '../utils/user';
 
 const defaultItem = { itemName: '', daysUntilNextPurchase: 7 };

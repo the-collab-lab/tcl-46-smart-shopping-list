@@ -14,10 +14,9 @@ import {
 } from '../utils/user';
 import NoToken from '../components/NoToken';
 
-import ListSwitcher from '../components/ListSwitcher';
 import ListTitle from '../components/ListTitle';
 import { MyContext } from '../App';
-import { AddItem } from './AddItem';
+import { AddItem } from '../components/AddItem';
 
 const defaultDates = { startDate: '', endDate: '' };
 
@@ -87,20 +86,6 @@ export function List() {
 		return list.filter(({ name }) =>
 			cleanup(name).includes(cleanup(searchTerm)),
 		);
-	};
-
-	const switchList = (token) => {
-		setListToken(token);
-	};
-
-	const rmListUpdate = (name, token) => {
-		const updatedList = removeList(userList, name);
-
-		setUserList(updatedList);
-
-		if (token === listToken) {
-			setListToken(getFirstToken(JSON.parse(updatedList)));
-		}
 	};
 
 	const clearSearchTerm = () => {
@@ -254,11 +239,6 @@ export function List() {
 							))}
 						</ul>
 						<button onClick={deleteList}>Delete List</button>
-						<ListSwitcher
-							userList={userList}
-							switchList={switchList}
-							rmListUpdate={rmListUpdate}
-						/>
 					</div>
 				) : (
 					<div>
