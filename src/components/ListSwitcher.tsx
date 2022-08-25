@@ -2,8 +2,9 @@ import { useContext } from 'react';
 import { MyContext } from '../App';
 import { getUserListsArr } from '../utils/user';
 
-const ListSwitcher = ({ switchList, rmListUpdate, deleteListFake }) => {
+const ListSwitcher = ({ switchList, rmListUpdate, deleteList }) => {
 	const [userList] = useContext(MyContext).userListCtx;
+
 	return (
 		<div>
 			<h2>Manage Lists</h2>
@@ -15,7 +16,7 @@ const ListSwitcher = ({ switchList, rmListUpdate, deleteListFake }) => {
 							<b>{name === 'listToken' ? 'Default List' : name}</b>
 						</button>
 						<button onClick={() => rmListUpdate(name, token)}>Untrack</button>
-						<button onClick={() => deleteListFake(token)}>Delete List</button>
+						<button onClick={() => deleteList(token)}>Delete List</button>
 					</div>
 				))}
 		</div>
