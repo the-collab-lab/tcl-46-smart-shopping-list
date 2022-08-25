@@ -49,7 +49,7 @@ export function Calendar({ listOfShoppingListItems }) {
 
 	return (
 		<div className="calendar">
-			<h2 className="calendar__heading">Schedule a Shopping Trip 🛒</h2>
+			<h2 className="calendar__heading">Schedule a Shopping Trip 🛍</h2>
 			<div className="calendar__exclude-container">
 				<p className="calendar__subheading">
 					You have {listOfItemNames.length} items in your current shopping cart.
