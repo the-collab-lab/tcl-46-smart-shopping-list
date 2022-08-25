@@ -30,7 +30,6 @@ export function CopyToken({ listToken, userList }) {
 				value={selectedListToken || ''}
 				onChange={updateSelectedList}
 				id="userList"
-				className="copytoken__select"
 			>
 				{getUserListsArr(userList).map(([name, token]) => (
 					<option key={token} value={token}>

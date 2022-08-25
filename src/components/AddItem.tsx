@@ -4,6 +4,7 @@ import { isEmpty, isDuplicate } from '../utils/validateStrings';
 import { addItem } from '../api/firebase';
 import NoToken from './NoToken';
 import { getUserListsArr } from '../utils/user';
+import '../views/List.css';
 
 const defaultItem = { itemName: '', daysUntilNextPurchase: 7 };
 export function AddItem() {
@@ -32,12 +33,12 @@ export function AddItem() {
 
 	const isInvalid = (name) => {
 		if (isEmpty(name)) {
-			setStatus('Can not add an empty item');
+			setStatus('Cannot add an empty item.');
 			setItem(defaultItem);
 			return true;
 		}
 		if (isDuplicate(name, data)) {
-			setStatus('This item has already been added');
+			setStatus('This item has already been added.');
 			setItem(defaultItem);
 			return true;
 		}
@@ -57,46 +58,55 @@ export function AddItem() {
 	return (
 		<>
 			{listToken && listToken !== 'null' ? (
-				<div>
+				<div className="AddItem">
 					<form onSubmit={addItemToDatabase}>
-						<label htmlFor="addItem">
-							Add Item
+						<label htmlFor="addItem" className="addItem__label">
+							Add:
 							<input
-								placeholder="Item Name"
+								placeholder="Item name"
 								id="addItem"
 								value={item.itemName}
 								onChange={updateItem}
 								name="itemName"
+								className="addItem__input"
 							/>
 						</label>
-						<label htmlFor="itemFrequency">
-							Select Frequency
+						<label htmlFor="itemFrequency" className="addItem__label">
+							Frequency:
 							<select
 								value={item.daysUntilNextPurchase}
 								onChange={updateItem}
 								name="daysUntilNextPurchase"
 								id="itemFrequency"
+								className="addItem__select_frequency"
 							>
 								<option value={7}>Soon</option>
 								<option value={14}>Kind of Soon</option>
 								<option value={30}>Not Soon</option>
 							</select>
 						</label>
-						<label htmlFor="userList">
-							Select List
-							<select
-								value={selectedListToken}
-								onChange={updateSelectedList}
-								id="userList"
+						<div>
+							<label
+								htmlFor="userList"
+								className="addItem__label label__select"
 							>
-								{getUserListsArr(userList).map(([name, token]) => (
-									<option key={token} value={token}>
-										{name}
-									</option>
-								))}
-							</select>
-						</label>
-						<button type="submit">Submit</button>
+								to List
+								<select
+									value={selectedListToken}
+									onChange={updateSelectedList}
+									id="userList"
+								>
+									{getUserListsArr(userList).map(([name, token]) => (
+										<option key={token} value={token}>
+											{name}
+										</option>
+									))}
+								</select>
+							</label>
+							<button type="submit" className="btn__submit">
+								Submit
+							</button>
+						</div>
 					</form>
 					<p>{status}</p>
 				</div>

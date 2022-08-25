@@ -30,20 +30,6 @@
 	margin-right: 32px;
 	grid-area: message;
 }
-.copytoken__select {
-	appearance: none;
-	font-size: 16px;
-	width: 235px;
-	height: 36px;
-	grid-area: dropdown;
-	border-radius: 23px;
-	padding: 5px 15px;
-	border: none;
-	padding-right: 10px;
-	background-image: url(../../public/img/toggle.svg);
-	background-repeat: no-repeat;
-	background-position: 95% 55%;
-}
 
 .copytoken__copy-button {
 	border-radius: 22px;
