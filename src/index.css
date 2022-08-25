@@ -9,6 +9,8 @@
 	--color-dusty-gray: #7b7366;
 	--color-brown: #94744e;
 	--color-dark-peach: #cfb297;
+	--svg-dark-triangle: url(../../img/toggle.svg);
+	--svg-light-triangle: url(../../img/toggle-darkmode.svg);
 }
 
 @media (prefers-color-scheme: light) {
@@ -22,6 +24,7 @@
 		--color-dark-accent: var(--color-black-accent);
 		--color-button: var(--color-cream);
 		--color-select: var(--color-cream);
+		--svg-select: var(--svg-dark-triangle);
 	}
 }
 
@@ -36,6 +39,7 @@
 		--color-dark-accent: var(--color-black-accent);
 		--color-button: var(--color-dusty-gray);
 		--color-select: var(--color-black-accent);
+		--svg-select: var(--svg-light-triangle);
 	}
 }
 
@@ -68,10 +72,18 @@ select {
 	background-color: var(--color-select);
 	color: var(--color-text);
 	border: none;
-	padding: 8px 12px 8px 12px;
-	border-radius: 10px;
 	text-indent: 4px;
-	border-right: 16px solid transparent;
+	appearance: none;
+	font-size: 16px;
+	width: 235px;
+	height: 36px;
+	grid-area: dropdown;
+	border-radius: 23px;
+	padding: 5px 15px;
+	padding-right: 10px;
+	background-image: var(--svg-select);
+	background-repeat: no-repeat;
+	background-position: 95% 55%;
 }
 
 input {
