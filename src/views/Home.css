@@ -21,6 +21,7 @@
 	padding: 0.5em;
 	width: 300px;
 	text-align: center;
+	color: var(--color-text);
 }
 
 .btn__primary {
@@ -29,4 +30,7 @@
 	width: fit-content;
 	border-radius: 2rem;
 	background: var(--color-nav);
+}
+
+.error {
 }

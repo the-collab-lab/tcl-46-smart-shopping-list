@@ -3,10 +3,9 @@
 	--color-white: #fafaf9;
 	--color-cream: #f7efe3;
 	--color-peach: #e1cbb7;
-	--color-black-accent: #2d2614;
 	--color-pink: #cc8a7c;
 	--color-orange: #d2a072;
-
+	--color-black-accent: #2b2521;
 	--color-dusty-gray: #7b7366;
 	--color-brown: #94744e;
 	--color-dark-peach: #cfb297;
@@ -21,6 +20,8 @@
 		--color-input: var(--color-orange);
 		--color-trash: var(--color-pink);
 		--color-dark-accent: var(--color-black-accent);
+		--color-button: var(--color-cream);
+		--color-select: var(--color-cream);
 	}
 }
 
@@ -33,6 +34,8 @@
 		--color-input: var(--color-dark-peach);
 		--color-trash: var(--color-pink);
 		--color-dark-accent: var(--color-black-accent);
+		--color-button: var(--color-dusty-gray);
+		--color-select: var(--color-black-accent);
 	}
 }
 
@@ -50,9 +53,10 @@ button {
 	border: none;
 	padding: 8px 12px 8px 12px;
 	border-radius: 10px;
-	background-color: var(--color-accent);
+	background-color: var(--color-button);
 	text-align: center;
 	color: var(--color-text);
+	cursor: pointer;
 }
 
 button,
@@ -61,7 +65,7 @@ select {
 }
 
 select {
-	background-color: var(--color-nav);
+	background-color: var(--color-select);
 	color: var(--color-text);
 	border: none;
 	padding: 8px 12px 8px 12px;

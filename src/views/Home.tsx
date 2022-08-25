@@ -9,6 +9,7 @@ import { addList, hasToken } from '../utils/user';
 import { ListToken } from '../types';
 import { isValidToken } from '../utils';
 import ListSwitcher from '../components/ListSwitcher';
+import NoTokenWelcome from '../components/NoTokenWelcome';
 import { Summary } from './Summary';
 
 export function Home() {
@@ -100,47 +101,20 @@ export function Home() {
 							Join a List
 						</button>
 					</form>
-					{errorMessage && <p>{errorMessage}</p>}
+					{errorMessage && <p className="error">{errorMessage}</p>}
 					<ListSwitcher />
 					<Summary />
 				</>
 			) : (
-				<>
-					<h1 className="Home__heading">Home</h1>
-					<form className="form__list" onSubmit={makeNewList}>
-						<label htmlFor="make-list" className="label__input__primary">
-							<input
-								id="make-list"
-								type="text"
-								className="input__primary"
-								placeholder="Type new list name"
-								onChange={updateListName}
-								value={listName}
-							/>
-						</label>
-						<button className="btn__primary" type="submit">
-							Start New List
-						</button>
-					</form>
-					<form className="form__list" onSubmit={joinListSubmit}>
-						<label htmlFor="share-list" className="label__input__primary">
-							<input
-								id="share-list"
-								type="text"
-								className="input__primary"
-								placeholder="Type list token"
-								pattern="(?:\w+ ){2}\w+"
-								title="Token must be three words separated with spaces."
-								onChange={joinListChange}
-								value={joinListToken}
-							></input>
-						</label>
-						<button className="btn__primary" type="submit">
-							Join a List
-						</button>
-					</form>
-					{errorMessage && <p>{errorMessage}</p>}
-				</>
+				<NoTokenWelcome
+					updateListName={updateListName}
+					makeNewList={makeNewList}
+					joinListSubmit={joinListSubmit}
+					joinListChange={joinListChange}
+					joinListToken={joinListToken}
+					listName={listName}
+					errorMessage={errorMessage}
+				/>
 			)}
 		</div>
 	);
