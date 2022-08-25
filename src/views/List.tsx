@@ -9,7 +9,7 @@ import {
 	updateName,
 	isDuplicateName,
 } from '../utils/user';
-import { isEmpty } from '../utils';
+import { isEmpty, isValidToken } from '../utils';
 import NoToken from '../components/NoToken';
 
 import ListTitle from '../components/ListTitle';
@@ -114,7 +114,7 @@ export function List() {
 
 	return (
 		<>
-			{listToken && listToken !== 'null' ? (
+			{listToken && isValidToken(listToken) ? (
 				data.length > 1 ? (
 					<div>
 						<ListTitle
