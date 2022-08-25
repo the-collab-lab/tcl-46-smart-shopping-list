@@ -1,5 +1,5 @@
 .foodpuns__content {
-	background-color: #f3eee7;
+	background-color: var(--color-nav);
 	padding: 14px;
 	border-radius: 12px;
 	width: 100px;
