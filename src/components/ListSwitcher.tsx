@@ -57,7 +57,6 @@ const ListSwitcher = () => {
 
 	return (
 		<div>
-			<h2>Manage Lists</h2>
 			{getUserListsArr(userList)
 				.filter(([_, token]) => token)
 				.map(([name, token]) => (
