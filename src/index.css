@@ -53,6 +53,7 @@ button {
 	background-color: var(--color-nav);
 	text-align: center;
 	color: var(--color-text);
+	cursor: pointer;
 }
 
 button,
