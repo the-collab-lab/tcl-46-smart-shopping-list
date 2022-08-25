@@ -66,25 +66,29 @@ export function Home() {
 		<div className="Home">
 			{listToken && isValidToken(listToken) ? (
 				<>
-					<h1>Manage Lists</h1>
-					<form onSubmit={makeNewList}>
+					<h1 className="Home__heading">Manage Lists</h1>
+					<form className="form__list" onSubmit={makeNewList}>
 						<label htmlFor="make-list">
 							<input
 								id="make-list"
 								type="text"
+								className="input__primary"
 								placeholder="Type new list name"
 								onChange={updateListName}
 								value={listName}
 							/>
 						</label>
-						<button type="submit">Start New List</button>
+						<button className="btn__primary" type="submit">
+							Start New List
+						</button>
 					</form>
-					<form onSubmit={joinListSubmit}>
+					<form className="form__list" onSubmit={joinListSubmit}>
 						<label htmlFor="share-list">
 							{/* Join a List  */}
 							<input
 								id="share-list"
 								type="text"
+								className="input__primary"
 								placeholder="Type list token"
 								pattern="(?:\w+ ){2}\w+"
 								title="Token must be three words separated with spaces."
@@ -92,7 +96,9 @@ export function Home() {
 								value={joinListToken}
 							></input>
 						</label>
-						<button type="submit">Join a List</button>
+						<button className="btn__primary" type="submit">
+							Join a List
+						</button>
 					</form>
 					{errorMessage && <p>{errorMessage}</p>}
 					<ListSwitcher switchList={switchList} rmListUpdate={rmListUpdate} />
@@ -100,24 +106,28 @@ export function Home() {
 				</>
 			) : (
 				<>
-					<h1>Home</h1>
-					<form onSubmit={makeNewList}>
+					<h1 className="Home__heading">Home</h1>
+					<form className="form__list" onSubmit={makeNewList}>
 						<label htmlFor="make-list">
 							<input
 								id="make-list"
 								type="text"
+								className="input__primary"
 								placeholder="Type new list name"
 								onChange={updateListName}
 								value={listName}
 							/>
 						</label>
-						<button type="submit">Start New List</button>
+						<button className="btn__primary" type="submit">
+							Start New List
+						</button>
 					</form>
-					<form onSubmit={joinListSubmit}>
+					<form className="form__list" onSubmit={joinListSubmit}>
 						<label htmlFor="share-list">
 							<input
 								id="share-list"
 								type="text"
+								className="input__primary"
 								placeholder="Type list token"
 								pattern="(?:\w+ ){2}\w+"
 								title="Token must be three words separated with spaces."
@@ -125,7 +135,9 @@ export function Home() {
 								value={joinListToken}
 							></input>
 						</label>
-						<button type="submit">Join a List</button>
+						<button className="btn__primary" type="submit">
+							Join a List
+						</button>
 					</form>
 					{errorMessage && <p>{errorMessage}</p>}
 				</>
