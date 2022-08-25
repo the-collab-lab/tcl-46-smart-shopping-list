@@ -205,6 +205,7 @@ export function List() {
 							This app will learn from your purchasing habits and help you
 							prioritize and plan your shopping list.
 						</p>
+						<p>Add an item to get started!</p>
 						<AddItem />
 					</div>
 				)
