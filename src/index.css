@@ -16,7 +16,7 @@
 	:root {
 		--color-bg: var(--color-white);
 		--color-nav: var(--color-cream);
-		--color-accent: var(--color-cream);
+		--color-accent: var(--color-peach);
 		--color-text: var(--color-black-accent);
 		--color-input: var(--color-orange);
 		--color-trash: var(--color-pink);
@@ -50,10 +50,9 @@ button {
 	border: none;
 	padding: 8px 12px 8px 12px;
 	border-radius: 10px;
-	background-color: var(--color-accent);
+	background-color: var(--color-nav);
 	text-align: center;
 	color: var(--color-text);
-	cursor: pointer;
 }
 
 button,
