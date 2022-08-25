@@ -3,11 +3,11 @@ import { useState, useContext } from 'react';
 import { MyContext } from '../App';
 import { useNavigate } from 'react-router-dom';
 import { generateToken } from '@the-collab-lab/shopping-list-utils';
-import { getItemData, streamListItems, addItem, deleteItem } from '../api';
+import { getItemData, streamListItems, addItem } from '../api';
 
-import { addList, hasToken, getMatchingName } from '../utils/user';
+import { addList, hasToken } from '../utils/user';
 import { ListToken } from '../types';
-import { removeList, getFirstToken, isValidToken } from '../utils';
+import { isValidToken } from '../utils';
 import ListSwitcher from '../components/ListSwitcher';
 import { Summary } from './Summary';
 
@@ -62,49 +62,6 @@ export function Home() {
 		setListName(e.target.value);
 	};
 
-	const switchList = (token) => {
-		setListToken(token);
-	};
-
-	const rmListUpdate = (name, chosenToken) => {
-		const updatedList = removeList(chosenToken, name);
-
-		setListToken(updatedList);
-
-		if (chosenToken === listToken) {
-			setListToken(getFirstToken(JSON.parse(updatedList)));
-		}
-	};
-
-	const deleteList = (chosenToken) => {
-		if (
-			window.confirm(
-				'Are you sure you want to delete your shopping list? This cannot be undone.',
-			)
-		) {
-			const itemsToBeDeleted = [];
-			return streamListItems(chosenToken, (snapshot) => {
-				const dataToDelete = getItemData(snapshot);
-				dataToDelete.forEach((item) => {
-					itemsToBeDeleted.push(deleteItem(chosenToken, item.id));
-				});
-				Promise.all(itemsToBeDeleted)
-					.catch((err) => {
-						console.log(err);
-					})
-					.finally(() => {
-						const updatedList = removeList(
-							userList,
-							getMatchingName(userList, chosenToken),
-						);
-						setUserList(updatedList);
-						setListToken(getFirstToken(JSON.parse(updatedList)));
-						navigate('/');
-					});
-			});
-		}
-	};
-
 	return (
 		<div className="Home">
 			<header>
@@ -138,11 +95,7 @@ export function Home() {
 
 			{isValidToken(listToken) ? (
 				<>
-					<ListSwitcher
-						switchList={switchList}
-						rmListUpdate={rmListUpdate}
-						deleteList={deleteList}
-					/>
+					<ListSwitcher />
 					<Summary />
 				</>
 			) : (
