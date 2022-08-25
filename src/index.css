@@ -62,6 +62,7 @@ select {
 
 select {
 	background-color: var(--color-nav);
+	color: var(--color-text);
 	border: none;
 	padding: 8px 12px 8px 12px;
 	border-radius: 10px;
