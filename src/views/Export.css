@@ -31,6 +31,10 @@
 	grid-area: message;
 }
 
+.copytoken__select {
+	border-radius: 23px;
+}
+
 .copytoken__copy-button {
 	border-radius: 22px;
 	padding: 10px 20px;

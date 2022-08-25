@@ -91,7 +91,6 @@ select {
 	width: 235px;
 	height: 36px;
 	grid-area: dropdown;
-	border-radius: 23px;
 	padding: 5px 15px;
 	padding-right: 10px;
 	background-image: var(--svg-select);
