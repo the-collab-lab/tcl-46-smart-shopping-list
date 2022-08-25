@@ -49,6 +49,7 @@
 	padding: 10px 20px;
 	border: none;
 	grid-area: button;
+	min-width: 90px;
 }
 .calendar {
 	display: flex;

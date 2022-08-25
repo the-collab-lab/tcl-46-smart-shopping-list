@@ -4,9 +4,10 @@ import { MyContext } from '../App';
 import { useNavigate } from 'react-router-dom';
 import { generateToken } from '@the-collab-lab/shopping-list-utils';
 import { getItemData, streamListItems, addItem } from '../api';
+
 import { addList, hasToken } from '../utils/user';
 import { ListToken } from '../types';
-import { removeList, getFirstToken } from '../utils';
+import { isValidToken } from '../utils';
 import ListSwitcher from '../components/ListSwitcher';
 import { Summary } from './Summary';
 
@@ -61,21 +62,11 @@ export function Home() {
 		setListName(e.target.value);
 	};
 
-	const switchList = (token) => {
-		setListToken(token);
-	};
-
-	const rmListUpdate = (name, token) => {
-		const updatedList = removeList(listToken, name);
-
-		setListToken(updatedList);
-
-		if (token === listToken) {
-			setListToken(getFirstToken(JSON.parse(updatedList)));
-		}
-	};
 	return (
 		<div className="Home">
+			<header>
+				<h1>Home</h1>
+			</header>
 			<form onSubmit={makeNewList}>
 				<label htmlFor="make-list">
 					<input
@@ -101,8 +92,15 @@ export function Home() {
 				<button type="submit">Submit</button>
 			</form>
 			{errorMessage && <p>{errorMessage}</p>}
-			<ListSwitcher switchList={switchList} rmListUpdate={rmListUpdate} />
-			<Summary />
+
+			{isValidToken(listToken) ? (
+				<>
+					<ListSwitcher />
+					<Summary />
+				</>
+			) : (
+				<Summary />
+			)}
 		</div>
 	);
 }
