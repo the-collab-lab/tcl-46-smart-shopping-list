@@ -46,17 +46,17 @@
 }
 
 .Nav-link {
-	--color-text: var(--color-accent);
-
 	color: var(--color-text);
-	font-size: 1.45em;
+	font-size: 2.4rem;
 	flex: 0 1 auto;
 	padding: 0.8rem;
 	text-align: center;
-	text-underline-offset: 0.1em;
+	text-decoration: none;
 }
 
 .Nav-link.active {
+	text-decoration: underline;
 	text-decoration-thickness: 0.22em;
-	text-underline-offset: 0.1em;
+	text-underline-offset: 0.3em;
+	text-decoration-color: var(--color-input);
 }

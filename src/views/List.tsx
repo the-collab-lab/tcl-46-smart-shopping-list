@@ -36,6 +36,19 @@ export function List() {
 
 	const [listName, setListName] = useState('');
 
+	const filterList = (list) => {
+		const cleanup = (inputString) => {
+			return inputString.toLowerCase().trim().replace(/\s+/g, ' ');
+		};
+		return list.filter(({ name }) =>
+			cleanup(name).includes(cleanup(searchTerm)),
+		);
+	};
+
+	const clearSearchTerm = () => {
+		setSearchTerm('');
+	};
+
 	const sortedFullList = useMemo(() => comparePurchaseUrgency(data), [data]);
 	useEffect(() => {
 		setAdjustedData(
@@ -44,7 +57,7 @@ export function List() {
 				.filter(getUrgency(urgencyTerm))
 				.filter(customDateRange(custom.startDate, custom.endDate)),
 		);
-	}, [urgencyTerm, sortedFullList, custom]);
+	}, [urgencyTerm, sortedFullList, custom, searchTerm]);
 
 	const updateRange = (e) => {
 		if (e.target.name !== 'startDate' && e.target.name !== 'endDate') return;
@@ -79,19 +92,6 @@ export function List() {
 			setListName(getMatchingName(userList, listToken));
 		}
 	}, [userList, listToken]);
-
-	const filterList = (list) => {
-		const cleanup = (inputString) => {
-			return inputString.toLowerCase().trim().replace(/\s+/g, ' ');
-		};
-		return list.filter(({ name }) =>
-			cleanup(name).includes(cleanup(searchTerm)),
-		);
-	};
-
-	const clearSearchTerm = () => {
-		setSearchTerm('');
-	};
 
 	const copyToken = () => {
 		navigator.clipboard
