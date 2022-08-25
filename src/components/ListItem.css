@@ -53,7 +53,7 @@
 	margin: 0;
 	padding: 0;
 
-	height: 60%;
+	height: 44px;
 	aspect-ratio: 1/1;
 }
 
@@ -107,6 +107,26 @@
 	border-radius: 10px;
 
 	transform: rotate(90deg);
+}
+
+@media screen and (min-width: 470px) {
+	.ListItem {
+		grid-template-columns: 1fr 3fr 1fr;
+
+		grid-template-areas:
+			'checkbox urgency delete'
+			'checkbox name delete';
+	}
+
+	.section-checkbox {
+		border-right: solid 2px var(--color-text);
+	}
+
+	.section-label {
+		padding: 0 1.6rem 1.6rem 1.6rem;
+
+		border-bottom: none;
+	}
 }
 
 .soon {
