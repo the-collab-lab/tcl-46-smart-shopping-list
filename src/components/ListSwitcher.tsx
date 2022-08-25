@@ -1,9 +1,59 @@
 import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { MyContext } from '../App';
-import { getUserListsArr } from '../utils/user';
+import { streamListItems, getItemData, deleteItem } from '../api';
+import {
+	getUserListsArr,
+	removeList,
+	getFirstToken,
+	getMatchingName,
+} from '../utils/user';
 
-const ListSwitcher = ({ switchList, rmListUpdate, deleteList }) => {
-	const [userList] = useContext(MyContext).userListCtx;
+const ListSwitcher = () => {
+	const navigate = useNavigate();
+	const [userList, setUserList] = useContext(MyContext).userListCtx;
+	const [listToken, setListToken] = useContext(MyContext).listTokenCtx;
+
+	const switchList = (token) => {
+		setListToken(token);
+	};
+
+	const rmListUpdate = (name, chosenToken) => {
+		const updatedList = removeList(userList, name);
+		setUserList(updatedList);
+		if (chosenToken === listToken) {
+			setListToken(getFirstToken(JSON.parse(updatedList)));
+		}
+	};
+
+	const deleteList = (chosenToken) => {
+		if (
+			window.confirm(
+				'Are you sure you want to delete your shopping list? This cannot be undone.',
+			)
+		) {
+			const itemsToBeDeleted = [];
+			return streamListItems(chosenToken, (snapshot) => {
+				const dataToDelete = getItemData(snapshot);
+				dataToDelete.forEach((item) => {
+					itemsToBeDeleted.push(deleteItem(chosenToken, item.id));
+				});
+				Promise.all(itemsToBeDeleted)
+					.catch((err) => {
+						console.log(err);
+					})
+					.finally(() => {
+						const updatedList = removeList(
+							userList,
+							getMatchingName(userList, chosenToken),
+						);
+						setUserList(updatedList);
+						setListToken(getFirstToken(JSON.parse(updatedList)));
+						navigate('/');
+					});
+			});
+		}
+	};
 
 	return (
 		<div>

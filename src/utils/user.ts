@@ -84,6 +84,5 @@ export const getMatchingName = (
 export const removeList = (userList, name: ListName): UserList => {
 	const tokenLists: ParsedUserList = JSON.parse(userList);
 	delete tokenLists[name];
-
 	return JSON.stringify(tokenLists);
 };
