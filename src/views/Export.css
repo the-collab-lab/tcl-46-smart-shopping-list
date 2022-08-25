@@ -88,14 +88,6 @@
 	font-size: 20px;
 }
 
-button {
-	transition: 0.2s ease-out opacity;
-	cursor: pointer;
-}
-button:hover {
-	opacity: 0.8;
-}
-
 @media screen and (max-width: 768px) {
 	.calendar__container {
 		grid-template-columns: 1fr;
