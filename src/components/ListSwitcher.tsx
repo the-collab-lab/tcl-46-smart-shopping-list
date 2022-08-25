@@ -15,7 +15,7 @@ const ListSwitcher = ({ switchList, rmListUpdate, deleteListFake }) => {
 							<b>{name === 'listToken' ? 'Default List' : name}</b>
 						</button>
 						<button onClick={() => rmListUpdate(name, token)}>Untrack</button>
-						<button onClick={deleteListFake}>Delete List</button>
+						<button onClick={() => deleteListFake(token)}>Delete List</button>
 					</div>
 				))}
 		</div>

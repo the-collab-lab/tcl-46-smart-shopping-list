@@ -3,8 +3,9 @@ import { useState, useContext } from 'react';
 import { MyContext } from '../App';
 import { useNavigate } from 'react-router-dom';
 import { generateToken } from '@the-collab-lab/shopping-list-utils';
-import { getItemData, streamListItems, addItem } from '../api';
-import { addList, hasToken } from '../utils/user';
+import { getItemData, streamListItems, addItem, deleteItem } from '../api';
+
+import { addList, hasToken, getMatchingName } from '../utils/user';
 import { ListToken } from '../types';
 import { removeList, getFirstToken, isValidToken } from '../utils';
 import ListSwitcher from '../components/ListSwitcher';
@@ -16,7 +17,6 @@ export function Home() {
 	const [listName, setListName] = useState('');
 	const [userList, setUserList] = useContext(MyContext).userListCtx;
 	const [listToken, setListToken] = useContext(MyContext).listTokenCtx;
-	const [data] = useContext(MyContext).dataCtx;
 
 	const navigate = useNavigate();
 
@@ -86,33 +86,37 @@ export function Home() {
 	
 	 * 
 	 */
-	const deleteListFake = () => {
+	const deleteListFake = (chosenToken) => {
 		if (
 			window.confirm(
 				'Are you sure you want to delete your shopping list? This cannot be undone.',
 			)
 		) {
 			const itemsToBeDeleted = [];
-			data.forEach((item) => {
-				console.log(`item to remove: ${item.name}`);
-				itemsToBeDeleted.push(item);
-				// itemsToBeDeleted.push(deleteItem(listToken, item.id));
+
+			// change data ref
+			return streamListItems(chosenToken, (snapshot) => {
+				const dataToDelete = getItemData(snapshot);
+				dataToDelete.forEach((item) => {
+					itemsToBeDeleted.push(deleteItem(chosenToken, item.id));
+				});
+				Promise.all(itemsToBeDeleted)
+					.catch((err) => {
+						console.log(err);
+					})
+					.finally(() => {
+						const updatedList = removeList(
+							userList,
+							getMatchingName(userList, chosenToken),
+						);
+						setUserList(updatedList);
+						setListToken(getFirstToken(JSON.parse(updatedList)));
+						navigate('/');
+					});
 			});
-			// Promise.all(itemsToBeDeleted)
-			// 	.catch((err) => {
-			// 		console.log(err);
-			// 	})
-			// 	.finally(() => {
-			// 		const updatedList = removeList(
-			// 			userList,
-			// 			getMatchingName(userList, listToken),
-			// 		);
-			// 		setUserList(updatedList);
-			// 		setListToken(getFirstToken(JSON.parse(updatedList)));
-			// 		navigate('/');
-			// 	});
 		}
 	};
+
 	return (
 		<div className="Home">
 			<header>
