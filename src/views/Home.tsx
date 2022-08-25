@@ -68,7 +68,7 @@ export function Home() {
 				<>
 					<h1 className="Home__heading">Manage Lists</h1>
 					<form className="form__list" onSubmit={makeNewList}>
-						<label htmlFor="make-list">
+						<label htmlFor="make-list" className="label__input__primary">
 							<input
 								id="make-list"
 								type="text"
@@ -83,7 +83,7 @@ export function Home() {
 						</button>
 					</form>
 					<form className="form__list" onSubmit={joinListSubmit}>
-						<label htmlFor="share-list">
+						<label htmlFor="share-list" className="label__input__primary">
 							{/* Join a List  */}
 							<input
 								id="share-list"
@@ -108,7 +108,7 @@ export function Home() {
 				<>
 					<h1 className="Home__heading">Home</h1>
 					<form className="form__list" onSubmit={makeNewList}>
-						<label htmlFor="make-list">
+						<label htmlFor="make-list" className="label__input__primary">
 							<input
 								id="make-list"
 								type="text"
@@ -123,7 +123,7 @@ export function Home() {
 						</button>
 					</form>
 					<form className="form__list" onSubmit={joinListSubmit}>
-						<label htmlFor="share-list">
+						<label htmlFor="share-list" className="label__input__primary">
 							<input
 								id="share-list"
 								type="text"
