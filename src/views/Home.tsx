@@ -74,35 +74,81 @@ export function Home() {
 			setListToken(getFirstToken(JSON.parse(updatedList)));
 		}
 	};
+
+	// remove and import fr utils after merge
+	const isValidToken = (token) => {
+		const regexPattern = /(?:\w+ ){2}\w+/;
+		return regexPattern.test(token);
+	};
+
 	return (
 		<div className="Home">
-			<form onSubmit={makeNewList}>
-				<label htmlFor="make-list">
-					<input
-						id="make-list"
-						type="text"
-						onChange={updateListName}
-						value={listName}
-					/>
-				</label>
-				<button type="submit">Make new list</button>
-			</form>
-			<form onSubmit={joinListSubmit}>
-				<label htmlFor="share-list">
-					Join a List
-					<input
-						id="share-list"
-						pattern="(?:\w+ ){2}\w+"
-						title="Token must be three words separated with spaces."
-						onChange={joinListChange}
-						value={joinListToken}
-					></input>
-				</label>
-				<button type="submit">Submit</button>
-			</form>
-			{errorMessage && <p>{errorMessage}</p>}
-			<ListSwitcher switchList={switchList} rmListUpdate={rmListUpdate} />
-			<Summary />
+			{listToken && isValidToken(listToken) ? (
+				<>
+					<h1>Manage Lists</h1>
+					<form onSubmit={makeNewList}>
+						<label htmlFor="make-list">
+							<input
+								id="make-list"
+								type="text"
+								placeholder="Type new list name"
+								onChange={updateListName}
+								value={listName}
+							/>
+						</label>
+						<button type="submit">Start New List</button>
+					</form>
+					<form onSubmit={joinListSubmit}>
+						<label htmlFor="share-list">
+							{/* Join a List  */}
+							<input
+								id="share-list"
+								type="text"
+								placeholder="Type list token"
+								pattern="(?:\w+ ){2}\w+"
+								title="Token must be three words separated with spaces."
+								onChange={joinListChange}
+								value={joinListToken}
+							></input>
+						</label>
+						<button type="submit">Join a List</button>
+					</form>
+					{errorMessage && <p>{errorMessage}</p>}
+					<ListSwitcher switchList={switchList} rmListUpdate={rmListUpdate} />
+					<Summary />
+				</>
+			) : (
+				<>
+					<h1>Home</h1>
+					<form onSubmit={makeNewList}>
+						<label htmlFor="make-list">
+							<input
+								id="make-list"
+								type="text"
+								placeholder="Type new list name"
+								onChange={updateListName}
+								value={listName}
+							/>
+						</label>
+						<button type="submit">Start New List</button>
+					</form>
+					<form onSubmit={joinListSubmit}>
+						<label htmlFor="share-list">
+							<input
+								id="share-list"
+								type="text"
+								placeholder="Type list token"
+								pattern="(?:\w+ ){2}\w+"
+								title="Token must be three words separated with spaces."
+								onChange={joinListChange}
+								value={joinListToken}
+							></input>
+						</label>
+						<button type="submit">Join a List</button>
+					</form>
+					{errorMessage && <p>{errorMessage}</p>}
+				</>
+			)}
 		</div>
 	);
 }
