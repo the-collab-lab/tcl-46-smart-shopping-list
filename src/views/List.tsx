@@ -1,12 +1,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect, useMemo, useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { deleteItem } from '../api';
+import { useNavigate } from 'react-router-dom';
 import { ListItem } from '../components';
 import { comparePurchaseUrgency, getUrgency } from '../utils/item';
 import {
-	removeList,
-	getFirstToken,
 	getMatchingName,
 	getUserListsArr,
 	updateName,
@@ -22,7 +19,6 @@ import { AddItem } from '../components/AddItem';
 const defaultDates = { startDate: '', endDate: '' };
 
 export function List() {
-	const navigate = useNavigate();
 	const [searchTerm, setSearchTerm] = useState('');
 	const [copied, setCopied] = useState('');
 	const [urgencyTerm, setUrgencyTerm] = useState('ALL');
@@ -98,32 +94,6 @@ export function List() {
 			.writeText(listToken)
 			.then(() => setCopied('Copied!'))
 			.catch(() => setCopied('Not Copied.'));
-	};
-
-	const deleteList = () => {
-		if (
-			window.confirm(
-				'Are you sure you want to delete your shopping list? This cannot be undone.',
-			)
-		) {
-			const itemsToBeDeleted = [];
-			data.forEach((item) => {
-				itemsToBeDeleted.push(deleteItem(listToken, item.id));
-			});
-			Promise.all(itemsToBeDeleted)
-				.catch((err) => {
-					console.log(err);
-				})
-				.finally(() => {
-					const updatedList = removeList(
-						userList,
-						getMatchingName(userList, listToken),
-					);
-					setUserList(updatedList);
-					setListToken(getFirstToken(JSON.parse(updatedList)));
-					navigate('/');
-				});
-		}
 	};
 
 	const editName = (e) => {
@@ -239,7 +209,6 @@ export function List() {
 								/>
 							))}
 						</ul>
-						<button onClick={deleteList}>Delete List</button>
 					</div>
 				) : (
 					<div>
@@ -255,8 +224,6 @@ export function List() {
 							updateListName={updateListName}
 							listName={listName}
 						/>
-
-						<button onClick={deleteList}>Delete List</button>
 					</div>
 				)
 			) : (
