@@ -101,7 +101,7 @@ export function Home() {
 						</button>
 					</form>
 					{errorMessage && <p>{errorMessage}</p>}
-					<ListSwitcher switchList={switchList} rmListUpdate={rmListUpdate} />
+					<ListSwitcher />
 					<Summary />
 				</>
 			) : (
