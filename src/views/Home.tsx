@@ -66,35 +66,23 @@ export function Home() {
 		setListToken(token);
 	};
 
-	const rmListUpdate = (name, token) => {
-		const updatedList = removeList(listToken, name);
+	const rmListUpdate = (name, chosenToken) => {
+		const updatedList = removeList(chosenToken, name);
 
 		setListToken(updatedList);
 
-		if (token === listToken) {
+		if (chosenToken === listToken) {
 			setListToken(getFirstToken(JSON.parse(updatedList)));
 		}
 	};
 
-	/**
-	 Changes needed from deleteList functionality in List:
-	 * data provided to the List's deleteList function is based on the current listToken.
-	 * the new button in Home needs to 
-	 * 	take listToken from matching listname being mapped, rather than the current listToken
-	 * iterate over data based on that list, rather than the current listToken, to push to itemstodelete
-	 * the above list token also needs to be passed to removeList.
-	
-	 * 
-	 */
-	const deleteListFake = (chosenToken) => {
+	const deleteList = (chosenToken) => {
 		if (
 			window.confirm(
 				'Are you sure you want to delete your shopping list? This cannot be undone.',
 			)
 		) {
 			const itemsToBeDeleted = [];
-
-			// change data ref
 			return streamListItems(chosenToken, (snapshot) => {
 				const dataToDelete = getItemData(snapshot);
 				dataToDelete.forEach((item) => {
@@ -153,7 +141,7 @@ export function Home() {
 					<ListSwitcher
 						switchList={switchList}
 						rmListUpdate={rmListUpdate}
-						deleteListFake={deleteListFake}
+						deleteList={deleteList}
 					/>
 					<Summary />
 				</>
