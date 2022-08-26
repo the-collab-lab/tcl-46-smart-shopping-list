@@ -92,7 +92,7 @@ export function AddItem() {
 								htmlFor="userList"
 								className="addItem__label label__select"
 							>
-								to List
+								Select List:
 								<select
 									value={selectedListToken}
 									onChange={updateSelectedList}

@@ -15,13 +15,13 @@ const ListTitle = ({ editName, isDisabled, updateListName, listName }) => {
 								borderWidth: 0,
 						  }
 						: {
-								borderWidth: '2px',
+								borderWidth: '3px',
 						  }
 				}
 				onChange={updateListName}
 				value={listName}
 			></input>
-			<button className="btn__edit" type="submit">
+			<button className={isDisabled ? 'btn__edit' : 'btn__save'} type="submit">
 				{isDisabled ? <FontAwesomeIcon icon={faPencil} /> : 'Save'}
 			</button>
 		</form>

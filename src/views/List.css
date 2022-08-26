@@ -13,13 +13,30 @@
 }
 
 .btn__edit,
-.btn__edit:hover {
+.btn__save,
+.btn__edit:hover,
+.btn__save:hover {
 	background-color: var(--color-bg);
 	color: var(--color-input);
+	display: flex;
+	align-self: center;
+	padding: 0 0 18px 0;
+	height: 2px;
 }
 
-.btn__edit:hover {
+.btn__edit:hover,
+.btn__save:hover {
 	filter: none;
+}
+
+.btn__save,
+.btn__save:hover {
+	/* background-color: var(--color-button); */
+	font-size: 1.3rem;
+	font-weight: bold;
+	text-transform: lowercase;
+	border-radius: 0;
+	border-bottom: 2px solid var(--color-input);
 }
 
 .ListBody {
