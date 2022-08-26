@@ -144,7 +144,7 @@
 
 @media screen and (max-width: 768px) {
 	.form__list {
-		justify-content: center;
+		justify-content: flex-start;
 	}
 	.input__primary {
 		width: 40rem;
