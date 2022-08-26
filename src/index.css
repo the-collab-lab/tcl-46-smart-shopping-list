@@ -9,6 +9,10 @@
 	--color-dusty-gray: #7b7366;
 	--color-brown: #94744e;
 	--color-dark-peach: #cfb297;
+	--color-tan: #cac1ac;
+	--color-burgundy: #835151;
+	--svg-dark-checkmark: url(../public/img/checkmark-dark.svg);
+	--svg-light-checkmark: url(../public/img/checkmark-light.svg);
 }
 
 @media (prefers-color-scheme: light) {
@@ -22,6 +26,9 @@
 		--color-dark-accent: var(--color-black-accent);
 		--color-button: var(--color-cream);
 		--color-select: var(--color-cream);
+		--color-list-item: var(--color-cream);
+		--color-calendar-text: var(--color-burgundy);
+		--svg-checkmark: var(--svg-light-checkmark);
 	}
 }
 
@@ -36,6 +43,9 @@
 		--color-dark-accent: var(--color-black-accent);
 		--color-button: var(--color-dusty-gray);
 		--color-select: var(--color-black-accent);
+		--color-list-item: var(--color-black-accent);
+		--color-calendar-text: var(--color-tan);
+		--svg-checkmark: var(--svg-dark-checkmark);
 	}
 }
 
