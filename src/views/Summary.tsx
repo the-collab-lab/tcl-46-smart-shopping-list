@@ -41,11 +41,13 @@ export function Summary() {
 
 	return (
 		<div className="Summary">
-			<h2>Summary</h2>
+			<h2 className="Summary__heading main">Summary</h2>
 			{purchased.length ? (
 				<div>
-					<h2>Your purchase history to date</h2>
-					<h3>Top 5 purchases by frequency:</h3>
+					<h2 className="Summary__heading">Your purchase history to date</h2>
+					<h3 className="Summary__heading sub">
+						Top 5 purchases by frequency:
+					</h3>
 					<ol>
 						{fiveMostPurchased.map((item) => (
 							<li key={item.id}>
@@ -59,7 +61,7 @@ export function Summary() {
 						))}
 					</ol>
 
-					<h3>5 most recent purchases:</h3>
+					<h3 className="Summary__heading sub">5 most recent purchases:</h3>
 					<ol>
 						{fiveMostRecentPurchases.map((item) => (
 							<li key={item.id}>
@@ -76,7 +78,9 @@ export function Summary() {
 
 					{mostNeglectedItem.length ? (
 						<>
-							<h3>Did you forget about these?</h3>
+							<h3 className="Summary__heading sub">
+								Did you forget about these?
+							</h3>
 
 							{mostNeglectedItem.map((item) => (
 								<div key={item.id}>
@@ -89,7 +93,7 @@ export function Summary() {
 							))}
 						</>
 					) : (
-						<h3>
+						<h3 className="Summary__heading sub">
 							You have bought everything on your list at least once. Good job!
 						</h3>
 					)}
@@ -98,7 +102,7 @@ export function Summary() {
 				<p>No purchase history found.</p>
 			)}
 
-			<h3>Personal Goals</h3>
+			<h3 className="Summary__heading sub">Personal Goals</h3>
 			<Goals />
 		</div>
 	);

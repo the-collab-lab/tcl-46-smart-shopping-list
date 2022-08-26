@@ -102,8 +102,11 @@ export function Home() {
 						</button>
 					</form>
 					{errorMessage && <p className="error">{errorMessage}</p>}
-					<ListSwitcher />
-					<Summary />
+
+					<div className="container__token-detail">
+						<Summary />
+						<ListSwitcher />
+					</div>
 				</>
 			) : (
 				<NoTokenWelcome
