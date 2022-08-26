@@ -1,0 +1,32 @@
+.Home {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.Home__heading {
+	font-weight: normal;
+}
+
+.form__list {
+	margin-bottom: 5em;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.input__primary {
+	font-size: 2rem;
+	margin: 1em;
+	padding: 0.5em;
+	width: 300px;
+	text-align: center;
+	color: var(--color-text);
+}
+
+.btn__primary {
+	margin-top: 2em;
+	padding: 0.5em 2em;
+	width: fit-content;
+	border-radius: 2rem;
+}
