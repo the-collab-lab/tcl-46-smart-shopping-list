@@ -10,7 +10,7 @@
 	font-weight: 700;
 }
 .copytoken {
-	border: 1px solid #d2a072;
+	border: 1px solid var(--color-input);
 	border-radius: 20px;
 	padding: 28px;
 	display: grid;

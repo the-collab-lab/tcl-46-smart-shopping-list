@@ -6,27 +6,84 @@
 
 .Home__heading {
 	font-weight: normal;
+	font-size: 40px;
+	/* standardize size in index */
 }
 
 .form__list {
-	margin-bottom: 5em;
 	display: flex;
+	justify-content: flex-start;
+	align-items: baseline;
+	margin: 0;
+	width: 100%;
+}
+
+.form__list > * {
+	justify-self: flex-start;
+}
+
+.form__list.no-token {
+	margin-bottom: 5em;
 	flex-direction: column;
 	align-items: center;
 }
 
 .input__primary {
+	padding: 0.5em;
+	width: 40rem;
+	margin: 0.5rem;
+}
+
+.input__primary.no-token {
 	font-size: 2rem;
 	margin: 1em;
-	padding: 0.5em;
 	width: 300px;
 	text-align: center;
 	color: var(--color-text);
 }
 
 .btn__primary {
-	margin-top: 2em;
 	padding: 0.5em 2em;
 	width: fit-content;
 	border-radius: 2rem;
+}
+
+.btn__primary.no-token {
+	margin-top: 2em;
+}
+
+.container__token-detail {
+	margin: 2rem 0;
+	display: flex;
+	justify-content: center;
+}
+
+.Summary {
+	border: 1px solid var(--color-input);
+	border-radius: 20px;
+	padding: 28px 35px;
+	margin-right: 4rem;
+	align-items: center;
+	grid-template-areas: 'message dropdown button';
+	gap: 10px;
+	width: 100%;
+}
+
+.Summary__heading {
+	font-weight: normal;
+}
+
+.main {
+	font-size: 1.7em;
+	text-align: center;
+}
+.sub {
+	color: var(--color-input);
+	font-weight: 600;
+}
+
+@media screen and (max-width: 768px) {
+	.container__token-detail {
+		flex-direction: column;
+	}
 }
