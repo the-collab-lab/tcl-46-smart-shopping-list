@@ -9,6 +9,9 @@ import {
 	getMatchingName,
 } from '../utils/user';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+
 const ListSwitcher = () => {
 	const navigate = useNavigate();
 	const [userList, setUserList] = useContext(MyContext).userListCtx;
@@ -61,7 +64,7 @@ const ListSwitcher = () => {
 			{getUserListsArr(userList)
 				.filter(([_, token]) => token)
 				.map(([name, token]) => (
-					<div key={token}>
+					<div key={token} className="Listswitcher__listUnit">
 						<button
 							className="ListSwitcher__btn listName"
 							onClick={() => switchList(token)}
@@ -74,7 +77,13 @@ const ListSwitcher = () => {
 						>
 							Untrack
 						</button>
-						<button onClick={() => deleteList(token)}>Delete List</button>
+						<button
+							className="btn__delete"
+							onClick={() => deleteList(token)}
+							aria-label="Delete List"
+						>
+							<FontAwesomeIcon icon={faTrashAlt} />
+						</button>
 					</div>
 				))}
 		</div>

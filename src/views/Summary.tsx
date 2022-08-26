@@ -89,7 +89,7 @@ export function Summary() {
 										{getDaysBetweenDates(item.refTime, currentTime)} days old
 										and was never purchased.
 									</p>
-								</div> //ambivalent about this one and also where the logic is
+								</div>
 							))}
 						</>
 					) : (
