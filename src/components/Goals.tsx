@@ -21,17 +21,16 @@ export function Goals() {
 			<form onSubmit={editGoals}>
 				<input
 					readOnly={isDisabled}
+					className="Goals__text"
 					style={
 						isDisabled
 							? {
 									outline: 'none',
 									borderWidth: 0,
 									width: '100%',
-									backgroundColor: 'transparent',
 									marginBottom: '1rem',
 							  }
 							: {
-									backgroundColor: 'white',
 									borderWidth: '1px',
 									width: '100%',
 									marginBottom: '1rem',
@@ -40,12 +39,6 @@ export function Goals() {
 					onChange={(e) => setGoals(e.target.value)}
 					value={goals}
 				/>
-				<button
-					type="submit"
-					disabled={isEmpty(goals)} //prevent exit without content
-				>
-					{isDisabled ? 'Update' : 'Save'}
-				</button>
 			</form>
 		</>
 	);
