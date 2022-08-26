@@ -56,15 +56,24 @@ const ListSwitcher = () => {
 	};
 
 	return (
-		<div>
+		<div className="ListSwitcher">
+			<h2 className="ListSwitcher__heading main">My Lists</h2>
 			{getUserListsArr(userList)
 				.filter(([_, token]) => token)
 				.map(([name, token]) => (
 					<div key={token}>
-						<button onClick={() => switchList(token)}>
+						<button
+							className="ListSwitcher__btn listName"
+							onClick={() => switchList(token)}
+						>
 							<b>{name === 'listToken' ? 'Default List' : name}</b>
 						</button>
-						<button onClick={() => rmListUpdate(name, token)}>Untrack</button>
+						<button
+							className="ListSwitcher__btn trackerToggle"
+							onClick={() => rmListUpdate(name, token)}
+						>
+							Untrack
+						</button>
 						<button onClick={() => deleteList(token)}>Delete List</button>
 					</div>
 				))}
