@@ -72,7 +72,7 @@
 /* List will need adjustment */
 @media screen and (min-width: 800px) {
 	.Layout {
-		width: 90vw;
+		width: min(90vw, 800px);
 	}
 	.Layout-main {
 		margin: 0 auto;

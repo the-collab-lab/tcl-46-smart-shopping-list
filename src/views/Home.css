@@ -62,6 +62,7 @@
 
 .container__token-detail {
 	margin: 3rem 0;
+	width: 100%;
 	display: flex;
 	justify-content: space-between;
 }
@@ -124,7 +125,7 @@
 
 .listName {
 	max-width: fit-content;
-	min-width: 20rem;
+	min-width: 15rem;
 	text-align: left;
 	font-weight: normal;
 }
