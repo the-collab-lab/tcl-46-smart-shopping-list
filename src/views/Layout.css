@@ -35,28 +35,49 @@
 }
 
 .Nav {
-	align-items: stretch;
-	background-color: var(--color-bg);
-	bottom: 0;
+	position: fixed;
+	width: 100vw;
+	padding-left: 25%;
+	padding-right: 25%;
+	height: 8%;
 	display: flex;
-	flex-direction: row;
 	justify-content: space-around;
-	margin-top: auto;
-	position: sticky;
+	align-items: center;
+	background-color: var(--color-nav);
+	bottom: 0;
 }
 
 .Nav-link {
 	color: var(--color-text);
-	font-size: 2.4rem;
+	font-size: 2.6rem;
 	flex: 0 1 auto;
 	padding: 0.8rem;
 	text-align: center;
 	text-decoration: none;
 }
 
+.Nav-link:hover {
+	opacity: 75%;
+}
+
 .Nav-link.active {
 	text-decoration: underline;
 	text-decoration-thickness: 0.22em;
 	text-underline-offset: 0.3em;
+	font-weight: 700;
 	text-decoration-color: var(--color-input);
+}
+
+@media (max-width: 800px) {
+	.Nav {
+		padding-left: 10%;
+		padding-right: 10%;
+	}
+}
+
+@media (max-width: 350px) {
+	.Nav {
+		padding-left: 5%;
+		padding-right: 5%;
+	}
 }

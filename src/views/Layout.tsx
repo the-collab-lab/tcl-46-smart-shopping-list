@@ -5,11 +5,13 @@ import './Layout.css';
 
 export function Layout() {
 	return (
-		<div className="Layout">
-			<main className="Layout-main">
-				<Outlet />
-			</main>
-			<FoodPuns />
+		<div className="Container">
+			<div className="Layout">
+				<main className="Layout-main">
+					<Outlet />
+				</main>
+				<FoodPuns />
+			</div>
 			<nav className="Nav">
 				<NavLink to="/" className="Nav-link">
 					Home
