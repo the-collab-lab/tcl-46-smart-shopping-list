@@ -144,9 +144,11 @@
 
 @media screen and (max-width: 768px) {
 	.form__list {
-		/* justify-content: center; */
+		justify-content: center;
 	}
-
+	.input__primary {
+		width: 40rem;
+	}
 	.container__token-detail {
 		flex-direction: column;
 	}
@@ -170,5 +172,15 @@
 	}
 	.input__primary {
 		min-width: 70%;
+	}
+}
+
+@media screen and (max-width: 588px) {
+	.form__list {
+		flex-direction: column;
+		align-items: center;
+	}
+	.label__input__primary {
+		margin-bottom: 1rem;
 	}
 }
