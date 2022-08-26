@@ -99,15 +99,18 @@ export function ListItem({
 			</div>
 
 			<div className="section-checkbox">
-				<input
-					className="ListItem-checkbox"
-					type="checkbox"
-					id={name}
-					name={name}
-					value={name}
-					onChange={handleValueChange}
-					defaultChecked={isChecked}
-				/>
+				<label className="checkbox__label" htmlFor={name}>
+					<input
+						className="ListItem-checkbox"
+						type="checkbox"
+						id={name}
+						name={name}
+						value={name}
+						onChange={handleValueChange}
+						defaultChecked={isChecked}
+					/>
+					<span className="visible-checkbox"></span>
+				</label>
 			</div>
 
 			<button className="delete-button" type="button" onClick={handleDelete}>
