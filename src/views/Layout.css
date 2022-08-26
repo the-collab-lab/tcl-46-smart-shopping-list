@@ -7,6 +7,7 @@
  *
  * @see: https://developer.mozilla.org/en-US/docs/Web/CSS/env
  */
+
 .Layout {
 	display: flex;
 	flex-direction: column;
@@ -59,4 +60,14 @@
 	text-decoration-thickness: 0.22em;
 	text-underline-offset: 0.3em;
 	text-decoration-color: var(--color-input);
+}
+
+@media screen and (min-width: 800px) {
+	.Layout {
+		width: 70rem;
+	}
+	.Layout-main {
+		margin: 0 auto;
+		width: 100%;
+	}
 }
