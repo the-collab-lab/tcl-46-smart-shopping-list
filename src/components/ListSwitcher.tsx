@@ -64,7 +64,7 @@ const ListSwitcher = () => {
 			{getUserListsArr(userList)
 				.filter(([_, token]) => token)
 				.map(([name, token]) => (
-					<div key={token} className="Listswitcher__listUnit">
+					<div key={token} className="ListSwitcher__listUnit">
 						<button
 							className="ListSwitcher__btn listName"
 							onClick={() => switchList(token)}
