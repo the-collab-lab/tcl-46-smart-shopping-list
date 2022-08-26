@@ -9,6 +9,9 @@ import {
 	getMatchingName,
 } from '../utils/user';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+
 const ListSwitcher = () => {
 	const navigate = useNavigate();
 	const [userList, setUserList] = useContext(MyContext).userListCtx;
@@ -56,16 +59,31 @@ const ListSwitcher = () => {
 	};
 
 	return (
-		<div>
+		<div className="ListSwitcher">
+			<h2 className="ListSwitcher__heading main">My Lists</h2>
 			{getUserListsArr(userList)
 				.filter(([_, token]) => token)
 				.map(([name, token]) => (
-					<div key={token}>
-						<button onClick={() => switchList(token)}>
+					<div key={token} className="ListSwitcher__listUnit">
+						<button
+							className="ListSwitcher__btn listName"
+							onClick={() => switchList(token)}
+						>
 							<b>{name === 'listToken' ? 'Default List' : name}</b>
 						</button>
-						<button onClick={() => rmListUpdate(name, token)}>Untrack</button>
-						<button onClick={() => deleteList(token)}>Delete List</button>
+						<button
+							className="ListSwitcher__btn trackerToggle"
+							onClick={() => rmListUpdate(name, token)}
+						>
+							Untrack
+						</button>
+						<button
+							className="btn__delete"
+							onClick={() => deleteList(token)}
+							aria-label="Delete List"
+						>
+							<FontAwesomeIcon icon={faTrashAlt} />
+						</button>
 					</div>
 				))}
 		</div>

@@ -66,7 +66,7 @@ export function Home() {
 	return (
 		<div className="Home">
 			{listToken && isValidToken(listToken) ? (
-				<>
+				<div className="Home__container">
 					<h1 className="Home__heading">Manage Lists</h1>
 					<form className="form__list" onSubmit={makeNewList}>
 						<label htmlFor="make-list" className="label__input__primary">
@@ -102,9 +102,12 @@ export function Home() {
 						</button>
 					</form>
 					{errorMessage && <p className="error">{errorMessage}</p>}
-					<ListSwitcher />
-					<Summary />
-				</>
+
+					<div className="container__token-detail">
+						<Summary />
+						<ListSwitcher />
+					</div>
+				</div>
 			) : (
 				<NoTokenWelcome
 					updateListName={updateListName}
