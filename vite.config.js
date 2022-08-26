@@ -5,7 +5,7 @@ import svgr from 'vite-plugin-svgr';
 import { VitePWA } from 'vite-plugin-pwa';
 
 const PWAConfig = {
-	includeAssets: ['favicon.png', 'robots.txt'],
+	includeAssets: ['favicon.ico', 'robots.txt'],
 	manifest: {
 		short_name: 'Smart Shopping List',
 		name: 'TCL Smart Shopping List',
@@ -13,7 +13,7 @@ const PWAConfig = {
 			"A smart shopping list that learns your purchase habits and makes suggestions, so you don't forget to buy what's important.",
 		icons: [
 			{
-				src: 'favicon.png',
+				src: 'favicon.ico',
 				sizes: '64x64 32x32 24x24 16x16',
 				type: 'image/x-icon',
 			},
