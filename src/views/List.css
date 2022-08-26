@@ -1,0 +1,114 @@
+/* list heading */
+.ListTitle {
+	display: flex;
+	justify-content: center;
+	color: var(--color-text);
+}
+
+.ListTitle__input {
+	font-size: 40px;
+	margin: 0.7em;
+	color: var(--color-text);
+	text-align: center;
+}
+
+.btn__edit,
+.btn__save,
+.btn__edit:hover,
+.btn__save:hover {
+	background-color: var(--color-bg);
+	color: var(--color-input);
+	display: flex;
+	align-self: center;
+	padding: 0 0 18px 0;
+	height: 2px;
+}
+
+.btn__edit:hover,
+.btn__save:hover {
+	filter: none;
+}
+
+.btn__save,
+.btn__save:hover {
+	/* background-color: var(--color-button); */
+	font-size: 1.3rem;
+	font-weight: bold;
+	text-transform: lowercase;
+	border-radius: 0;
+	border-bottom: 2px solid var(--color-input);
+}
+
+.ListBody {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+}
+
+.ListBody > p:last-of-type {
+	margin-bottom: 3em;
+}
+
+.addItem__form {
+	display: flex;
+	flex-direction: column;
+}
+
+.addItem__label {
+	margin: 1rem;
+}
+
+.addItem__label > * {
+	margin: 0.5rem;
+}
+
+.addItem__input {
+	font-size: 16px;
+	padding: 0.5em;
+	color: var(--color-text);
+	text-align: center;
+}
+
+.addItem__select {
+	margin-left: 1rem;
+	border-radius: 10px;
+}
+
+/* long list names? */
+.addItem__select_listNames {
+	width: fit-content;
+	padding-right: 3em;
+}
+
+.addItem__select_frequency {
+	width: 180px;
+}
+
+.btn__submit {
+	margin-top: 2em;
+	padding: 0.5em;
+	font-size: 16px;
+	width: 100px;
+	border-radius: 2rem;
+	background: var(--color-nav);
+}
+
+@media screen and (max-width: 768px) {
+	.ListTitle__input {
+		font-size: 30px;
+		width: 300px;
+		margin: 0.7em;
+		color: var(--color-text);
+		text-align: center;
+	}
+
+	.addItem__section {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+	.addItem__label {
+		margin: 0 0 1em 0;
+	}
+}

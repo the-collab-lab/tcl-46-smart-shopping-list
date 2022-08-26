@@ -14,6 +14,8 @@
 	--color-off-cream: #f3eee7;
 	--svg-dark-checkmark: url(../public/img/checkmark-dark.svg);
 	--svg-light-checkmark: url(../public/img/checkmark-light.svg);
+	--svg-dark-triangle: url(../../img/toggle.svg);
+	--svg-light-triangle: url(../../img/toggle-darkmode.svg);
 }
 
 @media (prefers-color-scheme: light) {
@@ -31,6 +33,7 @@
 		--color-calendar-text: var(--color-burgundy);
 		--color-calendar-button: var(--color-off-cream);
 		--svg-checkmark: var(--svg-light-checkmark);
+		--svg-select: var(--svg-dark-triangle);
 	}
 }
 
@@ -49,6 +52,7 @@
 		--color-calendar-text: var(--color-tan);
 		--color-calendar-button: var(--color-black-accent);
 		--svg-checkmark: var(--svg-dark-checkmark);
+		--svg-select: var(--svg-light-triangle);
 	}
 }
 
@@ -81,10 +85,17 @@ select {
 	background-color: var(--color-select);
 	color: var(--color-text);
 	border: none;
-	padding: 8px 12px 8px 12px;
-	border-radius: 10px;
 	text-indent: 4px;
-	border-right: 16px solid transparent;
+	appearance: none;
+	font-size: 16px;
+	width: 235px;
+	height: 36px;
+	grid-area: dropdown;
+	padding: 5px 15px;
+	padding-right: 10px;
+	background-image: var(--svg-select);
+	background-repeat: no-repeat;
+	background-position: 95% 55%;
 }
 
 input {

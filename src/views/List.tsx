@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect, useMemo, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { ListItem } from '../components';
 import { comparePurchaseUrgency, getUrgency } from '../utils/item';
 import {
@@ -20,7 +19,6 @@ const defaultDates = { startDate: '', endDate: '' };
 
 export function List() {
 	const [searchTerm, setSearchTerm] = useState('');
-	const [copied, setCopied] = useState('');
 	const [urgencyTerm, setUrgencyTerm] = useState('ALL');
 	const [custom, setCustom] = useState(defaultDates);
 	const [isDisabled, setIsDisabled] = useState(true);
@@ -88,13 +86,6 @@ export function List() {
 			setListName(getMatchingName(userList, listToken));
 		}
 	}, [userList, listToken]);
-
-	const copyToken = () => {
-		navigator.clipboard
-			.writeText(listToken)
-			.then(() => setCopied('Copied!'))
-			.catch(() => setCopied('Not Copied.'));
-	};
 
 	const editName = (e) => {
 		e.preventDefault();
@@ -190,15 +181,6 @@ export function List() {
 								Clear urgency selection
 							</button>
 						</div>
-
-						<div>
-							<p>
-								Copy token to allow others join your list:
-								<button type="button" onClick={copyToken} id="token">
-									{copied ? copied : listToken}
-								</button>
-							</p>
-						</div>
 						<ul>
 							{adjustedData.map((item) => (
 								<ListItem
@@ -211,19 +193,20 @@ export function List() {
 						</ul>
 					</div>
 				) : (
-					<div>
-						<h2>Welcome to your smart shopping list!</h2>
-						<p>
-							This app will learn from your purchasing habits and help you
-							prioritize and plan your shopping list.
-						</p>
-						<AddItem />
+					<div className="ListBody">
 						<ListTitle
 							editName={editName}
 							isDisabled={isDisabled}
 							updateListName={updateListName}
 							listName={listName}
 						/>
+						<p>Welcome!</p>
+						<p>
+							This app will learn from your purchasing habits and help you
+							prioritize and plan your shopping list.
+						</p>
+						<p>Add an item to get started!</p>
+						<AddItem />
 					</div>
 				)
 			) : (

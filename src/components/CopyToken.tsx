@@ -27,10 +27,10 @@ export function CopyToken({ listToken, userList }) {
 				Copy token to share your list with others:
 			</label>
 			<select
+				className="copytoken__select"
 				value={selectedListToken || ''}
 				onChange={updateSelectedList}
 				id="userList"
-				className="copytoken__select"
 			>
 				{getUserListsArr(userList).map(([name, token]) => (
 					<option key={token} value={token}>
