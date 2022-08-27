@@ -30,8 +30,8 @@ function FoodPuns() {
 				<div>
 					<p className="foodpuns__content">{pun}</p>
 					<svg
-						width="50"
-						height="60"
+						width="70"
+						height="110"
 						viewBox="0 0 39 54"
 						fill="none"
 						xmlns="http://www.w3.org/2000/svg"

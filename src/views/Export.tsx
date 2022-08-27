@@ -26,10 +26,6 @@ export function Export() {
 			) : (
 				<NoToken />
 			)}
-
-			<p className="export__footer">
-				This shopping app was created with love by members of The Collab Lab.
-			</p>
 		</>
 	);
 }
