@@ -50,50 +50,6 @@
 	margin-bottom: 3em;
 }
 
-.addItem__form {
-	display: flex;
-	flex-direction: column;
-}
-
-.addItem__label {
-	margin: 1rem;
-}
-
-.addItem__label > * {
-	margin: 0.5rem;
-}
-
-.addItem__input {
-	font-size: 16px;
-	padding: 0.5em;
-	color: var(--color-text);
-	text-align: center;
-}
-
-.addItem__select {
-	margin-left: 1rem;
-	border-radius: 10px;
-}
-
-/* long list names? */
-.addItem__select_listNames {
-	width: fit-content;
-	padding-right: 3em;
-}
-
-.addItem__select_frequency {
-	width: 180px;
-}
-
-.btn__submit {
-	margin-top: 2em;
-	padding: 0.5em;
-	font-size: 16px;
-	width: 100px;
-	border-radius: 2rem;
-	background: var(--color-nav);
-}
-
 @media screen and (max-width: 768px) {
 	.ListTitle__input {
 		font-size: 30px;
@@ -101,14 +57,5 @@
 		margin: 0.7em;
 		color: var(--color-text);
 		text-align: center;
-	}
-
-	.addItem__section {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-	}
-	.addItem__label {
-		margin: 0 0 1em 0;
 	}
 }

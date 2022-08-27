@@ -1,8 +1,8 @@
 import { useContext, useEffect, useMemo, useState } from 'react';
 import { MyContext } from '../App';
-import { UrgencyStatus } from '../types';
 import { comparePurchaseUrgency, getUrgency } from '../utils';
 import { customDateRange } from '../utils/filter';
+import './Filter.css';
 
 const defaultDates = { startDate: '', endDate: '' };
 
@@ -46,27 +46,35 @@ const Filter = ({ searchTerm, setSearchTerm, setAdjustedData }) => {
 	};
 
 	return (
-		<div>
-			<label>
-				Find an item
+		<details>
+			<summary>Filter And Search</summary>
+			<label className="search__container">
+				<p>Find an item</p>
 				<input
 					type="text"
 					placeholder="start typing here..."
 					id="filter"
 					name="filter"
+					className="search__input"
 					value={searchTerm}
 					onChange={(e) => {
 						setSearchTerm(e.target.value);
 					}}
 				/>
+				<button
+					type="button"
+					className="search__button"
+					style={{ margin: 'auto' }}
+					onClick={clearSearchTerm}
+					aria-live="polite"
+				>
+					Clear
+				</button>
 			</label>
-			<button type="button" onClick={clearSearchTerm} aria-live="polite">
-				clear
-			</button>
 			<fieldset>
 				<legend>Search by custom purchase-by date range</legend>
-				<label>
-					Start date:
+				<label className="customSearch__label">
+					<p>Start:</p>
 					<input
 						type="date"
 						value={custom.startDate}
@@ -75,8 +83,8 @@ const Filter = ({ searchTerm, setSearchTerm, setAdjustedData }) => {
 						onChange={updateRange}
 					/>
 				</label>
-				<label>
-					End date:
+				<label className="customSearch__label">
+					<p>End:</p>
 					<input
 						type="date"
 						value={custom.endDate}
@@ -84,36 +92,40 @@ const Filter = ({ searchTerm, setSearchTerm, setAdjustedData }) => {
 						min={custom.startDate}
 						onChange={updateRange}
 					/>
+					<button
+						type="button"
+						onClick={() => setCustom(defaultDates)}
+						aria-live="polite"
+					>
+						Clear
+					</button>
 				</label>
+			</fieldset>
+			<label htmlFor="urgency" className="urgency__label">
+				Filter by urgency
+				<select
+					value={urgencyTerm}
+					onChange={(e) => setUrgencyTerm(e.target.value)}
+					name="urgency"
+					id="urgency"
+				>
+					<option value={'ALL'}>Choose urgency</option>
+					<option value={'SOON'}>Soon</option>
+					<option value={'KIND_OF_SOON'}>Kind Of Soon</option>
+					<option value={'NOT_SOON'}>Not Soon</option>
+					<option value={'OVERDUE'}>Overdue</option>
+					<option value={'INACTIVE'}>Inactive</option>
+				</select>
 				<button
+					className="urgency__button"
 					type="button"
-					onClick={() => setCustom(defaultDates)}
+					onClick={undoUrgency}
 					aria-live="polite"
 				>
-					Clear custom range
+					Clear
 				</button>
-			</fieldset>
-			<div>
-				<label>
-					Show by urgency
-					<select
-						value={urgencyTerm}
-						onChange={(e) => setUrgencyTerm(e.target.value)}
-						name="urgency"
-					>
-						<option value={'ALL'}>Choose urgency</option>
-						<option value={'SOON'}>Soon</option>
-						<option value={'KIND_OF_SOON'}>Kind Of Soon</option>
-						<option value={'NOT_SOON'}>Not Soon</option>
-						<option value={'OVERDUE'}>Overdue</option>
-						<option value={'INACTIVE'}>Inactive</option>
-					</select>
-				</label>
-				<button type="button" onClick={undoUrgency} aria-live="polite">
-					Clear urgency selection
-				</button>
-			</div>
-		</div>
+			</label>
+		</details>
 	);
 };
 
