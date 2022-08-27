@@ -69,7 +69,7 @@ export function List() {
 							updateListName={updateListName}
 							listName={listName}
 						/>
-						<AddItem />
+						<AddItem hasItems={true} />
 						<Filter
 							searchTerm={searchTerm}
 							setSearchTerm={setSearchTerm}
@@ -104,7 +104,7 @@ export function List() {
 							prioritize and plan your shopping list.
 						</p>
 						<p>Add an item to get started!</p>
-						<AddItem />
+						<AddItem hasItems={false} />
 					</div>
 				)
 			) : (
