@@ -104,7 +104,7 @@
 
 /* long list names? */
 .addItem__select_listNames {
-	width: fit-content;
+	width: 200px;
 	padding-right: 3em;
 }
 
