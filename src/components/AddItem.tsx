@@ -42,7 +42,6 @@ export function AddItem() {
 			setItem(defaultItem);
 			return true;
 		}
-		return false;
 	};
 
 	const addItemToDatabase = (e) => {
