@@ -1,7 +1,12 @@
-details {
+.Filter {
 	outline: var(--color-accent) solid 2px;
 	padding: 20px;
 	border-radius: 10px;
+}
+
+.Filter.wide {
+	padding: 5px 20px 20px 20px;
+	margin-bottom: 3rem;
 }
 
 fieldset,
@@ -9,6 +14,15 @@ fieldset,
 details {
 	margin-top: 24px;
 	margin-bottom: 24px;
+}
+
+.Filter__heading {
+	font-size: 2rem;
+	font-weight: 600;
+	color: var(--color-input);
+}
+details.Filter__heading {
+	cursor: pointer;
 }
 
 .search__container {
@@ -23,6 +37,7 @@ details {
 	margin: auto;
 	height: 45px;
 	width: 100%;
+	font-size: 1.6rem;
 }
 
 fieldset {
@@ -45,11 +60,12 @@ fieldset {
 	width: 100%;
 	height: 30px;
 	margin: auto 14px auto 14px;
+	font-size: 1.6rem;
 }
 
-.customSearch__label > button {
-	height: 30px;
-	margin: auto;
+.btn__clearAll {
+	background: var(--color-accent);
+	font-size: 1.6rem;
 }
 
 .urgency__label {
@@ -74,8 +90,7 @@ fieldset {
 		text-align: center;
 	}
 
-	.urgency__label > select,
-	.urgency__label > button {
+	.urgency__label > select {
 		margin: auto;
 	}
 }
@@ -87,4 +102,9 @@ fieldset {
 		align-content: center;
 		text-align: center;
 	}
+	.Filter__heading {
+		text-align: center;
+	}
 }
+
+/* add style for filter heading center */

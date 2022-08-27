@@ -14,7 +14,6 @@ import ListTitle from '../components/ListTitle';
 import { MyContext } from '../App';
 import { AddItem } from '../components/AddItem';
 import Filter from '../components/Filter';
-import FilterMobile from '../components/FilterMobile';
 
 export function List() {
 	const [searchTerm, setSearchTerm] = useState('');
@@ -71,12 +70,6 @@ export function List() {
 						/>
 						<AddItem hasItems={true} />
 						<Filter
-							searchTerm={searchTerm}
-							setSearchTerm={setSearchTerm}
-							setAdjustedData={setAdjustedData}
-						/>
-
-						<FilterMobile
 							searchTerm={searchTerm}
 							setSearchTerm={setSearchTerm}
 							setAdjustedData={setAdjustedData}

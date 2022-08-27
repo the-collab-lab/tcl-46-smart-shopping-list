@@ -94,11 +94,6 @@
 	background: var(--color-nav);
 }
 
-/* Mobile */
-.FilterMobile {
-	display: none;
-}
-
 @media screen and (max-width: 768px) {
 	.ListTitle__input {
 		font-size: 30px;
@@ -115,14 +110,5 @@
 	}
 	.addItem__label {
 		margin: 0 0 1em 0;
-	}
-}
-
-@media screen and (max-width: 588px) {
-	.FilterMobile {
-		display: block;
-	}
-	.Filter {
-		display: none;
 	}
 }
