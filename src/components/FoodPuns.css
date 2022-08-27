@@ -27,11 +27,20 @@
 	padding: 8px 12px 10px 12px;
 }
 
+.svg__icon {
+	width: 120px;
+	height: 160px;
+}
+
 @media only screen and (max-width: 600px) {
 	.foodpuns__content {
 		position: fixed;
 		bottom: 75px;
 		left: 10%;
 		width: 50vw;
+	}
+	.svg__icon {
+		width: 60px;
+		height: 100px;
 	}
 }
