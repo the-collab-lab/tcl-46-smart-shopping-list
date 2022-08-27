@@ -22,8 +22,14 @@ const Filter = ({ searchTerm, setSearchTerm, setAdjustedData }) => {
 		);
 	}, [urgencyTerm, sortedFullList, custom, searchTerm]);
 
-	const undoUrgency = () => {
+	// const undoUrgency = () => setUrgencyTerm('ALL');
+	// const clearSearchTerm = () => setSearchTerm('');
+	// const clearDateRange = () => setCustom(defaultDates)
+
+	const clearAllFilters = () => {
 		setUrgencyTerm('ALL');
+		setSearchTerm('');
+		setCustom(defaultDates);
 	};
 
 	const filterList = (list) => {
@@ -41,17 +47,13 @@ const Filter = ({ searchTerm, setSearchTerm, setAdjustedData }) => {
 		setCustom(newDates);
 	};
 
-	const clearSearchTerm = () => {
-		setSearchTerm('');
-	};
-
 	return (
-		<div>
+		<div className="Filter">
 			<label>
-				Find an item
+				Search by Name:
 				<input
 					type="text"
-					placeholder="start typing here..."
+					placeholder="Start typing here..."
 					id="filter"
 					name="filter"
 					value={searchTerm}
@@ -60,13 +62,13 @@ const Filter = ({ searchTerm, setSearchTerm, setAdjustedData }) => {
 					}}
 				/>
 			</label>
-			<button type="button" onClick={clearSearchTerm} aria-live="polite">
+			{/* <button type="button" onClick={clearSearchTerm} aria-live="polite">
 				clear
-			</button>
+			</button> */}
 			<fieldset>
-				<legend>Search by custom purchase-by date range</legend>
+				<legend>Search by Date:</legend>
 				<label>
-					Start date:
+					Start Date:
 					<input
 						type="date"
 						value={custom.startDate}
@@ -76,7 +78,7 @@ const Filter = ({ searchTerm, setSearchTerm, setAdjustedData }) => {
 					/>
 				</label>
 				<label>
-					End date:
+					End Date:
 					<input
 						type="date"
 						value={custom.endDate}
@@ -85,17 +87,17 @@ const Filter = ({ searchTerm, setSearchTerm, setAdjustedData }) => {
 						onChange={updateRange}
 					/>
 				</label>
-				<button
+				{/* <button
 					type="button"
 					onClick={() => setCustom(defaultDates)}
 					aria-live="polite"
 				>
 					Clear custom range
-				</button>
+				</button> */}
 			</fieldset>
 			<div>
 				<label>
-					Show by urgency
+					Search by Urgency:
 					<select
 						value={urgencyTerm}
 						onChange={(e) => setUrgencyTerm(e.target.value)}
@@ -109,8 +111,8 @@ const Filter = ({ searchTerm, setSearchTerm, setAdjustedData }) => {
 						<option value={'INACTIVE'}>Inactive</option>
 					</select>
 				</label>
-				<button type="button" onClick={undoUrgency} aria-live="polite">
-					Clear urgency selection
+				<button type="button" onClick={clearAllFilters} aria-live="polite">
+					Clear All Filters
 				</button>
 			</div>
 		</div>
