@@ -1,43 +1,128 @@
 :root {
-	--color-black: hsla(220, 13%, 18%, 1);
-	--color-gray-dark: hsla(220, 13%, 25%, 1);
-	--color-white: hsla(220, 13%, 98%, 1);
-	--color-gray-light: hsla(220, 13%, 94%, 1);
-	--color-emerald-green: hsla(168, 92%, 25%, 1);
-	--color-vermillion-green: hsla(168, 92%, 43%, 1);
-	--color-cobalt-blue: hsla(215, 100%, 34%, 1);
-	--color-pastel-blue: hsla(215, 100%, 73%, 1);
-	--color-red: hsl(0, 68%, 42%);
-
-	--color-accent: var(--color-pastel-blue);
-	--color-bg: var(--color-black);
-	--color-bg-well: var(--color-gray-dark);
-	--color-error: var(--color-red);
-	--color-text: var(--color-white);
-	--color-listitem-bg: var(--color-gray-dark);
+	--color-dark-gray: #43403e;
+	--color-white: #fafaf9;
+	--color-cream: #f7efe3;
+	--color-peach: #e1cbb7;
+	--color-pink: #cc8a7c;
+	--color-orange: #d2a072;
+	--color-black-accent: #2b2521;
+	--color-dusty-gray: #7b7366;
+	--color-brown: #94744e;
+	--color-dark-peach: #cfb297;
+	--color-tan: #cac1ac;
+	--color-burgundy: #835151;
+	--color-off-cream: #f3eee7;
+	--font-family-default: -apple-system, BlinkMacSystemFont, avenir next, avenir,
+		segoe ui, helvetica neue, helvetica, Ubuntu, roboto, noto, arial, sans-serif;
+	--svg-dark-checkmark: url(../img/checkmark-dark.svg);
+	--svg-light-checkmark: url(../img/checkmark-light.svg);
+	--svg-dark-triangle: url(../../img/toggle.svg);
+	--svg-light-triangle: url(../../img/toggle-darkmode.svg);
 }
 
-@media screen and (prefers-color-scheme: light) {
+@media (prefers-color-scheme: light) {
 	:root {
-		--color-accent: var(--color-cobalt-blue);
 		--color-bg: var(--color-white);
-		--color-bg-well: var(--color-gray-light);
-		--color-text: var(--color-black);
-		--color-listitem-bg: var(--color-gray-light);
+		--color-nav: var(--color-cream);
+		--color-accent: var(--color-peach);
+		--color-text: var(--color-black-accent);
+		--color-input: var(--color-orange);
+		--color-trash: var(--color-pink);
+		--color-dark-accent: var(--color-black-accent);
+		--color-button: var(--color-cream);
+		--color-select: var(--color-cream);
+		--color-list-item: var(--color-off-cream);
+		--color-calendar-text: var(--color-burgundy);
+		--color-calendar-button: var(--color-off-cream);
+		--color-urgency-soon: #d28372;
+		--color-urgency-not-soon: #e1cbb7;
+		--color-urgency-inactive: #b9b1b0;
+		--color-urgency-overdue: #c83413;
+		--color-urgency-kind-of-soon: #e3a799;
+		--color-mobile-list-border: var(--color-white);
+		--svg-checkmark: var(--svg-light-checkmark);
+		--svg-select: var(--svg-dark-triangle);
 	}
 }
 
-:root.theme-light {
-	--color-accent: var(--color-cobalt-blue);
-	--color-bg: var(--color-white);
-	--color-bg-well: var(--color-gray-light);
-	--color-text: var(--color-black);
+@media (prefers-color-scheme: dark) {
+	:root {
+		--color-bg: var(--color-dark-gray);
+		--color-nav: var(--color-dusty-gray);
+		--color-accent: var(--color-brown);
+		--color-text: var(--color-cream);
+		--color-input: var(--color-dark-peach);
+		--color-trash: var(--color-pink);
+		--color-dark-accent: var(--color-black-accent);
+		--color-button: var(--color-dusty-gray);
+		--color-select: var(--color-black-accent);
+		--color-list-item: var(--color-black-accent);
+		--color-calendar-text: var(--color-tan);
+		--color-calendar-button: var(--color-black-accent);
+		--color-urgency-soon: #cc8a7c;
+		--color-urgency-not-soon: #94744e;
+		--color-urgency-inactive: #9b8d8c;
+		--color-urgency-overdue: #c83413;
+		--color-urgency-kind-of-soon: #e3a799;
+		--color-mobile-list-border: var(--color-tan);
+		--svg-checkmark: var(--svg-dark-checkmark);
+		--svg-select: var(--svg-light-triangle);
+	}
 }
 
 *,
 *::after,
 *::before {
 	box-sizing: border-box;
+}
+
+html {
+	font-size: 62.5%;
+}
+
+button {
+	border: none;
+	padding: 8px 12px 8px 12px;
+	border-radius: 10px;
+	background-color: var(--color-button);
+	text-align: center;
+	color: var(--color-text);
+	cursor: pointer;
+}
+
+button,
+select {
+	transition: all 0.13s ease-in-out;
+}
+
+select {
+	background-color: var(--color-select);
+	color: var(--color-text);
+	border: none;
+	text-indent: 4px;
+	appearance: none;
+	font-size: 16px;
+	width: 235px;
+	height: 36px;
+	grid-area: dropdown;
+	padding: 5px 15px;
+	padding-right: 10px;
+	background-image: var(--svg-select);
+	background-repeat: no-repeat;
+	background-position: 95% 55%;
+}
+
+input {
+	background-color: transparent;
+	color: var(--color-text);
+	border: none;
+	border-bottom: 3px solid var(--color-input);
+	margin-bottom: -1px;
+}
+
+button:hover,
+select:hover {
+	filter: brightness(85%) saturate(3);
 }
 
 /**
@@ -50,47 +135,18 @@ body,
 	min-height: 100vh;
 }
 
-html {
-	font-size: 62.5%;
+ul {
+	padding: 0;
 }
 
 body {
 	background-color: var(--color-bg);
 	color: var(--color-text);
-	font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui,
-		helvetica neue, helvetica, Ubuntu, roboto, noto, arial, sans-serif;
+	font-family: var(--font-family-default);
 	font-size: 1.6rem;
-	line-height: 1.4;
+	line-height: 1.2;
 	margin: 0;
 
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-}
-
-code {
-	--color-bg: var(--color-gray-dark);
-	--color-text: var(--color-accent);
-
-	background-color: var(--color-bg);
-	border-radius: 4px;
-	color: var(--color-text);
-	display: inline-block;
-	font-family: Menlo, Consolas, Monaco, Liberation Mono, Lucida Console,
-		monospace;
-	font-size: 0.9em;
-	padding: 0.15em 0.15em;
-}
-
-@media screen and (prefers-color-scheme: light) {
-	code {
-		--color-bg: var(--color-gray-light);
-	}
-}
-
-:root.theme-light code {
-	--color-bg: var(--color-gray-light);
-}
-
-ul {
-	padding: 0;
 }

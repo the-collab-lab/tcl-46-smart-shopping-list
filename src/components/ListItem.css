@@ -1,85 +1,167 @@
 .ListItem {
-	background-color: var(--color-listitem-bg);
-
-	font-size: 1.2em;
-
-	min-height: 2.4em;
+	background-color: var(--color-list-item);
+	border-radius: 6px;
 	width: 100%;
 
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: space-around;
-
-	margin-bottom: 1em;
-	padding: 0.6em 0;
-}
-
-.section-checkbox {
-	height: 100%;
-	width: 10%;
-
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-
-.ListItem-checkbox {
-	accent-color: var(--color-accent);
-}
-
-.section-label {
-	height: 100%;
-	width: 40%;
-
-	display: flex;
-	align-items: center;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-auto-rows: minmax(min-content, max-content);
+	grid-auto-flow: row;
+	grid-template-areas:
+		'urgency urgency'
+		'name name'
+		'checkbox delete';
+	margin-bottom: 2rem;
 }
 
 .section-urgency {
-	height: 100%;
-	width: 30%;
-
+	grid-area: urgency;
+	overflow: hidden;
+	font-size: 1.6rem;
 	display: flex;
 	align-items: center;
-
-	padding-left: 0.6em;
+	justify-content: center;
+	border-radius: 6px 6px 0 0;
+	margin-bottom: 1rem;
 }
 
-.urgency-icon {
-	border-radius: 50%;
-	height: 0.8em;
-	aspect-ratio: 1/1;
-}
 .section-urgency p {
-	margin: 0 0 0 0.6em;
+	margin: 0.5rem;
+	color: var(--color-text);
 }
 
-.section-delete {
+.section-checkbox {
+	grid-area: checkbox;
+	border-top: 2px solid var(--color-mobile-list-border);
+	border-right: 2px solid var(--color-mobile-list-border);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	padding: 1rem;
+
+	min-height: 64px;
+}
+
+.ListItem-checkbox {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip: rect(0 0 0 0);
+}
+
+.section-label {
+	grid-area: name;
+	text-align: center;
+	font-size: 2.4rem;
+	word-break: break-word;
+	padding: 0 1.6rem 1.6rem 1.6rem;
+	align-self: center;
+}
+
+.visible-checkbox {
+	height: 44px;
+	width: 44px;
+	display: inline-flex;
+	vertical-align: middle;
+	border-radius: 25%;
+	accent-color: var(--color-accent);
+	background-color: var(--color-bg);
+	border: 2px dashed var(--color-orange);
+}
+
+.visible-checkbox::after {
+	background-image: var(--svg-checkmark);
+	background-repeat: no-repeat;
+	background-position: center;
+	opacity: 0;
+	display: inline-block;
+	width: 100%;
 	height: 100%;
-	width: 20%;
+	content: '';
+}
+
+.ListItem-checkbox:checked + .visible-checkbox::after {
+	opacity: 1;
+}
+
+.delete-button {
+	grid-area: delete;
+	border-radius: 0;
+	border-top: 2px solid var(--color-mobile-list-border);
+	background: none;
 
 	display: flex;
 	align-items: center;
 	justify-content: center;
+
+	min-height: 64px;
+
+	padding: 1rem;
+}
+
+.delete-icon {
+	background-color: var(--color-calendar-text);
+
+	height: 6.4px;
+	width: 40px;
+
+	transform: rotate(45deg);
+}
+
+.delete-icon::after {
+	background-color: var(--color-calendar-text);
+
+	content: '';
+	display: block;
+
+	height: 6.4px;
+	width: 40px;
+
+	transform: rotate(90deg);
+}
+
+@media screen and (min-width: 470px) {
+	.ListItem {
+		grid-template-columns: 1fr 3fr 1fr;
+
+		grid-template-areas:
+			'urgency urgency urgency'
+			'checkbox name delete';
+	}
+
+	.section-label {
+		padding: 0 1.6rem 1.6rem 1.6rem;
+	}
+	.section-checkbox {
+		border: none;
+	}
+	.delete-button {
+		border: none;
+		padding-bottom: 2rem;
+	}
+	.section-checkbox {
+		padding-bottom: 2rem;
+	}
 }
 
 .soon {
-	background-color: red;
+	background-color: var(--color-urgency-soon);
 }
 
 .kind-of-soon {
-	background-color: orange;
+	background-color: var(--color-urgency-kind-of-soon);
 }
 
 .not-soon {
-	background-color: yellow;
+	background-color: var(--color-urgency-not-soon);
 }
 
 .inactive {
-	background-color: grey;
+	background-color: var(--color-urgency-inactive);
 }
 
 .overdue {
-	background-color: purple;
+	background-color: var(--color-urgency-overdue);
 }

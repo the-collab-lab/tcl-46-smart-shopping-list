@@ -20,6 +20,12 @@ export const isDuplicate = (
 	return data.some(({ name }) => cleanup(name) === cleanup(itemName));
 };
 
+/**Checks if a token is valid */
+export const isValidToken = (token) => {
+	const regexPattern = /(?:\w+ ){2}\w+/;
+	return regexPattern.test(token);
+};
+
 /** Normalizes by lowercasing and replacing any non word character including _ and - with '' */
 export const cleanup = (itemName: string): string | undefined =>
 	typeof itemName === 'string'

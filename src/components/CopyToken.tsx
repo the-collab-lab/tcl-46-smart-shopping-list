@@ -22,27 +22,25 @@ export function CopyToken({ listToken, userList }) {
 	}, [copied]);
 
 	return (
-		<div>
-			<label htmlFor="userList">
-				Select list to share:
-				<select
-					value={selectedListToken || ''}
-					onChange={updateSelectedList}
-					id="userList"
-				>
-					{getUserListsArr(userList).map(([name, token]) => (
-						<option key={token} value={token}>
-							{name}
-						</option>
-					))}
-				</select>
-			</label>
-			<p>
+		<div className="copytoken">
+			<label htmlFor="userList" className="copytoken__message">
 				Copy token to share your list with others:
-				<button onClick={copyToken} id="token">
-					{copied ? copied : selectedListToken}
-				</button>
-			</p>
+			</label>
+			<select
+				className="copytoken__select"
+				value={selectedListToken || ''}
+				onChange={updateSelectedList}
+				id="userList"
+			>
+				{getUserListsArr(userList).map(([name, token]) => (
+					<option key={token} value={token}>
+						{name}
+					</option>
+				))}
+			</select>
+			<button onClick={copyToken} id="token" className="copytoken__copy-button">
+				{copied ? copied : 'Copy'}
+			</button>
 		</div>
 	);
 }
