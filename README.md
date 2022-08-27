@@ -1,5 +1,7 @@
 # Smart Shopping List
 
+![Avocado Logo for the app](./public/icons/mstile-150x150.png)
+
 ## Live Site [Here](https://tcl-46-smart-shopping-list.web.app)
 
 | 🖥                     | 🔧                                                                                                                                                                                                                                     |
