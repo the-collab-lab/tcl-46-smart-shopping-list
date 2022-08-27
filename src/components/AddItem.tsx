@@ -1,13 +1,13 @@
 import { useState, useContext } from 'react';
 import { MyContext } from '../App';
-import { isEmpty, isDuplicate, isValidToken } from '../utils/validateStrings';
+import { isEmpty, isDuplicate } from '../utils/validateStrings';
 import { addItem } from '../api/firebase';
-import NoToken from './NoToken';
+
 import { getUserListsArr } from '../utils/user';
-import '../views/List.css';
+import './AddItem.css';
 
 const defaultItem = { itemName: '', daysUntilNextPurchase: 7 };
-export function AddItem() {
+export function AddItem({ hasItems }) {
 	const [item, setItem] = useState(defaultItem);
 	const [status, setStatus] = useState('');
 	const [listToken] = useContext(MyContext).listTokenCtx;
@@ -56,66 +56,85 @@ export function AddItem() {
 	};
 
 	return (
-		<>
-			{listToken && isValidToken(listToken) ? (
-				<div className="AddItem">
-					<form className="addItem__form" onSubmit={addItemToDatabase}>
-						<div className="addItem__section">
-							<label htmlFor="addItem" className="addItem__label">
-								Add:
-								<input
-									placeholder="Item name"
-									id="addItem"
-									value={item.itemName}
-									onChange={updateItem}
-									name="itemName"
-									className="addItem__input"
-								/>
-							</label>
-							<label htmlFor="itemFrequency" className="addItem__label">
-								Frequency:
-								<select
-									value={item.daysUntilNextPurchase}
-									onChange={updateItem}
-									name="daysUntilNextPurchase"
-									id="itemFrequency"
-									className="addItem__select addItem__select_frequency"
-								>
-									<option value={7}>Soon</option>
-									<option value={14}>Kind of Soon</option>
-									<option value={30}>Not Soon</option>
-								</select>
-							</label>
-						</div>
-						<div className="addItem__section">
-							<label
-								htmlFor="userList"
-								className="addItem__label label__select"
-							>
-								Select List:
-								<select
-									value={selectedListToken}
-									onChange={updateSelectedList}
-									id="userList"
-									className="addItem__select addItem__select_listNames"
-								>
-									{getUserListsArr(userList).map(([name, token]) => (
-										<option key={token} value={token}>
-											{name}
-										</option>
-									))}
-								</select>
-							</label>
-							<button type="submit" className="btn__submit">
-								Submit
-							</button>
-						</div>
-					</form>
-					<p>{status}</p>
+		<div className="AddItem">
+			<form
+				className={`addItem__form${hasItems ? '__hasItems' : ''}`}
+				onSubmit={addItemToDatabase}
+			>
+				<div className={`addItem__section${hasItems ? '__hasItems' : ''}`}>
+					<label
+						htmlFor="addItem"
+						id={`addInput${hasItems ? '__hasItems' : ''}`}
+						className={`addItem__label${hasItems ? '__hasItems' : ''}`}
+					>
+						<p className={`addItem__title ${hasItems ? 'p__hasItems' : ''}`}>
+							Add:
+						</p>
+						<input
+							placeholder="Item name"
+							id={`${hasItems ? 'addItem__hasItems' : ''}`}
+							value={item.itemName}
+							onChange={updateItem}
+							name="itemName"
+							className={`addItem__input ${hasItems ? 'input__hasItems' : ''}`}
+						/>
+					</label>
 				</div>
-			) : (
-				<NoToken />
-			)}
-		</>
+				<div className={`addItem__modifiers${hasItems ? '__hasItems' : ''}`}>
+					<label
+						htmlFor="itemFrequency"
+						className={`addItem__label${hasItems ? '__hasItems' : ''}`}
+					>
+						<p className={`addItem__title ${hasItems ? 'p__hasItems' : ''}`}>
+							Frequency:
+						</p>
+						<select
+							value={item.daysUntilNextPurchase}
+							onChange={updateItem}
+							name="daysUntilNextPurchase"
+							id="itemFrequency"
+							className={`addItem__select${
+								hasItems ? '__hasItems' : ''
+							} addItem__select_frequency`}
+						>
+							<option value={7}>Soon</option>
+							<option value={14}>Kind of Soon</option>
+							<option value={30}>Not Soon</option>
+						</select>
+					</label>
+					<div className={`addItem__section${hasItems ? '__hasItems' : ''}`}>
+						<label
+							htmlFor="userList"
+							className={`addItem__label${
+								hasItems ? '__hasItems' : ''
+							} label__select`}
+						>
+							<p className={`${hasItems ? 'p__hasItems' : ''}`}>Select List:</p>
+							<select
+								value={selectedListToken}
+								onChange={updateSelectedList}
+								id={`${hasItems ? 'userList__hasItems' : ''}`}
+								className={`addItem__select${hasItems ? '__hasItems' : ''}
+								addItem__select_listNames`}
+							>
+								{getUserListsArr(userList).map(([name, token]) => (
+									<option key={token} value={token}>
+										{name}
+									</option>
+								))}
+							</select>
+						</label>
+					</div>
+					<button
+						type="submit"
+						id="submit"
+						className={`btn__submit${hasItems ? '__hasItems' : ''}`}
+					>
+						Submit
+					</button>
+				</div>
+			</form>
+			<p>{status}</p>
+		</div>
 	);
 }
