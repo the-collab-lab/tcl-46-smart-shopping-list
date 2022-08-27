@@ -1,7 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencil } from '@fortawesome/free-solid-svg-icons';
 import '../views/List.css';
-import './ListTitle.css';
 
 const ListTitle = ({ editName, isDisabled, updateListName, listName }) => {
 	return (
