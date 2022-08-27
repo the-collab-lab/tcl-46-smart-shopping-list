@@ -1,0 +1,16 @@
+.addItem__section {
+	display: flex;
+	justify-content: space-between;
+	align-content: center;
+}
+
+.addItem__label {
+	display: flex;
+	align-content: center;
+
+	width: 100%;
+}
+
+input {
+	width: 100%;
+}
