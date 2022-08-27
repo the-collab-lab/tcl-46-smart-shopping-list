@@ -63,7 +63,19 @@ const Filter = ({ searchTerm, setSearchTerm, setAdjustedData }) => {
 
 	return isMobile ? (
 		<details className="Filter">
-			<summary className="Filter__heading">Search &amp; Filter</summary>
+			<summary className="Filter__heading">
+				Search &amp; Filter
+				<div className="container__btn__clearAll">
+					<button
+						className="btn__clearAll"
+						type="button"
+						onClick={clearAllFilters}
+						aria-live="polite"
+					>
+						Clear All Filters
+					</button>
+				</div>
+			</summary>
 			<label className="search__container">
 				<p>Search by Name:</p>
 				<input
@@ -119,16 +131,6 @@ const Filter = ({ searchTerm, setSearchTerm, setAdjustedData }) => {
 					<option value={'INACTIVE'}>Inactive</option>
 				</select>
 			</label>
-			<div className="container__btn__clearAll">
-				<button
-					className="btn__clearAll"
-					type="button"
-					onClick={clearAllFilters}
-					aria-live="polite"
-				>
-					Clear All Filters
-				</button>
-			</div>
 		</details>
 	) : (
 		<div className="Filter wide">
