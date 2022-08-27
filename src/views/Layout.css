@@ -35,6 +35,12 @@
 	width: 80%;
 }
 
+.Container {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
 .Nav {
 	position: sticky;
 	width: 100vw;
