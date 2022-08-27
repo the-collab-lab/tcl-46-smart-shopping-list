@@ -84,6 +84,7 @@ const Filter = ({ searchTerm, setSearchTerm, setAdjustedData }) => {
 					<p>Start:</p>
 					<input
 						type="date"
+						className="search__input"
 						value={custom.startDate}
 						name="startDate"
 						max={custom.endDate}
@@ -94,6 +95,7 @@ const Filter = ({ searchTerm, setSearchTerm, setAdjustedData }) => {
 					<p>End:</p>
 					<input
 						type="date"
+						className="search__input"
 						value={custom.endDate}
 						name="endDate"
 						min={custom.startDate}
@@ -117,14 +119,16 @@ const Filter = ({ searchTerm, setSearchTerm, setAdjustedData }) => {
 					<option value={'INACTIVE'}>Inactive</option>
 				</select>
 			</label>
-			<button
-				className="btn__clearAll"
-				type="button"
-				onClick={clearAllFilters}
-				aria-live="polite"
-			>
-				Clear All Filters
-			</button>
+			<div className="container__btn__clearAll">
+				<button
+					className="btn__clearAll"
+					type="button"
+					onClick={clearAllFilters}
+					aria-live="polite"
+				>
+					Clear All Filters
+				</button>
+			</div>
 		</details>
 	) : (
 		<div className="Filter wide">
@@ -182,14 +186,16 @@ const Filter = ({ searchTerm, setSearchTerm, setAdjustedData }) => {
 					<option value={'INACTIVE'}>Inactive</option>
 				</select>
 			</label>
-			<button
-				className="btn__clearAll"
-				type="button"
-				onClick={clearAllFilters}
-				aria-live="polite"
-			>
-				Clear All Filters
-			</button>
+			<div className="container__btn__clearAll">
+				<button
+					className="btn__clearAll"
+					type="button"
+					onClick={clearAllFilters}
+					aria-live="polite"
+				>
+					Clear All Filters
+				</button>
+			</div>
 		</div>
 	);
 };

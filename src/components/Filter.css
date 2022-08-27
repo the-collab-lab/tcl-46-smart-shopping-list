@@ -93,18 +93,24 @@ fieldset {
 	.urgency__label > select {
 		margin: auto;
 	}
+
+	.Filter__heading {
+		text-align: center;
+	}
+	.container__btn__clearAll {
+		display: flex;
+		justify-content: center;
+	}
 }
 
 @media screen and (max-width: 640px) {
 	.search__container {
 		flex-direction: column;
 		justify-content: center;
-		align-content: center;
+		align-items: center;
 		text-align: center;
 	}
-	.Filter__heading {
+	.search__input {
 		text-align: center;
 	}
 }
-
-/* add style for filter heading center */
