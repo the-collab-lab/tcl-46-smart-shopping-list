@@ -14,7 +14,7 @@ const Filter = ({ searchTerm, setSearchTerm, setAdjustedData }) => {
 
 	const sortedFullList = useMemo(() => comparePurchaseUrgency(data), [data]);
 
-	const mediaChecker = window.matchMedia('only screen and (max-width: 588px)');
+	const mediaChecker = window.matchMedia('all and (max-device-width: 588px)');
 
 	const [isMobile, setIsMobile] = useState(false);
 	const checkIfMobile = () => {
@@ -35,10 +35,6 @@ const Filter = ({ searchTerm, setSearchTerm, setAdjustedData }) => {
 				.filter(customDateRange(custom.startDate, custom.endDate)),
 		);
 	}, [urgencyTerm, sortedFullList, custom, searchTerm]);
-
-	// const undoUrgency = () => setUrgencyTerm('ALL');
-	// const clearSearchTerm = () => setSearchTerm('');
-	// const clearDateRange = () => setCustom(defaultDates)
 
 	const clearAllFilters = () => {
 		setUrgencyTerm('ALL');
