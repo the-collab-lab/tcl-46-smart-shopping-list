@@ -12,6 +12,8 @@
 	--color-tan: #cac1ac;
 	--color-burgundy: #835151;
 	--color-off-cream: #f3eee7;
+	--font-family-default: -apple-system, BlinkMacSystemFont, avenir next, avenir,
+		segoe ui, helvetica neue, helvetica, Ubuntu, roboto, noto, arial, sans-serif;
 	--svg-dark-checkmark: url(../img/checkmark-dark.svg);
 	--svg-light-checkmark: url(../img/checkmark-light.svg);
 	--svg-dark-triangle: url(../../img/toggle.svg);
@@ -100,6 +102,7 @@ select {
 
 input {
 	background-color: transparent;
+	color: var(--color-text);
 	border: none;
 	border-bottom: 3px solid var(--color-input);
 	margin-bottom: -1px;
@@ -127,8 +130,7 @@ ul {
 body {
 	background-color: var(--color-bg);
 	color: var(--color-text);
-	font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui,
-		helvetica neue, helvetica, Ubuntu, roboto, noto, arial, sans-serif;
+	font-family: var(--font-family-default);
 	font-size: 1.6rem;
 	line-height: 1.2;
 	margin: 0;

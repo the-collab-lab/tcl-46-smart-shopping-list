@@ -2,13 +2,11 @@
 .ListTitle {
 	display: flex;
 	justify-content: center;
-	color: var(--color-text);
 }
 
 .ListTitle__input {
 	font-size: 40px;
 	margin: 0.7em;
-	color: var(--color-text);
 	text-align: center;
 }
 
