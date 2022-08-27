@@ -1,15 +1,17 @@
 /* list heading */
 .ListTitle {
 	display: flex;
-	justify-content: center;
 	color: var(--color-text);
+	width: 100%;
+	justify-content: center;
 }
 
 .ListTitle__input {
 	font-size: 40px;
-	margin: 0.7em;
 	color: var(--color-text);
 	text-align: center;
+	margin: 0;
+	width: 50%;
 }
 
 .btn__edit,
@@ -20,7 +22,8 @@
 	color: var(--color-input);
 	display: flex;
 	align-self: center;
-	padding: 0 0 18px 0;
+	padding: 0 0 10px 0;
+	margin-left: 10px;
 	height: 2px;
 }
 
@@ -29,14 +32,13 @@
 	filter: none;
 }
 
-.btn__save,
-.btn__save:hover {
+.btn__save {
 	/* background-color: var(--color-button); */
 	font-size: 1.3rem;
 	font-weight: bold;
 	text-transform: lowercase;
 	border-radius: 0;
-	border-bottom: 2px solid var(--color-input);
+	border: none;
 }
 
 .ListBody {
@@ -97,8 +99,6 @@
 @media screen and (max-width: 768px) {
 	.ListTitle__input {
 		font-size: 30px;
-		width: 300px;
-		margin: 0.7em;
 		color: var(--color-text);
 		text-align: center;
 	}
@@ -110,5 +110,11 @@
 	}
 	.addItem__label {
 		margin: 0 0 1em 0;
+	}
+}
+
+@media screen and (max-width: 450px) {
+	.ListTitle__input {
+		width: 80%;
 	}
 }

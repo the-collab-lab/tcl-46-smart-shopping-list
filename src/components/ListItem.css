@@ -1,6 +1,6 @@
 .ListItem {
 	background-color: var(--color-list-item);
-
+	border-radius: 6px;
 	width: 100%;
 
 	display: grid;
@@ -11,33 +11,29 @@
 		'urgency urgency'
 		'name name'
 		'checkbox delete';
-
-	border: solid 2px var(--color-text);
-
 	margin-bottom: 2rem;
 }
 
 .section-urgency {
 	grid-area: urgency;
-
+	overflow: hidden;
 	font-size: 1.6rem;
-
 	display: flex;
 	align-items: center;
 	justify-content: center;
-
-	border-bottom: solid 2px var(--color-text);
-
+	border-radius: 6px 6px 0 0;
 	margin-bottom: 1rem;
 }
 
 .section-urgency p {
 	margin: 0.5rem;
+	color: var(--color-text);
 }
 
 .section-checkbox {
 	grid-area: checkbox;
-
+	border-top: 2px solid var(--color-mobile-list-border);
+	border-right: 2px solid var(--color-mobile-list-border);
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -57,24 +53,22 @@
 
 .section-label {
 	grid-area: name;
-
+	text-align: center;
 	font-size: 2.4rem;
-
-	padding: 0 1.6rem 3.4rem 1.6rem;
-
-	border-bottom: solid 2px var(--color-text);
+	word-break: break-word;
+	padding: 0 1.6rem 1.6rem 1.6rem;
+	align-self: center;
 }
 
 .visible-checkbox {
 	height: 44px;
 	width: 44px;
 	display: inline-flex;
-	border: 1.5px solid navy;
 	vertical-align: middle;
 	border-radius: 25%;
 	accent-color: var(--color-accent);
 	background-color: var(--color-bg);
-	border: none;
+	border: 2px dashed var(--color-orange);
 }
 
 .visible-checkbox::after {
@@ -94,8 +88,8 @@
 
 .delete-button {
 	grid-area: delete;
-
-	border: none;
+	border-radius: 0;
+	border-top: 2px solid var(--color-mobile-list-border);
 	background: none;
 
 	display: flex;
@@ -105,31 +99,25 @@
 	min-height: 64px;
 
 	padding: 1rem;
-
-	border-left: solid 2px var(--color-text);
 }
 
 .delete-icon {
-	background-color: var(--color-text);
+	background-color: var(--color-calendar-text);
 
 	height: 6.4px;
 	width: 40px;
-
-	border-radius: 10px;
 
 	transform: rotate(45deg);
 }
 
 .delete-icon::after {
-	background-color: var(--color-text);
+	background-color: var(--color-calendar-text);
 
 	content: '';
 	display: block;
 
 	height: 6.4px;
 	width: 40px;
-
-	border-radius: 10px;
 
 	transform: rotate(90deg);
 }
@@ -139,37 +127,41 @@
 		grid-template-columns: 1fr 3fr 1fr;
 
 		grid-template-areas:
-			'checkbox urgency delete'
+			'urgency urgency urgency'
 			'checkbox name delete';
-	}
-
-	.section-checkbox {
-		border-right: solid 2px var(--color-text);
 	}
 
 	.section-label {
 		padding: 0 1.6rem 1.6rem 1.6rem;
-
-		border-bottom: none;
+	}
+	.section-checkbox {
+		border: none;
+	}
+	.delete-button {
+		border: none;
+		padding-bottom: 2rem;
+	}
+	.section-checkbox {
+		padding-bottom: 2rem;
 	}
 }
 
 .soon {
-	background-color: red;
+	background-color: var(--color-urgency-soon);
 }
 
 .kind-of-soon {
-	background-color: orange;
+	background-color: var(--color-urgency-kind-of-soon);
 }
 
 .not-soon {
-	background-color: yellow;
+	background-color: var(--color-urgency-not-soon);
 }
 
 .inactive {
-	background-color: grey;
+	background-color: var(--color-urgency-inactive);
 }
 
 .overdue {
-	background-color: purple;
+	background-color: var(--color-urgency-overdue);
 }

@@ -29,9 +29,15 @@
 		--color-dark-accent: var(--color-black-accent);
 		--color-button: var(--color-cream);
 		--color-select: var(--color-cream);
-		--color-list-item: var(--color-cream);
+		--color-list-item: var(--color-off-cream);
 		--color-calendar-text: var(--color-burgundy);
 		--color-calendar-button: var(--color-off-cream);
+		--color-urgency-soon: #d28372;
+		--color-urgency-not-soon: #e1cbb7;
+		--color-urgency-inactive: #b9b1b0;
+		--color-urgency-overdue: #c83413;
+		--color-urgency-kind-of-soon: #e3a799;
+		--color-mobile-list-border: var(--color-white);
 		--svg-checkmark: var(--svg-light-checkmark);
 		--svg-select: var(--svg-dark-triangle);
 	}
@@ -51,6 +57,12 @@
 		--color-list-item: var(--color-black-accent);
 		--color-calendar-text: var(--color-tan);
 		--color-calendar-button: var(--color-black-accent);
+		--color-urgency-soon: #cc8a7c;
+		--color-urgency-not-soon: #94744e;
+		--color-urgency-inactive: #9b8d8c;
+		--color-urgency-overdue: #c83413;
+		--color-urgency-kind-of-soon: #e3a799;
+		--color-mobile-list-border: var(--color-tan);
 		--svg-checkmark: var(--svg-dark-checkmark);
 		--svg-select: var(--svg-light-triangle);
 	}

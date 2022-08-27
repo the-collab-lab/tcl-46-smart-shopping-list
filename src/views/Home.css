@@ -8,6 +8,7 @@
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
+	width: 100%;
 }
 
 .Home__heading {
@@ -18,10 +19,10 @@
 
 .form__list {
 	display: flex;
-	justify-content: flex-start;
+	justify-content: center;
 	align-items: baseline;
 	margin: 0;
-	width: 90%;
+	width: 100%;
 }
 
 .form__list > * {
@@ -36,11 +37,11 @@
 
 .input__primary {
 	padding: 0.5em;
-	width: 50rem;
 	margin: 0.5rem;
 	color: var(--color-text);
 	font-size: 1.6rem;
 	text-align: center;
+	width: calc(100% - 140px);
 }
 
 .input__primary.no-token {
@@ -52,7 +53,7 @@
 
 .btn__primary {
 	padding: 0.5em 2em;
-	min-width: fit-content;
+	width: 140px;
 	border-radius: 2rem;
 }
 
@@ -149,9 +150,6 @@
 	.form__list {
 		justify-content: flex-start;
 	}
-	.input__primary {
-		width: 40rem;
-	}
 	.container__token-detail {
 		flex-direction: column;
 	}
@@ -170,11 +168,11 @@
 		align-items: center;
 		margin-bottom: 2rem;
 	}
-	.label__input__primary {
-		margin-bottom: 1rem;
-	}
 	.input__primary {
-		min-width: 70%;
+		width: 100%;
+	}
+	.btn__primary {
+		margin-top: 15px;
 	}
 	.listName {
 		min-width: 60%;
