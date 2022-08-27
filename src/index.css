@@ -12,8 +12,8 @@
 	--color-tan: #cac1ac;
 	--color-burgundy: #835151;
 	--color-off-cream: #f3eee7;
-	--svg-dark-checkmark: url(../public/img/checkmark-dark.svg);
-	--svg-light-checkmark: url(../public/img/checkmark-light.svg);
+	--svg-dark-checkmark: url(../img/checkmark-dark.svg);
+	--svg-light-checkmark: url(../img/checkmark-light.svg);
 	--svg-dark-triangle: url(../../img/toggle.svg);
 	--svg-light-triangle: url(../../img/toggle-darkmode.svg);
 }
