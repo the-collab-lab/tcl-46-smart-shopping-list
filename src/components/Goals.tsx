@@ -18,27 +18,16 @@ export function Goals() {
 
 	return (
 		<>
-			<form onSubmit={editGoals}>
-				<input
+			<form className="Goals__form" onSubmit={editGoals}>
+				<textarea
 					readOnly={isDisabled}
-					className="Goals__text"
-					style={
-						isDisabled
-							? {
-									outline: 'none',
-									borderWidth: 0,
-									width: '100%',
-									marginBottom: '1rem',
-							  }
-							: {
-									borderWidth: '1px',
-									width: '100%',
-									marginBottom: '1rem',
-							  }
-					}
+					className={`Goals__text ${isDisabled ? 'disabled' : ''}`}
 					onChange={(e) => setGoals(e.target.value)}
 					value={goals}
 				/>
+				<button type="submit" disabled={isEmpty(goals)}>
+					{isDisabled ? 'Update' : 'Save'}
+				</button>
 			</form>
 		</>
 	);

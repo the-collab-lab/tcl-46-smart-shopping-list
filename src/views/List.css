@@ -1,14 +1,12 @@
 /* list heading */
 .ListTitle {
 	display: flex;
-	color: var(--color-text);
-	width: 100%;
 	justify-content: center;
 }
 
 .ListTitle__input {
 	font-size: 40px;
-	color: var(--color-text);
+	margin: 0.7em;
 	text-align: center;
 	margin: 0;
 	width: 50%;
