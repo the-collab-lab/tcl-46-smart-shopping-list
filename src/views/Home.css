@@ -143,6 +143,9 @@
 }
 
 @media screen and (max-width: 768px) {
+	.Home__container {
+		align-items: center;
+	}
 	.form__list {
 		justify-content: flex-start;
 	}
