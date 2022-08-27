@@ -38,7 +38,6 @@
 .input__primary {
 	padding: 0.5em;
 	margin: 0.5rem;
-	color: var(--color-text);
 	font-size: 1.6rem;
 	text-align: center;
 	width: calc(100% - 140px);
@@ -92,14 +91,32 @@
 	font-weight: 600;
 }
 
+.Goals__form {
+	display: flex;
+	flex-direction: column;
+}
+
+.Goals__form > button {
+	width: 100px;
+}
+
 .Goals__text {
 	color: var(--color-text);
 	background: var(--color-bg);
 	padding: 1rem 0;
 	font-size: inherit;
+	font-family: var(--font-family-default);
+	border: 1px solid var(--color-input);
+	width: 100%;
+	margin-bottom: 1rem;
+	padding: 0.5rem;
+	resize: vertical;
 }
-.Goals__btn {
-	margin: 1rem 0;
+
+.Goals__text.disabled {
+	resize: none;
+	border-width: 0;
+	width: 100%;
 }
 
 .ListSwitcher {

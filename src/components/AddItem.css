@@ -14,7 +14,7 @@
 .addItem__label__hasItems {
 	display: flex;
 	align-content: center;
-	gap: 12px;
+	gap: 5px;
 }
 
 .addItem__modifiers__hasItems {
@@ -64,7 +64,7 @@
 	margin: 1rem auto;
 	padding: 1px;
 	height: 30px;
-	width: 150px;
+	width: 80px;
 	border-radius: 2rem;
 	background: var(--color-accent);
 }
@@ -110,9 +110,21 @@
 	width: 180px;
 }
 
-@media screen and (max-width: 859px) {
+@media screen and (max-width: 890px) {
 	.addItem__modifiers__hasItems {
 		justify-content: center;
+	}
+	#submit {
+		width: 120px;
+	}
+}
+
+@media screen and (max-width: 800px) {
+	.addItem__modifiers__hasItems {
+		flex-direction: column;
+		justify-content: center;
+		align-content: center;
+		margin: 2rem auto;
 	}
 }
 
@@ -128,12 +140,6 @@
 		justify-content: center;
 		margin: auto;
 		width: 100%;
-	}
-	.addItem__modifiers__hasItems {
-		flex-direction: column;
-		justify-content: center;
-		align-content: center;
-		margin: auto;
 	}
 	.p__hasItems {
 		text-align: center;
