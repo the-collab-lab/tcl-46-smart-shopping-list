@@ -1,0 +1,197 @@
+.Home {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.Home__container {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	width: 100%;
+}
+
+.Home__heading {
+	font-weight: normal;
+	font-size: 40px; /* standardize size in index */
+	align-self: center;
+}
+
+.form__list {
+	display: flex;
+	justify-content: center;
+	align-items: baseline;
+	margin: 0;
+	width: 100%;
+}
+
+.form__list > * {
+	justify-self: flex-start;
+}
+
+.form__list.no-token {
+	margin-bottom: 5em;
+	flex-direction: column;
+	align-items: center;
+}
+
+.input__primary {
+	padding: 0.5em;
+	margin: 0.5rem;
+	font-size: 1.6rem;
+	text-align: center;
+	width: calc(100% - 140px);
+}
+
+.input__primary.no-token {
+	font-size: 2rem;
+	margin: 1em;
+	width: 300px;
+	text-align: center;
+}
+
+.btn__primary {
+	padding: 0.5em 2em;
+	width: 140px;
+	border-radius: 2rem;
+}
+
+.btn__primary.no-token {
+	margin-top: 2em;
+}
+
+.container__token-detail {
+	margin: 3rem 0;
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+}
+
+.Summary {
+	border: 1px solid var(--color-input);
+	border-radius: 20px;
+	padding: 10px 35px 28px 35px;
+	margin: 0.5rem;
+	align-items: center;
+	gap: 10px;
+	width: 100%;
+}
+
+.Summary__heading,
+.ListSwitcher__heading {
+	font-weight: normal;
+}
+
+.main {
+	font-size: 1.7em;
+	text-align: center;
+}
+.sub {
+	color: var(--color-input);
+	font-weight: 600;
+}
+
+.Goals__form {
+	display: flex;
+	flex-direction: column;
+}
+
+.Goals__form > button {
+	width: 100px;
+}
+
+.Goals__text {
+	color: var(--color-text);
+	background: var(--color-bg);
+	padding: 1rem 0;
+	font-size: inherit;
+	font-family: var(--font-family-default);
+	border: 1px solid var(--color-input);
+	width: 100%;
+	margin-bottom: 1rem;
+	padding: 0.5rem;
+	resize: vertical;
+}
+
+.Goals__text.disabled {
+	resize: none;
+	border-width: 0;
+	width: 100%;
+}
+
+.ListSwitcher {
+	padding: 10px 0 28px 0;
+	margin: 1rem;
+	align-items: center;
+	grid-template-areas: 'message dropdown button';
+	gap: 10px;
+	width: 100%;
+}
+
+.Listswitcher__listUnit {
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	margin-bottom: 1rem;
+}
+
+.ListSwitcher__btn {
+	padding: 0.3rem 1rem;
+	border-radius: 5px;
+	margin: 0 0.5rem;
+}
+
+.listName {
+	min-width: 15rem;
+	text-align: left;
+	font-weight: normal;
+}
+
+.trackerToggle {
+	background: var(--color-accent);
+}
+
+.btn__delete {
+	background: var(--color-bg);
+	color: var(--color-trash);
+	font-size: 2rem;
+}
+.btn__delete:hover {
+	filter: none;
+}
+
+@media screen and (max-width: 768px) {
+	.Home__container {
+		align-items: center;
+	}
+	.form__list {
+		justify-content: flex-start;
+	}
+	.container__token-detail {
+		flex-direction: column;
+	}
+	.listName {
+		min-width: 70%;
+		text-align: left;
+	}
+	.input__primary {
+		width: 35rem;
+	}
+}
+
+@media screen and (max-width: 588px) {
+	.form__list {
+		flex-direction: column;
+		align-items: center;
+		margin-bottom: 2rem;
+	}
+	.input__primary {
+		width: 100%;
+	}
+	.btn__primary {
+		margin-top: 15px;
+	}
+	.listName {
+		min-width: 60%;
+	}
+}

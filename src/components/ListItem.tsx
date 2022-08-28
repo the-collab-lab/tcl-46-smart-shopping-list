@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from 'react';
 
 import { updateItem, deleteItem } from '../api/firebase';
@@ -86,16 +87,8 @@ export function ListItem({
 
 	return (
 		<li className="ListItem">
-			<div className="section-checkbox">
-				<input
-					className="ListItem-checkbox"
-					type="checkbox"
-					id={name}
-					name={name}
-					value={name}
-					onChange={handleValueChange}
-					defaultChecked={isChecked}
-				/>
+			<div className={'section-urgency ' + urgencyIndex[0]}>
+				<p>{urgencyIndex[1]}</p>
 			</div>
 
 			<div className="section-label">
@@ -104,16 +97,24 @@ export function ListItem({
 				</label>
 			</div>
 
-			<div className="section-urgency">
-				<div className={'urgency-icon ' + urgencyIndex[0]}></div>
-				<p>{urgencyIndex[1]}</p>
+			<div className="section-checkbox">
+				<label className="checkbox__label" htmlFor={name}>
+					<input
+						className="ListItem-checkbox"
+						type="checkbox"
+						id={name}
+						name={name}
+						value={name}
+						onChange={handleValueChange}
+						defaultChecked={isChecked}
+					/>
+					<span className="visible-checkbox"></span>
+				</label>
 			</div>
 
-			<div className="section-delete">
-				<button type="button" onClick={handleDelete}>
-					delete
-				</button>
-			</div>
+			<button className="delete-button" type="button" onClick={handleDelete}>
+				<div className="delete-icon" />
+			</button>
 		</li>
 	);
 }

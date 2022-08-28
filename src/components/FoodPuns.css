@@ -1,0 +1,48 @@
+.foodpuns__content {
+	pointer-events: none;
+	cursor: pointer;
+	background-color: var(--color-nav);
+	padding: 14px;
+	border-radius: 12px;
+	width: 100px;
+	text-align: center;
+	height: auto;
+	overflow-wrap: break-word;
+	filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.foodpuns {
+	cursor: pointer;
+	position: fixed;
+	bottom: 40px;
+	z-index: 1;
+	right: 5%;
+}
+
+.hide {
+	border: var(--color-accent) solid 1px;
+	color: var(--color-orange);
+	border-radius: 24px;
+	font-size: 10px;
+	font-weight: 900;
+	padding: 8px 12px 10px 12px;
+}
+
+.svg__icon {
+	width: 120px;
+	height: 160px;
+	filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+@media only screen and (max-width: 600px) {
+	.foodpuns__content {
+		position: fixed;
+		bottom: 75px;
+		left: 10%;
+		width: 50vw;
+	}
+	.svg__icon {
+		width: 60px;
+		height: 100px;
+	}
+}
