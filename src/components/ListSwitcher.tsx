@@ -67,11 +67,23 @@ const ListSwitcher = () => {
 					<div key={token} className="ListSwitcher__listUnit">
 						<button
 							className="ListSwitcher__btn listName"
+							style={{
+								backgroundColor:
+									name === getMatchingName(userList, listToken)
+										? 'var(--color-accent)'
+										: 'var(--color-select)',
+							}}
 							onClick={() => switchList(token)}
 						>
 							<b>{name === 'listToken' ? 'Default List' : name}</b>
 						</button>
 						<button
+							style={{
+								backgroundColor:
+									name === getMatchingName(userList, listToken)
+										? 'var(--color-accent)'
+										: 'var(--color-select)',
+							}}
 							className="ListSwitcher__btn trackerToggle"
 							onClick={() => rmListUpdate(name, token)}
 						>
