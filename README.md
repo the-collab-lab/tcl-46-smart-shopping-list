@@ -51,5 +51,3 @@ As a user, you will enter items (e.g., “Greek yogurt” or “Paper towels”)
 - [Chelsey Chubb](https://github.com/chelseychubb)
 
 - [Aditya Dalal](https://github.com/adidalal) :books:
-
-The goal of this project is to collaborate with your Collab Lab team to create a “smart” shopping list app that learns your buying habits and helps you remember what you’re likely to need to buy on your next trip to the store.
