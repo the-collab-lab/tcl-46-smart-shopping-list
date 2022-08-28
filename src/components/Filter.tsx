@@ -14,18 +14,16 @@ const Filter = ({ searchTerm, setSearchTerm, setAdjustedData }) => {
 
 	const sortedFullList = useMemo(() => comparePurchaseUrgency(data), [data]);
 
-	const mediaChecker = window.matchMedia('only screen and (max-width: 588px)');
-
-	const [isMobile, setIsMobile] = useState(false);
-	const checkIfMobile = () => {
-		if (mediaChecker.matches) setIsMobile(true);
-		else setIsMobile(false);
-	};
+	const [isMobile, setIsMobile] = useState(window.innerWidth < 588);
 
 	useEffect(() => {
-		mediaChecker.addEventListener('change', checkIfMobile);
-		return () => mediaChecker.removeEventListener('change', checkIfMobile);
-	}, [mediaChecker]);
+		window.addEventListener('resize', () => {
+			setIsMobile(document.body.clientWidth < 588);
+		});
+		return window.removeEventListener('resize', () => {
+			setIsMobile(document.body.clientWidth < 588);
+		});
+	}, []);
 
 	useEffect(() => {
 		setAdjustedData(
@@ -35,10 +33,6 @@ const Filter = ({ searchTerm, setSearchTerm, setAdjustedData }) => {
 				.filter(customDateRange(custom.startDate, custom.endDate)),
 		);
 	}, [urgencyTerm, sortedFullList, custom, searchTerm]);
-
-	// const undoUrgency = () => setUrgencyTerm('ALL');
-	// const clearSearchTerm = () => setSearchTerm('');
-	// const clearDateRange = () => setCustom(defaultDates)
 
 	const clearAllFilters = () => {
 		setUrgencyTerm('ALL');
