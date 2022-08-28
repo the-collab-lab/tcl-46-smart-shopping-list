@@ -1,6 +1,10 @@
-# Smart Shopping List
+![Smart Shopping List](https://s2.loli.net/2022/08/29/WQ9YVyaXDCd7v51.png)
 
-![Avocado Logo for the app](./public/icons/mstile-150x150.png)
+## Overview
+
+This mobile-friendly web application gives users the functionality of creating, updating, deleting, and sharing shopping lists.
+
+![Avocado Open Graph Image](https://s2.loli.net/2022/08/29/1Jl9gXMI38tnpZV.jpg)
 
 ## Live Site [Here](https://tcl-46-smart-shopping-list.web.app)
 
@@ -11,9 +15,22 @@
 | Testing Framework     | ![Jest](https://img.shields.io/badge/-jest-%23C21325?style=for-the-badge&logo=jest&logoColor=white)                                                                                                                                    |
 | UI/UX Design          | ![Figma](https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white)                                                                                                                              |
 
-## Overview
+## How does it work?
 
-This mobile-friendly web application gives users the functionality of creating, updating, deleting, and sharing shopping lists.
+As a user, you will enter items (e.g., “Greek yogurt” or “Paper towels”) into your list. Each time you buy the item, you mark it as purchased in the list. Over time, the app comes to understand the intervals at which you buy different items. If an item is likely to be due to be bought soon, it rises to the top of the shopping list.
+
+## Features of the App
+
+1. Accessible fonts, styles, and sizes
+2. Light mode and Dark mode depending on user system preferences
+3. Join and share a list with others through unique list tokens
+4. Search items by name and recommended purchase date
+5. Set personal goals
+6. Export shopping event to calendars (Outlook, iCal, Google, and Yahoo)
+7. Add items and select how soon the item should be purchased
+8. Track and untrack multiple shopping lists
+9. Delete items and delete shopping lists
+10. A food pun at the bottom of the screen for a touch of humor
 
 ## Contributors
 
@@ -34,22 +51,3 @@ This mobile-friendly web application gives users the functionality of creating, 
 - [Chelsey Chubb](https://github.com/chelseychubb)
 
 - [Aditya Dalal](https://github.com/adidalal) :books:
-
-The goal of this project is to collaborate with your Collab Lab team to create a “smart” shopping list app that learns your buying habits and helps you remember what you’re likely to need to buy on your next trip to the store.
-
-## How does it work?
-
-As a user, you will enter items (e.g., “Greek yogurt” or “Paper towels”) into your list. Each time you buy the item, you mark it as purchased in the list. Over time, the app comes to understand the intervals at which you buy different items. If an item is likely to be due to be bought soon, it rises to the top of the shopping list.
-
-## Features of the App
-
-1. Accessible fonts, styles, and sizes
-2. Light mode and Dark mode depending on user system preferences
-3. Join and share a list with others through unique list tokens
-4. Search items by name and recommended purchase date
-5. Set personal goals
-6. Export shopping event to calendars (Outlook, iCal, Google, and Yahoo)
-7. Add items and select how soon the item should be purchased
-8. Track and untrack multiple shopping lists
-9. Delete items and delete shopping lists
-10. A food pun at the bottom of the screen for a touch of humor
