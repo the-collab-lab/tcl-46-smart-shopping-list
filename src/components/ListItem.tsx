@@ -36,7 +36,6 @@ export function ListItem({
 
 	useEffect(() => {
 		let currentTime = new Date().getTime();
-
 		if (checkIfActive(refTime, currentTime)) {
 			if (daysToNext < 0) {
 				setUrgencyIndex(urgency.OVERDUE);
