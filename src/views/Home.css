@@ -37,7 +37,7 @@
 
 .input__primary {
 	padding: 0.5em;
-	margin: 0.5rem;
+	margin: 0.5em;
 	font-size: 1.6rem;
 	text-align: center;
 	width: calc(100% - 140px);
@@ -45,19 +45,18 @@
 
 .input__primary.no-token {
 	font-size: 2rem;
-	margin: 1em;
-	width: 300px;
+	width: 100%;
 	text-align: center;
 }
 
 .btn__primary {
-	padding: 0.5em 2em;
-	width: 140px;
+	padding: 0.5em 1.5em;
+	width: fit-content;
 	border-radius: 2rem;
 }
 
 .btn__primary.no-token {
-	margin-top: 2em;
+	font-size: 1em;
 }
 
 .container__token-detail {
@@ -187,6 +186,7 @@
 	}
 	.input__primary {
 		width: 100%;
+		margin: 0.5em;
 	}
 	.btn__primary {
 		margin-top: 15px;
