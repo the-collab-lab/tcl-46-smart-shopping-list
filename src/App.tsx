@@ -53,16 +53,16 @@ export function App() {
 			}}
 		>
 			<Routes>
-				<Route path="/" element={<Layout />}>
-					<Route
-						index
-						element={
-							<>
-								<Home />
-								<ArchivalNoticeModal />
-							</>
-						}
-					/>
+				<Route
+					path="/"
+					element={
+						<>
+							<ArchivalNoticeModal />
+							<Layout />
+						</>
+					}
+				>
+					<Route index element={<Home />} />
 					<Route path="/list" element={<List />} />
 					<Route path="/export" element={<Export />} />
 				</Route>
