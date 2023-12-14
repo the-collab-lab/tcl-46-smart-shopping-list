@@ -11,7 +11,7 @@ import {
 } from 'firebase/firestore';
 
 import { getFutureDate, getDaysBetweenDates } from '../utils';
-import { calculateEstimate } from '@the-collab-lab/shopping-list-utils/dist/calculateEstimate';
+import { calculateEstimate } from '@the-collab-lab/shopping-list-utils';
 
 const firebaseConfig = {
 	apiKey: 'AIzaSyCfI_TVGKMzq7CaxBRQZAbqejH713TzGeg',
