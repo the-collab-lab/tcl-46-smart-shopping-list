@@ -8,7 +8,7 @@
 	"dependencies": {
 		"@fortawesome/free-solid-svg-icons": "^6.1.2",
 		"@fortawesome/react-fontawesome": "^0.2.0",
-		"@the-collab-lab/shopping-list-utils": "^2.0.0",
+		"@the-collab-lab/shopping-list-utils": "^2.2.0",
 		"datebook": "^7.0.8",
 		"firebase": "^9.8.4",
 		"react": "^18.2.0",

@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState, createContext, Context } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
+import { ArchivalNoticeModal } from '@the-collab-lab/shopping-list-utils';
 
 import { Home, Layout, List, Export } from './views';
 
@@ -53,7 +54,15 @@ export function App() {
 		>
 			<Routes>
 				<Route path="/" element={<Layout />}>
-					<Route index element={<Home />} />
+					<Route
+						index
+						element={
+							<>
+								<Home />
+								<ArchivalNoticeModal />
+							</>
+						}
+					/>
 					<Route path="/list" element={<List />} />
 					<Route path="/export" element={<Export />} />
 				</Route>
