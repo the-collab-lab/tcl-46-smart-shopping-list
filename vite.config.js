@@ -61,11 +61,12 @@ export default defineConfig({
 		globals: true,
 		environment: 'jsdom',
 		setupFiles: './tests/setup.js',
-	},
-	deps: {
-		optimizer: {
-			web: {
-				include: ['element-plus'],
+		css: {
+			include: /.+/,
+		},
+		server: {
+			deps: {
+				inline: [/vitest-css-test-module/],
 			},
 		},
 	},
