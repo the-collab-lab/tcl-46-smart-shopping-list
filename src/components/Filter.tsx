@@ -1,4 +1,4 @@
-import { faHouseMedicalCircleCheck } from '@fortawesome/free-solid-svg-icons';
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useContext, useEffect, useMemo, useState } from 'react';
 import { MyContext } from '../App';
 import { comparePurchaseUrgency, getUrgency } from '../utils';
