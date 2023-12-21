@@ -13,7 +13,10 @@ export function List() {
 	const [listToken, setListToken] = useContext(MyContext).listTokenCtx;
 	const [data] = useContext(MyContext).dataCtx;
 
-	const sortedFullList = useMemo(() => comparePurchaseUrgency(data), [data]);
+	const sortedFullList = useMemo(
+		() => data && comparePurchaseUrgency(data),
+		[data],
+	);
 
 	useEffect(() => {
 		if (copied) setTimeout(() => setCopied(''), 2000);
