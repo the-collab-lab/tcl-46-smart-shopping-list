@@ -61,7 +61,7 @@ export function List() {
 	return (
 		<div>
 			{listToken && isValidToken(listToken) ? (
-				data.length > 1 ? (
+				data.length >= 1 ? (
 					<div>
 						<ListTitle
 							editName={editName}

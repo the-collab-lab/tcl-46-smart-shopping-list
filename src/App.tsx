@@ -7,6 +7,7 @@ import { Home, Layout, List, Export } from './views';
 import { getItemData, streamListItems } from './api';
 import { useStateWithStorage } from './utils';
 import { type GlobalContext } from './types';
+import { AddItem } from './components/AddItem';
 
 export const MyContext: Context<GlobalContext> | Context<any> = createContext({
 	dataCtx: [],
@@ -55,6 +56,10 @@ export function App() {
 				<Route path="/" element={<Layout />}>
 					<Route index element={<Home />} />
 					<Route path="/list" element={<List />} />
+					<Route
+						path="/add-item"
+						element={<AddItem hasItems={!!data?.length} />}
+					/>
 					<Route path="/export" element={<Export />} />
 				</Route>
 			</Routes>

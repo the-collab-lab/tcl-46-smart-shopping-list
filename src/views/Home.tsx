@@ -27,7 +27,7 @@ export function Home() {
 
 	function makeNewList(e) {
 		e.preventDefault();
-		// const newToken = generateToken();
+		// const newToken = 'the collab lab';
 
 		// setUserList(addList(userList, listName, newToken as ListToken));
 		// setListToken(newToken);

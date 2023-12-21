@@ -8,7 +8,7 @@ import { useState, useEffect } from 'react';
 export function useStateWithStorage(
 	initialValue: string | null,
 	storageKey: string,
-) {
+): [string, React.Dispatch<React.SetStateAction<string>>] {
 	const [value, setValue] = useState(() => {
 		const currentValue = localStorage.getItem(storageKey);
 		return currentValue ? currentValue : initialValue;

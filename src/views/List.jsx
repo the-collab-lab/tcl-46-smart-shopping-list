@@ -1,14 +1,17 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useContext } from 'react';
+import { MyContext } from '../App';
 import { Link, useNavigate } from 'react-router-dom';
 import { deleteItem } from '../api';
 import { ListItem } from '../components';
 import { comparePurchaseUrgency } from '../utils/item';
 import NoToken from '../components/NoToken';
 
-export function List({ data, listToken, setListToken }) {
+export function List() {
 	const navigate = useNavigate();
 	const [searchTerm, setSearchTerm] = useState('');
 	const [copied, setCopied] = useState('');
+	const [listToken, setListToken] = useContext(MyContext).listTokenCtx;
+	const [data] = useContext(MyContext).dataCtx;
 
 	const sortedFullList = useMemo(() => comparePurchaseUrgency(data), [data]);
 
@@ -56,10 +59,11 @@ export function List({ data, listToken, setListToken }) {
 				});
 		}
 	};
+
 	return (
 		<>
 			{listToken ? (
-				data.length > 1 ? (
+				data?.length >= 1 ? (
 					<div>
 						<label>
 							Filter Items

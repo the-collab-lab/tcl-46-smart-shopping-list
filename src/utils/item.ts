@@ -14,7 +14,7 @@ export const sortByNextDateAlphabetical = (array: Item[]): Item[] =>
 	);
 
 const appendDaysToData = (data: Item[]) =>
-	data.map((item: Item) => {
+	data?.map((item: Item) => {
 		let refTime = item.dateLastPurchased
 			? item.dateLastPurchased.toMillis()
 			: item.dateCreated.toMillis();
@@ -27,7 +27,7 @@ const appendDaysToData = (data: Item[]) =>
 	});
 
 const sortedMultiArr = (dataWithDays: Item[]): [Item[], Item[], Item[]] =>
-	dataWithDays.reduce(
+	dataWithDays?.reduce(
 		(sorted, item) => {
 			if (!checkIfActive(item.refTime, currentTime)) {
 				sorted[2].push(item);
@@ -43,7 +43,9 @@ const sortedMultiArr = (dataWithDays: Item[]): [Item[], Item[], Item[]] =>
 	);
 
 export const comparePurchaseUrgency = (data: Item[]) =>
-	sortedMultiArr(appendDaysToData(data)).map(sortByNextDateAlphabetical).flat();
+	sortedMultiArr(appendDaysToData(data))
+		?.map(sortByNextDateAlphabetical)
+		.flat();
 
 export const getUrgency = (urgencyGroup: UrgencyStatus) => {
 	const urgencyLevels = {

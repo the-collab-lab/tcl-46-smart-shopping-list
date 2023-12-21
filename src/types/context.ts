@@ -1,8 +1,8 @@
-import { Item, UserList, ListToken } from './index';
+import { Item, UserList } from './index';
 
 export type GlobalContext = {
-	userListCtx: [UserList, React.Dispatch<React.SetStateAction<any[]>>];
+	userListCtx: [UserList, React.Dispatch<React.SetStateAction<string>>];
 	dataCtx: [Item[], React.Dispatch<React.SetStateAction<any[]>>];
-	listTokenCtx: [ListToken, React.Dispatch<React.SetStateAction<any[]>>];
+	listTokenCtx: [string, React.Dispatch<React.SetStateAction<string>>];
 	adjustedDataCtx: [Item[], React.Dispatch<React.SetStateAction<any[]>>];
 };
