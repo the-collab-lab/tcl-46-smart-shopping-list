@@ -2,8 +2,7 @@ import './Home.css';
 import { useState, useContext } from 'react';
 import { MyContext } from '../App';
 import { useNavigate } from 'react-router-dom';
-import { generateToken } from '@the-collab-lab/shopping-list-utils';
-import { getItemData, streamListItems, addItem } from '../api';
+import { getItemData, streamListItems } from '../api';
 
 import { addList, hasToken } from '../utils/user';
 import { ListToken } from '../types';
@@ -11,6 +10,7 @@ import { isValidToken } from '../utils';
 import ListSwitcher from '../components/ListSwitcher';
 import NoTokenWelcome from '../components/NoTokenWelcome';
 import { Summary } from './Summary';
+import { ArchivalNoticeModal } from '@the-collab-lab/shopping-list-utils';
 
 export function Home() {
 	const [errorMessage, setErrorMessage] = useState('');
@@ -21,17 +21,20 @@ export function Home() {
 
 	const navigate = useNavigate();
 
-	function addPlaceholderItem(listId) {
-		addItem(listId, { itemName: '', daysUntilNextPurchase: 0 });
-	}
-	function makeNewList() {
-		const newToken = generateToken();
+	// function addPlaceholderItem(listId) {
+	// 	addItem(listId, { itemName: '', daysUntilNextPurchase: 0 });
+	// }
 
-		setUserList(addList(userList, listName, newToken as ListToken));
-		setListToken(newToken);
-		addPlaceholderItem(newToken);
+	function makeNewList(e) {
+		e.preventDefault();
+		// const newToken = generateToken();
 
-		navigate('/list');
+		// setUserList(addList(userList, listName, newToken as ListToken));
+		// setListToken(newToken);
+		// addPlaceholderItem(newToken);
+
+		// navigate('/list');
+		console.log('Creating new lists is no longer supported');
 	}
 
 	function joinListSubmit(event) {
@@ -117,6 +120,7 @@ export function Home() {
 					errorMessage={errorMessage}
 				/>
 			)}
+			<ArchivalNoticeModal />
 		</div>
 	);
 }

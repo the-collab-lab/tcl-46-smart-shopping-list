@@ -19,6 +19,7 @@ export function List() {
 	const [searchTerm, setSearchTerm] = useState('');
 	const [isDisabled, setIsDisabled] = useState(true);
 
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const [listToken, setListToken] = useContext(MyContext).listTokenCtx;
 	const [userList, setUserList] = useContext(MyContext).userListCtx;
 	const [data] = useContext(MyContext).dataCtx;
