@@ -35,9 +35,6 @@ export default defineConfig({
 	build: {
 		outDir: './build',
 		target: 'esnext',
-		optimizeDeps: {
-			include: ['@the-collab-lab/shopping-list-utils/dist/style.css'],
-		},
 		rollupOptions: {
 			output: {
 				manualChunks: (id) => {
